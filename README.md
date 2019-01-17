@@ -1,1 +1,1 @@
-# COMP354PBJ Repository for Codenames Project
+# COMP354PBA Repository for Codenames Project

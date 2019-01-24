@@ -66,24 +66,24 @@ public class KeyCard {
                             keyCardContent[row][col] = temp;
                             assassinLeft--;
                             placed = true;
-                            System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
+                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.BLUE && blueLeft != 0) {
                             keyCardContent[row][col] = temp;
                             blueLeft--;
                             placed = true;
-                            System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
+                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.RED && redLeft != 0) {
                             keyCardContent[row][col] = temp;
                             redLeft--;
                             placed = true;
-                            System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
+                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
                             keyCardContent[row][col] = CardType.BYSTANDER;
                             placed = true;
-                            System.out.println("Bystander placed in position: [" + row + "][" + col + "]");
+                            //System.out.println("Bystander placed in position: [" + row + "][" + col + "]");
                         }
                     }
                 }

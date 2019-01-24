@@ -1,52 +1,58 @@
 package model;
 
-public class Card {
+import java.util.Observable;
 
-    // Global Variable for Card
-    private static int CARD_COUNT = 1;
+public class Card extends Observable {
+
+    // Static variable for Card
+    private static int CARD_COUNT = 0;
 
     // Attributes
-    private int cardNumber;
-    private String codeWord;
-    private boolean revealed;
-    private CardType type;
+    private int mCardNumber;
+    private String mCodeWord;
+    private boolean mRevealed;
+    private CardType mType;
 
     // Constructor
-    public Card(CardType type) {
-        this.cardNumber = CARD_COUNT;
+    public Card(CardType mType, String mCodeWord) {
+        this.mCardNumber = CARD_COUNT;
         CARD_COUNT++;
-        this.codeWord = generateCodeWord();
-        this.revealed = false;
-        this.type = type;
+        this.mRevealed = false;
+        this.mType = mType;
     }
 
     // Getters
     public int getCardNumber() {
-        return this.cardNumber;
+        return this.mCardNumber;
     }
 
     public String getCodeWord() {
-        return this.codeWord;
+        return this.mCodeWord;
     }
 
     public boolean isRevealed() {
-        return this.revealed;
+        return this.mRevealed;
     }
 
     public CardType getType() {
-        return this.type;
+        return this.mType;
     }
+
 
     // Methods
-    private static String generateCodeWord() {
-        String codeWord = "Temp Word";
-        // TODO: INSERT CODE TO GET CODEWORD FROM WORD DATABASE
-        return codeWord;
+    public void revealCard() {
+        if(this.mRevealed != true) {
+            this.mRevealed = true;
+            setChanged();
+            notifyObservers();
+        }
     }
 
-    private void revealCard() {
-        if(this.revealed == false) {
-            this.revealed = true;
+    public void hideCard() {
+        if(this.mRevealed != false) {
+            this.mRevealed = false;
+            setChanged();
+            notifyObservers();
         }
     }
 }

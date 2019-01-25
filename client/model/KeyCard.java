@@ -9,41 +9,49 @@ public class KeyCard {
     private static int KEYCARD_COUNT = 1;
 
     // Attributes
-    private int keyCardNumber;
-    private CardType[][] keyContent;
-    private boolean blueFirst;
+    private int mKeyCardNumber;
+    private CardType[] mKeyContent;
+    private boolean mBlueFirst;
 
     // Constructor
 
     public KeyCard() {
-        this.keyCardNumber = KEYCARD_COUNT;
+        this.mKeyCardNumber = KEYCARD_COUNT;
         KEYCARD_COUNT++;
-        this.blueFirst = pickFirstTeam();
-        this.keyContent = generateKeyCard();
+        this.mBlueFirst = pickFirstTeam();
+        this.mKeyContent = generateKeyCard();
+    }
+
+    // Getters
+    public boolean getBlueFirst() {
+        return this.mBlueFirst;
+    }
+
+    public CardType getCardType(int n) {
+        return mKeyContent[n];
     }
 
     // Methods
 
     private boolean pickFirstTeam() {
-        Random r = new Random(this.keyCardNumber);
+        Random r = new Random(this.mKeyCardNumber);
         return r.nextBoolean();
     }
 
-    private CardType[][] generateKeyCard() {
-        CardType[][] keyCardContent = new CardType[5][5];
+    private CardType[] generateKeyCard() {
+        CardType[] keyCardContent = new CardType[25];
         Random r = new Random();
         boolean placed;
         CardType temp;
 
 
         // Counters
-        int row;
-        int col;
+        int n;
         int redLeft;
         int blueLeft;
         int assassinLeft = 1;
 
-        if(this.blueFirst) {
+        if(this.mBlueFirst) {
             redLeft = 8;
             blueLeft = 9;
         }
@@ -56,32 +64,31 @@ public class KeyCard {
             placed = false;
             // Loop to fill random positions
             while(!placed) {
-                row = r.nextInt(5);
-                col = r.nextInt(5);
-                if (keyCardContent[row][col] == null) {
+                n = r.nextInt(25);
+                if (keyCardContent[n] == null) {
                     // Loop to try different CardTypes
                     while(!placed) {
                         temp = pickCardType(r);
                         if(temp == CardType.ASSASSIN && assassinLeft != 0) {
-                            keyCardContent[row][col] = temp;
+                            keyCardContent[n] = temp;
                             assassinLeft--;
                             placed = true;
                             //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.BLUE && blueLeft != 0) {
-                            keyCardContent[row][col] = temp;
+                            keyCardContent[n] = temp;
                             blueLeft--;
                             placed = true;
                             //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.RED && redLeft != 0) {
-                            keyCardContent[row][col] = temp;
+                            keyCardContent[n] = temp;
                             redLeft--;
                             placed = true;
                             //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
-                            keyCardContent[row][col] = CardType.BYSTANDER;
+                            keyCardContent[n] = CardType.BYSTANDER;
                             placed = true;
                             //System.out.println("Bystander placed in position: [" + row + "][" + col + "]");
                         }

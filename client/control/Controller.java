@@ -7,13 +7,13 @@ import java.util.Stack;
 public class Controller implements Observer {
 
     // Attributes
-    private Stack<Command> commandStack;
-    private Stack<Command> undoStack;
+    private Stack<Command> mCommandStack;
+    private Stack<Command> mUndoStack;
 
     // Constructor
     public Controller() {
-        this.commandStack = new Stack<>();
-        this.undoStack = new Stack<>();
+        this.mCommandStack = new Stack<>();
+        this.mUndoStack = new Stack<>();
     }
 
     // Methods
@@ -22,7 +22,10 @@ public class Controller implements Observer {
             // TODO: Code to handle a select action
         }
         if(m instanceof NextMessage) {
-            // TODO: Code to handle a next action
+            /*
+             TODO: Code to handle a next action
+             Run function to decide next action of computer (random or sequential)
+              */
         }
         if(m instanceof UndoMessage) {
             // TODO: Code to handle an undo action

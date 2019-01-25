@@ -1,5 +1,9 @@
 package control;
 
 public class KeyCardMessage extends Message {
-    // TODO: Message body
+
+    // Constructor
+    public KeyCardMessage(int cardAffected) {
+        super(cardAffected);
+    }
 }

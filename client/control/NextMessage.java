@@ -1,5 +1,9 @@
 package control;
 
 public class NextMessage extends Message {
-    // TODO: Message body
+
+    // Constructor
+    public NextMessage(int cardAffected) {
+        super(cardAffected);
+    }
 }

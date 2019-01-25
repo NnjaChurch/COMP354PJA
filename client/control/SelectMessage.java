@@ -1,5 +1,9 @@
 package control;
 
 public class SelectMessage extends Message {
-    // TODO: Message body
+
+    // Constructor
+    public SelectMessage(int cardAffected) {
+        super(cardAffected);
+    }
 }

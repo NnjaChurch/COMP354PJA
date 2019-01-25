@@ -1,5 +1,9 @@
 package control;
 
 public class NewGameMessage extends Message {
-    // TODO: Message body
+
+    // Constructor
+    public NewGameMessage(int cardAffected) {
+        super(cardAffected);
+    }
 }

@@ -1,5 +1,9 @@
 package control;
 
 public class RedoMessage extends Message {
-    // TODO: Message body
+
+    // Constructor
+    public RedoMessage(int cardAffected) {
+        super(cardAffected);
+    }
 }

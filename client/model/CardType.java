@@ -2,5 +2,5 @@ package model;
 
 public enum CardType {
 
-    BLUE, RED, ASSASSIN, BYSTANDER;
+    BLUE, RED, BLACK, YELLOW
 }

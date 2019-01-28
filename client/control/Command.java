@@ -1,15 +1,17 @@
 package control;
 
+import model.GameBoard;
+
 public class Command {
 
     // Attributes
     private int mCardAffected;
-    private GameState mState;
+    private GameBoard mState;
 
     // Constructor
-    public Command(int mCardAffected) {
+    public Command(int mCardAffected, GameBoard currentBoard) {
         this.mCardAffected = mCardAffected;
-        this.mState = new GameState();
+        this.mState = currentBoard.clone();
     }
 
     // Getters
@@ -17,23 +19,7 @@ public class Command {
         return this.mCardAffected;
     }
 
-    // Methods
-    public GameState undoCommand() {
-        // Store game state to restore
-        GameState undoState = this.mState;
-        // Update mState to contain gameState for 'redo' action
-        this.mState = new GameState();
-        // Return game state to restore
-        return undoState;
+    public GameBoard getState() {
+        return this.mState.clone();
     }
-
-    public GameState redoCommand() {
-        // Store game state to restore
-        GameState redoState = this.mState;
-        // Update mState to contain gameState for 'undo' action
-        this.mState = new GameState();
-        // Return gameState to restore
-        return redoState;
-    }
-
 }

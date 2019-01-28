@@ -3,7 +3,7 @@ package control;
 public class NextMessage extends Message {
 
     // Constructor
-    public NextMessage(int cardAffected) {
-        super(cardAffected);
+    public NextMessage(String message) {
+        super(message);
     }
 }

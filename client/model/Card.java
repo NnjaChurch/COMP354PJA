@@ -1,11 +1,6 @@
 package model;
 
-import java.util.Observable;
-
-public class Card extends Observable {
-
-    // Static variable for Card
-    private static int CARD_COUNT = 0;
+public class Card {
 
     // Attributes
     private int mCardNumber;
@@ -14,9 +9,8 @@ public class Card extends Observable {
     private CardType mType;
 
     // Constructor
-    public Card(CardType mType, String mCodeWord) {
-        this.mCardNumber = CARD_COUNT;
-        CARD_COUNT++;
+    public Card(int cardNumber, CardType mType, String mCodeWord) {
+        this.mCardNumber = cardNumber;
         this.mRevealed = false;
         this.mType = mType;
     }
@@ -38,21 +32,35 @@ public class Card extends Observable {
         return this.mType;
     }
 
+    // Setters
+    public void setCardNumber(int cardNumber) {
+        this.mCardNumber = cardNumber;
+    }
+
+    public void setRevealed(boolean revealed) {
+        this.mRevealed = revealed;
+    }
 
     // Methods
+    public Card clone() {
+        Card newCard = new Card(this.mCardNumber, this.mType, this.mCodeWord);
+        newCard.setRevealed(this.mRevealed);
+        return newCard;
+    }
+
+    public String toString() {
+        return(this.getCardNumber() + " | " + this.getType().toString() + " | Revealed: " + this.isRevealed());
+    }
+
     public void revealCard() {
         if(this.mRevealed != true) {
             this.mRevealed = true;
-            setChanged();
-            notifyObservers();
         }
     }
 
     public void hideCard() {
         if(this.mRevealed != false) {
             this.mRevealed = false;
-            setChanged();
-            notifyObservers();
         }
     }
 }

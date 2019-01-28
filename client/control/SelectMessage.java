@@ -1,9 +1,9 @@
 package control;
 
-public class SelectMessage extends Message {
+public class SelectMessage extends CardMessage {
 
     // Constructor
-    public SelectMessage(int cardAffected) {
-        super(cardAffected);
+    public SelectMessage(String message, int cardAffected) {
+        super(message, cardAffected);
     }
 }

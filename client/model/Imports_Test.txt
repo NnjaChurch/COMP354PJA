@@ -1,0 +1,6 @@
+{word: Fall hints: season, colour}
+{word: Boot hints: protection, clothes, leather, season}
+{word: Dice hints: faces, luck, game, casino}
+{word: Eye hints: body, looking, round}
+{word: Board hints: snow, wood, flat, black, white}
+{word: Switch hints: electricity, interrupter, Nintendo}

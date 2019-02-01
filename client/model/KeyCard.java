@@ -1,7 +1,5 @@
 package model;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 import java.util.Random;
 
@@ -12,13 +10,7 @@ public class KeyCard {
     private CardType[] mKeyContent;
     private boolean mBlueFirst;
 
-    // Constructor
-    public KeyCard() {
-        this.mKeyCardNumber = 0;
-        this.mKeyContent = null;
-        this.mBlueFirst = false;
-    }
-
+    // Constructors
     public KeyCard(int keyCardNumber) {
         this.mKeyCardNumber = keyCardNumber;
         this.mBlueFirst = pickFirstTeam();
@@ -53,13 +45,6 @@ public class KeyCard {
     }
 
     // Methods
-    public KeyCard clone() {
-        KeyCard newCard = new KeyCard();
-        newCard.setBlueFirst(this.getBlueFirst());
-        newCard.setKeyContent(this.getKeyContent());
-        return newCard;
-    }
-
     public String toString() {
         return Arrays.deepToString(this.mKeyContent);
     }
@@ -132,7 +117,7 @@ public class KeyCard {
         return keyCardContent;
     }
 
-    private CardType pickCardType(@NotNull Random r) {
+    private CardType pickCardType(Random r) {
         return CardType.values()[r.nextInt(CardType.values().length)];
     }
 }

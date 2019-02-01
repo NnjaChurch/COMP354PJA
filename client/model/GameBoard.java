@@ -18,18 +18,6 @@ public class GameBoard {
         initializeGame();
     }
 
-    public GameBoard(GameBoard oldBoard) {
-        Card[] oldCards = oldBoard.getBoard();
-        KeyCard oldKeyCard = oldBoard.getKeyCard();
-        this.mCards = new Card[oldCards.length];
-        for(int i = 0; i < oldCards.length; i++) {
-            this.mCards[i] = oldCards[i].clone();
-        }
-        this.mKeyCard = oldKeyCard.clone();
-        this.setBlueScore(oldBoard.getBlueScore());
-        this.setRedScore(oldBoard.getRedScore());
-    }
-
     // Getters
     public Card getCard(int n) {
         return mCards[n];
@@ -69,9 +57,6 @@ public class GameBoard {
     }
 
     // Methods
-    public GameBoard clone() {
-        return new GameBoard(this);
-    }
     
     public String toString() {
         return(Arrays.toString(mCards));

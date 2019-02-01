@@ -1,6 +1,8 @@
 package model;
 
-public class Card {
+import java.util.Observable;
+
+public class Card extends Observable {
 
     // Attributes
     private int mCardNumber;
@@ -9,10 +11,15 @@ public class Card {
     private CardType mType;
 
     // Constructor
-    public Card(int cardNumber, CardType mType, String mCodeWord) {
+    public Card(int cardNumber, CardType type, String codeWord) {
         this.mCardNumber = cardNumber;
+        this.mCodeWord = codeWord;
         this.mRevealed = false;
-        this.mType = mType;
+        this.mType = type;
+    }
+
+    public Card(int cardNumber, CardType type, String codeWord, String[] hints) {
+        this.mCardNumber = cardNumber;
     }
 
     // Getters
@@ -32,35 +39,24 @@ public class Card {
         return this.mType;
     }
 
-    // Setters
-    public void setCardNumber(int cardNumber) {
-        this.mCardNumber = cardNumber;
-    }
-
-    public void setRevealed(boolean revealed) {
-        this.mRevealed = revealed;
-    }
-
     // Methods
-    public Card clone() {
-        Card newCard = new Card(this.mCardNumber, this.mType, this.mCodeWord);
-        newCard.setRevealed(this.mRevealed);
-        return newCard;
-    }
-
-    public String toString() {
-        return(this.getCardNumber() + " | " + this.getType().toString() + " | Revealed: " + this.isRevealed());
-    }
-
     public void revealCard() {
         if(this.mRevealed != true) {
             this.mRevealed = true;
+
+            // Notify Observer
+            setChanged();
+            notifyObservers(this);
         }
     }
 
     public void hideCard() {
         if(this.mRevealed != false) {
             this.mRevealed = false;
+
+            // Notify Observer
+            setChanged();
+            notifyObservers(this);
         }
     }
 }

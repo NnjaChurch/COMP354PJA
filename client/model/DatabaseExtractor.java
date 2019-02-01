@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class DatabaseExtractor {
@@ -9,11 +10,11 @@ public class DatabaseExtractor {
     ArrayList<SimpleCard> database=new ArrayList<SimpleCard>();
     ArrayList<String> allLine;
 
-    void openDatabase(){
+    void openDatabase(){ //this method simply import the text file and store every line in the arraylist allLine
 
         Scanner s = null;
         try {
-            s = new Scanner(new File("/home/karim/IdeaProjects/comp_354_Model/src/Imports_Test.txt"));
+            s = new Scanner(new File("./src/Imports_Test.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -27,16 +28,15 @@ public class DatabaseExtractor {
 
     }
 
-    void printTheDatabase(){
+    void printTheDatabase(){ // print the txt file line by line
 
         for (String temp : this.allLine) {
             System.out.println(temp);
         }
-
-
     }
 
-    static String[] getAllTheHints(String line){
+    static String[] getAllTheHints(String line){ //take a line of the database as an argument and give you an array of all
+                                                    //the possible hints linked with that word
         String allHints;
         String [] arrayOfHints;
 
@@ -44,20 +44,18 @@ public class DatabaseExtractor {
         int endingIndex=line.length()-1;
 
         allHints= line.substring(beginningIndex, endingIndex);
-        System.out.println(allHints);
+
 
         arrayOfHints = allHints.split(",");
         for(int k=0 ; k < arrayOfHints.length; k++){
           arrayOfHints[k]= arrayOfHints[k].replaceAll(" ", "");
         }
 
-        for(String temp: arrayOfHints){
-            System.out.println(temp);
-        }
         return arrayOfHints;
     }
 
-    static String getTheWord(String line){
+    static String getTheWord(String line){//take a line of the database as an argument and give you an array of all
+                                             //the possible hints linked with that word
 
         String word;
 
@@ -70,8 +68,9 @@ public class DatabaseExtractor {
     }
 
 
-    void importTheDatabase(){
+    void importTheDatabase(){//take every line of the text file and transform every line into an object SimpleCard
 
+        this.openDatabase(); //write every line in the attribute allLine
         for(String temp: this.allLine){
             database.add(new SimpleCard(getTheWord(temp),getAllTheHints(temp)));
         }
@@ -79,10 +78,49 @@ public class DatabaseExtractor {
     }
 
 
-    void printDatabase(){
+    void printDatabase(){ //print every object one by one used for testing purposes
         for(SimpleCard temp: this.database){
             System.out.println(temp.toString());
         }
+    }
+
+    String[] bankOfWords(){ //return an array of 25 random word(string)
+        this.importTheDatabase();
+        Random rand = new Random();
+        SimpleCard temp;
+        int n;
+
+        String[] arrayOfWords= new String[25];
+
+        for(int i=0; i<arrayOfWords.length;i++){
+
+             n = rand.nextInt(this.database.size()-1) + 0;
+             temp= this.database.get(n);
+             arrayOfWords[i]=temp.getWord();
+             this.database.remove(n);
+
+        }
+
+        return arrayOfWords ;
+    }
+
+
+    SimpleCard[] bankOfCard(){ //return array of 25 SimpleCard so a word with an array of hints
+        this.importTheDatabase();
+        Random rand = new Random();
+        int n;
+
+        SimpleCard[] arrayOfCards= new SimpleCard[25];
+
+        for(int i=0; i<arrayOfCards.length;i++){
+
+            n = rand.nextInt(this.database.size()-1) + 0;
+            arrayOfCards[i]=this.database.get(n);
+            this.database.remove(n);
+
+        }
+
+        return arrayOfCards ;
     }
 
 

@@ -1,21 +1,20 @@
 package model;
 
-import java.util.Arrays;
+import control.GameObserver;
+import control.Outbox;
 
 public class GameBoard {
 
     // Attributes
     private Card[] mCards;
     private KeyCard mKeyCard;
-    private int mBlueScore;
-    private int mRedScore;
-    private boolean mBlueTurn;
+    private GameObserver mGameObserver;
 
     // Constructor
-    public GameBoard(KeyCard keyCard) {
+    public GameBoard(KeyCard keyCard, Outbox outbox) {
         this.mKeyCard = keyCard;
         this.mCards = generateGameBoard();
-        initializeGame();
+        this.mGameObserver = new GameObserver(mKeyCard, outbox);
     }
 
     // Getters
@@ -31,63 +30,18 @@ public class GameBoard {
         return this.mKeyCard;
     }
 
-    public int getBlueScore() {
-        return this.mBlueScore;
-    }
-
-    public int getRedScore() {
-        return this.mRedScore;
-    }
-
-    public boolean getCurrentTurn() {
-        return this.mBlueTurn;
-    }
-
-    // Setters
-    public void setBlueScore(int blueScore) {
-        this.mBlueScore = blueScore;
-    }
-
-    public void setRedScore(int redScore) {
-        this.mRedScore = redScore;
-    }
-
-    public void setCurrentTurn(boolean currentTurn) {
-        this.mBlueTurn = currentTurn;
-    }
-
     // Methods
-    
-    public String toString() {
-        return(Arrays.toString(mCards));
-    }
-
     private Card[] generateGameBoard() {
         Card[] gameBoard = new Card[25];
         String codeWord;
         for(int i = 0; i < 25; i++) {
             codeWord = "PlaceHolder";
             // TODO: CODE TO GENERATE CODEWORDS (NO DUPLICATES)
-            gameBoard[i] = new Card(i + 1, mKeyCard.getCardType(i), codeWord);
+            // Add Card to GameBoard
+            gameBoard[i] = new Card(i + 1, codeWord, mKeyCard.getCardType(i));
+            // Attach GameObserver to Card
+            gameBoard[i].addObserver(this.mGameObserver);
         }
         return gameBoard;
     }
-
-    private void initializeGame() {
-        if(mKeyCard.getBlueFirst() == true) {
-            this.mBlueScore = 9;
-            this.mRedScore = 8;
-            this.mBlueTurn = true;
-        }
-        else {
-            this.mBlueScore = 8;
-            this.mRedScore = 9;
-            this.mBlueTurn = false;
-        }
-    }
-
-    public void changeTurn() {
-        this.mBlueTurn = !mBlueTurn;
-    }
-
 }

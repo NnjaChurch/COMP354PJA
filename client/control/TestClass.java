@@ -8,10 +8,9 @@ public class TestClass {
     public static void main(String[] args) {
         // Setup for testing
         KeyCard[] keyCardCollection = generateKeyCards(10);
-        Controller control = new Controller(keyCardCollection);
-        Message message = new Message();
-        message.addObserver(control);
-        Inbox inbox = new Inbox(message);
+        Inbox inbox = new Inbox();
+        Outbox outbox = new Outbox();
+        Controller control = new Controller(keyCardCollection, outbox);
 
     }
 

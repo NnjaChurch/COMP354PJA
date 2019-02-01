@@ -1,13 +1,15 @@
 package control;
 
-public class Inbox {
+import java.util.Observable;
+
+public class Inbox extends Observable {
 
     // Attributes
-    Message mMessage;
+    private Message mMessage;
 
     // Constructors
-    public Inbox(Message message) {
-        this.mMessage = message;
+    public Inbox() {
+        this.mMessage = null;
     }
 
     // Getters
@@ -16,7 +18,13 @@ public class Inbox {
     }
 
     // Methods
-    public void updateMessage(MessageType type, int cardAffected) {
-        mMessage.setMessage(type, cardAffected);
+    public void sendMessage(Message m) {
+
+        // Update the Message
+        this.mMessage = m;
+
+        // Notify Observer
+        setChanged();
+        notifyObservers(this.mMessage);
     }
 }

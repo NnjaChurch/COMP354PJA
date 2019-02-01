@@ -14,12 +14,12 @@ public class Controller implements Observer {
     private GameBoard mGameBoard;
 
     // Constructor
-    public Controller(KeyCard[] keyCardCollection) {
+    public Controller(KeyCard[] keyCardCollection, Outbox outbox) {
         this.mMessageStack = new Stack<>();
         this.mUndoStack = new Stack<>();
         this.mMessageLog = new ArrayList<>();
         this.mKeyCardCollection = keyCardCollection;
-        this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection));
+        this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
     }
 
     private KeyCard selectKeyCard(KeyCard[] keyCardCollection) {

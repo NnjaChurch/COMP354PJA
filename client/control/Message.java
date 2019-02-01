@@ -1,8 +1,6 @@
 package control;
 
-import java.util.Observable;
-
-public class Message extends Observable {
+public class Message {
 
     // Attributes
     private MessageType mType;
@@ -26,15 +24,5 @@ public class Message extends Observable {
 
     public int getCardAffected() {
         return this.mCardAffected;
-    }
-
-    // Setters
-    public void setMessage(MessageType type, int cardAffected) {
-        // Update Variables
-        this.mType = type;
-        this.mCardAffected = cardAffected;
-        // Notify Observers
-        setChanged();
-        notifyObservers(this);
     }
 }

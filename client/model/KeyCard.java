@@ -15,7 +15,7 @@ public class KeyCard {
         this.mKeyCardNumber = keyCardNumber;
         this.mBlueFirst = pickFirstTeam();
         this.mKeyContent = generateKeyCard();
-        System.out.println(this.toString() + this.mBlueFirst);
+        // System.out.println(this.toString() + this.mBlueFirst);
     }
 
     // Getters
@@ -90,24 +90,20 @@ public class KeyCard {
                             keyCardContent[n] = temp;
                             assassinLeft--;
                             placed = true;
-                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.BLUE && blueLeft != 0) {
                             keyCardContent[n] = temp;
                             blueLeft--;
                             placed = true;
-                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.RED && redLeft != 0) {
                             keyCardContent[n] = temp;
                             redLeft--;
                             placed = true;
-                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
                             keyCardContent[n] = CardType.YELLOW;
                             placed = true;
-                            //System.out.println("Bystander placed in position: [" + row + "][" + col + "]");
                         }
                     }
                 }

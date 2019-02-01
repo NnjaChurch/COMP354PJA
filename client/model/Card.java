@@ -7,15 +7,16 @@ public class Card extends Observable {
     // Attributes
     private int mCardNumber;
     private String mCodeWord;
-    private boolean mRevealed;
     private CardType mType;
+    private boolean mRevealed;
 
-    // Constructor
-    public Card(int cardNumber, CardType type, String codeWord) {
+    // Constructors
+    public Card(int cardNumber, String codeWord, CardType type) {
         this.mCardNumber = cardNumber;
         this.mCodeWord = codeWord;
-        this.mRevealed = false;
         this.mType = type;
+        this.mRevealed = false;
+
     }
 
     public Card(int cardNumber, CardType type, String codeWord, String[] hints) {

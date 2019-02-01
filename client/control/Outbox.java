@@ -1,17 +1,32 @@
 package control;
 
-import model.CardType;
-
 import java.util.Observable;
-import java.util.Observer;
 
-public class Outbox implements Observer {
+public class Outbox extends Observable {
 
     // Attributes
-    Reply mReply;
+    private Reply mReply;
 
-    @Override
-    public void update(Observable o, Object arg) {
-
+    // Constructors
+    public Outbox() {
+        this.mReply = null;
     }
+
+    // Getters
+    public Reply getReply() {
+        return this.mReply;
+    }
+
+    // Methods
+    public void sendReply(Reply r) {
+
+        // Update the Reply
+        this.mReply = r;
+
+        // Notify Observer
+        setChanged();
+        notifyObservers(this.mReply);
+    }
+
+
 }

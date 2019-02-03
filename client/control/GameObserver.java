@@ -6,6 +6,7 @@ import model.KeyCard;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Stack;
 
 public class GameObserver implements Observer {
 
@@ -14,7 +15,7 @@ public class GameObserver implements Observer {
     private int mBlueScore;
     private int mRedScore;
     private boolean mBlueTurn;
-    // TODO: STRUCTURE TO HOLD TURN SEQUENCE (LINKED LIST? / STACK?)
+    private Stack<Boolean> mTurnStack;
 
     // Constructors
     public GameObserver(KeyCard keyCard, Outbox outbox) {
@@ -65,8 +66,18 @@ public class GameObserver implements Observer {
         mRedScore--;
     }
 
-    public void changeTurn() {
+    public void sameTurn() {
+        this.mTurnStack.push(mBlueTurn);
+    }
+
+    public void nextTurn() {
+        this.mTurnStack.push(mBlueTurn);
         this.mBlueTurn = !mBlueTurn;
+    }
+
+    public void previousTurn() {
+        boolean previousTurn = this.mTurnStack.pop();
+        this.mBlueTurn = previousTurn;
     }
 
     public void replyToOutbox(Card card) {
@@ -81,12 +92,12 @@ public class GameObserver implements Observer {
             // Cast to Card object for method calls
             Card card = (Card)arg;
 
-            // Check if Card was revealed or hidden and carry out updates accordingly
+            // If Card was revealed (Next, Select, Redo)
             if(card.isRevealed()) {
                 // If Card was Assassin
                 if(card.getType() == CardType.BLACK) {
                     // Swap turn to other team
-                    changeTurn();
+                    nextTurn();
 
                     // Send Reply to end the game with the updated values
                     mOutbox.sendReply(new Reply(ReplyType.END, card.getCardNumber(), mBlueScore, mRedScore, mBlueTurn));
@@ -94,7 +105,7 @@ public class GameObserver implements Observer {
                 // If Card was Bystander
                 if(card.getType() == CardType.YELLOW) {
                     // Swap turn to other team
-                    changeTurn();
+                    nextTurn();
 
                     // Send Reply to update game
                     replyToOutbox(card);
@@ -106,13 +117,16 @@ public class GameObserver implements Observer {
 
                     // If currently Blue turn
                     if(mBlueTurn == true) {
+                        // Log turn state
+                        sameTurn();
+
                         // Send Reply to update game
                         replyToOutbox(card);
                     }
                     // If currently Red turn
                     else {
                         // Swap turn to other team
-                        changeTurn();
+                        nextTurn();
 
                         // Send Reply to update game
                         replyToOutbox(card);
@@ -126,24 +140,51 @@ public class GameObserver implements Observer {
                     // If currently Blue turn
                     if(mBlueTurn == true) {
                         // Swap to other team
-                        changeTurn();
+                        nextTurn();
 
                         // Send Reply to update game
                         replyToOutbox(card);
                     }
                     // If currently Red turn
                     else {
+                        // Log turn state
+                        sameTurn();
+
                         // Send Reply to update game
                         replyToOutbox(card);
                     }
                 }
             }
-            // If Card was hidden
+            // If Card was hidden (Undo)
             else {
-                // TODO: LOGIC TO HANDLE GOING BACKWARDS IN TURN ORDER (IMPLEMENT TURN ORDER FIRST!)
+                if(card.getType() == CardType.YELLOW) {
+                    // Load previous turn state
+                    previousTurn();
+
+                    // Send Reply to update game
+                    replyToOutbox(card);
+                }
+                if(card.getType() == CardType.BLUE) {
+                    // Increment blueScore
+                    incrementBlue();
+
+                    // Load previous turn state
+                    previousTurn();
+
+                    // Send Reply to update game
+                    replyToOutbox(card);
+                }
+                if(card.getType() == CardType.RED) {
+                    // Increment redScore
+                    incrementRed();
+
+                    // Load previous turn state
+                    previousTurn();
+
+                    // Send Reply to update game
+                    replyToOutbox(card);
+                }
             }
-
         }
-
     }
 }

@@ -20,6 +20,7 @@ public class GameObserver implements Observer {
     // Constructors
     public GameObserver(KeyCard keyCard, Outbox outbox) {
         this.mOutbox = outbox;
+        this.mTurnStack = new Stack<>();
         initializeGame(keyCard);
     }
 

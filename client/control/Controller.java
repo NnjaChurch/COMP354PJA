@@ -69,7 +69,26 @@ public class Controller implements Observer {
 
                 // Flush Undo Stack
                 mUndoStack.clear();
-                // TODO: CALL NEXT FUNCTION(SEQUENTIAL OR RANDOM)
+                // TODO: SELECT EITHER: RANDOM OR NEXT
+                cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
+
+                // Get Card Object
+                Card card = mGameBoard.getCard(cardAffected);
+
+                // Card will guarantee be not revealed (due to the way the strategy is coded)
+
+                // Flush Undo Stack
+                mUndoStack.clear();
+
+                // Push Message onto Message stack
+                mMessageStack.push(new Message(type, cardAffected));
+
+                // Add Message to Message log
+                mMessageLog.add(new Message(type, cardAffected));
+
+                // Reveal Card (will notify Observer)
+                card.revealCard();
             }
             if(type == MessageType.UNDO) {
 

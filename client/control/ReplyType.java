@@ -6,5 +6,5 @@ package control;
 
 public enum ReplyType {
 
-    UPDATE, END
+    UPDATE, UNDO, END
 }

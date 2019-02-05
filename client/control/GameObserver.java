@@ -89,8 +89,8 @@ public class GameObserver implements Observer {
         this.mBlueTurn = previousTurn;
     }
 
-    private void replyToOutbox(Card card) {
-        mOutbox.sendReply(new Reply(ReplyType.UPDATE, card.getCardNumber(), card.getType(), mBlueScore, mRedScore, mBlueTurn));
+    private void replyToOutbox(ReplyType type, Card card) {
+        mOutbox.sendReply(new Reply(type, card.getCardNumber(), card.getType(), mBlueScore, mRedScore, mBlueTurn));
     }
 
     @Override
@@ -117,7 +117,7 @@ public class GameObserver implements Observer {
                     nextTurn();
 
                     // Send Reply to update game
-                    replyToOutbox(card);
+                    replyToOutbox(ReplyType.UPDATE, card);
                 }
                 // If Card was Blue
                 if(card.getType() == CardType.BLUE) {
@@ -133,7 +133,7 @@ public class GameObserver implements Observer {
                             sameTurn();
 
                             // Send Reply to update game
-                            replyToOutbox(card);
+                            replyToOutbox(ReplyType.UPDATE, card);
                         }
                         // If currently Red turn
                         else {
@@ -141,7 +141,7 @@ public class GameObserver implements Observer {
                             nextTurn();
 
                             // Send Reply to update game
-                            replyToOutbox(card);
+                            replyToOutbox(ReplyType.UPDATE, card);
                         }
                     }
                 }
@@ -159,7 +159,7 @@ public class GameObserver implements Observer {
                             nextTurn();
 
                             // Send Reply to update game
-                            replyToOutbox(card);
+                            replyToOutbox(ReplyType.UPDATE, card);
                         }
                         // If currently Red turn
                         else {
@@ -167,7 +167,7 @@ public class GameObserver implements Observer {
                             sameTurn();
 
                             // Send Reply to update game
-                            replyToOutbox(card);
+                            replyToOutbox(ReplyType.UPDATE, card);
                         }
                     }
                 }
@@ -179,7 +179,7 @@ public class GameObserver implements Observer {
                     previousTurn();
 
                     // Send Reply to update game
-                    replyToOutbox(card);
+                    replyToOutbox(ReplyType.UNDO, card);
                 }
                 if(card.getType() == CardType.BLUE) {
                     // Increment blueScore
@@ -189,7 +189,7 @@ public class GameObserver implements Observer {
                     previousTurn();
 
                     // Send Reply to update game
-                    replyToOutbox(card);
+                    replyToOutbox(ReplyType.UNDO, card);
                 }
                 if(card.getType() == CardType.RED) {
                     // Increment redScore
@@ -199,7 +199,7 @@ public class GameObserver implements Observer {
                     previousTurn();
 
                     // Send Reply to update game
-                    replyToOutbox(card);
+                    replyToOutbox(ReplyType.UNDO, card);
                 }
             }
         }

@@ -15,7 +15,7 @@ public class DatabaseExtractor {
 
         Scanner s = null;
         try {
-            s = new Scanner(new File("./src/Imports_Test.txt"));
+            s = new Scanner(new File("./src/model/Imports_Test.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

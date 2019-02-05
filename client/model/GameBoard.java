@@ -32,13 +32,12 @@ public class GameBoard {
 
     // Methods
     private Card[] generateGameBoard() {
+        DatabaseExtractor database = new DatabaseExtractor();
         Card[] gameBoard = new Card[25];
-        String codeWord;
+        String[] codeWords = database.bankOfWords();
         for(int i = 0; i < 25; i++) {
-            codeWord = "PlaceHolder";
-            // TODO: CODE TO GENERATE CODEWORDS (NO DUPLICATES)
             // Add Card to GameBoard
-            gameBoard[i] = new Card(i + 1, codeWord, mKeyCard.getCardType(i));
+            gameBoard[i] = new Card(i + 1, codeWords[i], mKeyCard.getCardType(i));
             // Attach GameObserver to Card
             gameBoard[i].addObserver(this.mGameObserver);
         }

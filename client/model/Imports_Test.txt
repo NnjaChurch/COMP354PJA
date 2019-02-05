@@ -10,7 +10,7 @@
 {word: Ankle hints: hint_1, hint_2, hint_3}
 {word: Apathy hints: hint_1, hint_2, hint_3}
 {word: Applause hints: hint_1, hint_2, hint_3}
-{word: Applesauc hints: hint_1, hint_2, hint_3}
+{word: Applesauce hints: hint_1, hint_2, hint_3}
 {word: Application hints: hint_1, hint_2, hint_3}
 {word: Archaeologist hints: hint_1, hint_2, hint_3}
 {word: Aristocrat hints: hint_1, hint_2, hint_3}

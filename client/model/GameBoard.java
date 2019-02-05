@@ -1,3 +1,8 @@
+/**
+ * GameBoard object to store cards, copy of keycard and the GameObserver.java object
+ * Creation of the object creates the 25 cards based on the keycard and gets a selection a 25 words as codewords.
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package model;
 
 import control.GameObserver;

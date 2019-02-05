@@ -1,3 +1,8 @@
+/**
+ * Strategy class (static) with methods to process a Computer turn
+ * Implements a random selection strategy and a next available strategy
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package control;
 
 import model.Card;

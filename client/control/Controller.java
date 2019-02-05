@@ -1,3 +1,10 @@
+/**
+ * Controller object that handles the processing of Messages from the View (GUI)
+ * Invokes the update() method and handles modifies the model accordingly
+ * ENTRY POINT: Detects update in the Inbox.java observable
+ * EXIT POINT: Updates a Card object or creates a New Game
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package control;
 
 import model.*;

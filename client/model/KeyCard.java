@@ -1,3 +1,7 @@
+/**
+ * KeyCard object that stores the board layout and the starting team
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package model;
 
 import java.util.Arrays;

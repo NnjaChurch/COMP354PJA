@@ -1,3 +1,10 @@
+/**
+ * Game Observer object that handles card updates and notifies changes to the View (GUI)
+ * Processes Card changes and updates scores / turns accordingly
+ * ENTRY POINT: Detects update in Card and runs update() to process
+ * EXIT POINT: Creates and sends a Reply.java object to the Outbox to notify the View
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package control;
 
 import model.Card;
@@ -51,38 +58,38 @@ public class GameObserver implements Observer {
         }
     }
 
-    public void incrementBlue() {
+    private void incrementBlue() {
       mBlueScore++;
     }
 
-    public void incrementRed() {
+    private void incrementRed() {
         mRedScore++;
     }
 
-    public void decrementBlue() {
+    private void decrementBlue() {
         mBlueScore--;
     }
 
-    public void decrementRed() {
+    private void decrementRed() {
         mRedScore--;
     }
 
-    public void sameTurn() {
+    private void sameTurn() {
         this.mTurnStack.push(mBlueTurn);
     }
 
-    public void nextTurn() {
+    private void nextTurn() {
         this.mTurnStack.push(mBlueTurn);
         this.mBlueTurn = !mBlueTurn;
     }
 
-    public void previousTurn() {
+    private void previousTurn() {
         boolean previousTurn = this.mTurnStack.pop();
         this.mBlueTurn = previousTurn;
     }
 
-    public void replyToOutbox(Card card) {
-        mOutbox.sendReply(new Reply(ReplyType.UPDATE, card.getCardNumber(), mBlueScore, mRedScore, mBlueTurn));
+    private void replyToOutbox(Card card) {
+        mOutbox.sendReply(new Reply(ReplyType.UPDATE, card.getCardNumber(), card.getType(), mBlueScore, mRedScore, mBlueTurn));
     }
 
     @Override
@@ -101,7 +108,7 @@ public class GameObserver implements Observer {
                     nextTurn();
 
                     // Send Reply to end the game with the updated values
-                    mOutbox.sendReply(new Reply(ReplyType.END, card.getCardNumber(), mBlueScore, mRedScore, mBlueTurn));
+                    mOutbox.sendReply(new Reply(ReplyType.END, card.getCardNumber(), card.getType(), mBlueScore, mRedScore, mBlueTurn));
                 }
                 // If Card was Bystander
                 if(card.getType() == CardType.YELLOW) {

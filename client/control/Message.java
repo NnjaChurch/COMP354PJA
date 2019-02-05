@@ -1,3 +1,7 @@
+/**
+ * Message object used to send information to the control section from the view section
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package control;
 
 public class Message {

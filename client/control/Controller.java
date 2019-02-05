@@ -1,127 +1,154 @@
+/**
+ * Controller object that handles the processing of Messages from the View (GUI)
+ * Invokes the update() method and handles modifies the model accordingly
+ * ENTRY POINT: Detects update in the Inbox.java observable
+ * EXIT POINT: Updates a Card object or creates a New Game
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package control;
 
-import model.GameBoard;
-import model.KeyCard;
+import model.*;
 
-import java.util.Observable;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
-public class Controller extends Observable {
+public class Controller implements Observer {
 
     // Attributes
-    private Stack<Command> mCommandStack;
-    private Stack<Command> mUndoStack;
+    private Stack<Message> mMessageStack;
+    private Stack<Message> mUndoStack;
+    private ArrayList<Message> mMessageLog;
     private KeyCard[] mKeyCardCollection;
     private GameBoard mGameBoard;
 
     // Constructor
-    public Controller(KeyCard[] keyCardCollection) {
-        this.mCommandStack = new Stack<>();
+    public Controller(KeyCard[] keyCardCollection, Outbox outbox) {
+        this.mMessageStack = new Stack<>();
         this.mUndoStack = new Stack<>();
+        this.mMessageLog = new ArrayList<>();
         this.mKeyCardCollection = keyCardCollection;
-        this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection));
+        this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
+    }
+
+    // Getters
+    public KeyCard getKeyCard() {
+        return mGameBoard.getKeyCard();
+    }
+
+    public ArrayList<Card> getCardList() {
+        return mGameBoard.getCards();
     }
 
     // Methods
-    public void getMessage(Message m) {
-        // Handle message type
-        if(m instanceof SelectMessage) {
-            // Unpack message
-            String message = m.toString();
-            int cardAffected = ((SelectMessage) m).getCardAffected();
-            // Create command and push to commandStack
-            Command select = new Command(cardAffected, this.mGameBoard.clone());
-            mCommandStack.push(select);
-            // Handle select command
-            if(mGameBoard.getCard(cardAffected).isRevealed()) {
-                // Remove command from stack and do nothing
-                mCommandStack.pop();
-            }
-            else {
-                // Flush undoStack
-                mUndoStack.clear();
-                // Call Card reveal function
-                mGameBoard.getCard(cardAffected).revealCard();
-                // Notify observer
-                setChanged();
-                notifyObservers(mGameBoard.getCard(cardAffected));
-            }
-        }
-        if(m instanceof NextMessage) {
-            // Unpack message
-            String message = m.toString();
-            // TODO: CODE FOR NEXT ACTION (RANDOM / SEQUENTIAL)
-            // Flush undoStack
-            mUndoStack.clear();
-            // Create command and push to commandStack
-            // TODO: REPLACE 0 WITH OUTPUT OF NEXT ACTION CODE
-            Command next = new Command(0, this.mGameBoard.clone());
-            mCommandStack.push(next);
-            // Handle next command
-
-        }
-        if(m instanceof UndoMessage) {
-            // Unpack message
-            String message = m.toString();
-            if (mCommandStack.isEmpty() == false) {
-               undoRedo(mCommandStack, mUndoStack);
-            }
-            else {
-                // Do nothing
-            }
-        }
-        if(m instanceof RedoMessage) {
-            // Unpack message
-            String message = m.toString();
-            if(mUndoStack.isEmpty() == false) {
-                undoRedo(mUndoStack, mCommandStack);
-            }
-            else {
-                // Do nothing
-            }
-        }
-        if(m instanceof NewGameMessage) {
-            // Unpack message
-            String message = m.toString();
-            // Flush both stacks
-            mCommandStack.clear();
-            mUndoStack.clear();
-            // Create new game
-            mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection));
-            // Notify observer
-            setChanged();
-            notifyObservers(mGameBoard);
-        }
-        if(m instanceof KeyCardMessage) {
-            // Unpack message
-            String message = m.toString();
-            KeyCard keyCard = mGameBoard.getKeyCard();
-            // Notify observer
-            setChanged();
-            notifyObservers(keyCard);
-        }
-    }
-
     private KeyCard selectKeyCard(KeyCard[] keyCardCollection) {
         Random r = new Random();
         return keyCardCollection[r.nextInt(keyCardCollection.length)];
     }
 
-    private void undoRedo(Stack<Command> popStack, Stack<Command> pushStack) {
-        // Get last command off the undoStack
-        Command restore = popStack.pop();
-        // Get GameBoard to restore and card affected
-        GameBoard restoreState = restore.getState();
-        int cardAffected = restore.getCardAffected();
-        // Create command and push onto commandStack
-        Command redo = new Command(cardAffected, new GameBoard(this.mGameBoard.clone()));
-        pushStack.push(redo);
-        // Update GameBoard
-        this.mGameBoard = restoreState;
-        // Notify observer
-        setChanged();
-        notifyObservers(mGameBoard.getCard(cardAffected));
-    }
+    @Override
+    public void update(Observable o, Object arg) {
 
+        // Check if Message Object
+        if(arg instanceof Message) {
+
+            // Unpack Message
+            MessageType type = ((Message) arg).getMessageType();
+            int cardAffected = ((Message) arg).getCardAffected();
+
+            // Handle Message
+            if(type == MessageType.NEW_GAME) {
+                // TODO: CALL FUNCTION TO REBUILD GAME
+            }
+            if(type == MessageType.SELECT) {
+
+                // Get Card object
+                Card card = mGameBoard.getCard(cardAffected);
+
+                // Check if Card is already revealed
+                if(card.isRevealed() == false) {
+
+                    // Flush Undo stack
+                    mUndoStack.clear();
+
+                    // Push Message onto Message stack
+                    mMessageStack.push(new Message(type, cardAffected));
+
+                    // Add Message to Message log
+                    mMessageLog.add(new Message(type, cardAffected));
+
+                    // Reveal Card (will notify Observer)
+                    card.revealCard();
+                }
+                else {
+                    // Do Nothing
+                }
+            }
+            if(type == MessageType.NEXT) {
+
+                // Flush Undo Stack
+                mUndoStack.clear();
+                // TODO: SELECT EITHER: RANDOM OR NEXT
+                cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
+
+                // Get Card Object
+                Card card = mGameBoard.getCard(cardAffected);
+
+                // Card will guarantee be not revealed (due to the way the strategy is coded)
+
+                // Flush Undo Stack
+                mUndoStack.clear();
+
+                // Push Message onto Message stack
+                mMessageStack.push(new Message(type, cardAffected));
+
+                // Add Message to Message log
+                mMessageLog.add(new Message(type, cardAffected));
+
+                // Reveal Card (will notify Observer)
+                card.revealCard();
+            }
+            if(type == MessageType.UNDO) {
+
+                // Get last Message off Message stack
+                Message undoMessage = mMessageStack.pop();
+
+                // Unpack Message
+                MessageType undoType = undoMessage.getMessageType();
+                int undoCardAffected = undoMessage.getCardAffected();
+
+                // Get Card object
+                Card undoCard = mGameBoard.getCard(undoCardAffected);
+
+                // Push the Undo onto the Undo stack
+                mUndoStack.push(new Message(undoType, undoCardAffected));
+
+                // Add Message to Message log
+                mMessageLog.add(new Message(undoType, undoCardAffected));
+
+                // Hide Card (will notify Observer)
+                undoCard.hideCard();
+            }
+            if(type == MessageType.REDO) {
+
+                // Get last Message off Undo stack
+                Message redoMessage = mUndoStack.pop();
+
+                // Unpack Message
+                MessageType redoType = redoMessage.getMessageType();
+                int redoCardAffected = redoMessage.getCardAffected();
+
+                // Get Card object
+                Card redoCard = mGameBoard.getCard(redoCardAffected);
+
+                // Push the Redo onto the Message stack
+                mMessageStack.push(new Message(redoType, redoCardAffected));
+
+                // Add Message to Message log
+                mMessageLog.add(new Message(redoType, redoCardAffected));
+
+                // Reveal Card (will notify Observer)
+                redoCard.revealCard();
+            }
+        }
+    }
 }

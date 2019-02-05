@@ -1,41 +1,35 @@
+/**
+ * GameBoard object to store cards, copy of keycard and the GameObserver.java object
+ * Creation of the object creates the 25 cards based on the keycard and gets a selection a 25 words as codewords.
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package model;
 
-import java.util.Arrays;
+import control.GameObserver;
+import control.Outbox;
+
+import java.util.ArrayList;
 
 public class GameBoard {
 
     // Attributes
-    private Card[] mCards;
+    private ArrayList<Card> mCards;
     private KeyCard mKeyCard;
-    private int mBlueScore;
-    private int mRedScore;
-    private boolean mBlueTurn;
+    private GameObserver mGameObserver;
 
     // Constructor
-    public GameBoard(KeyCard keyCard) {
+    public GameBoard(KeyCard keyCard, Outbox outbox) {
         this.mKeyCard = keyCard;
+        this.mGameObserver = new GameObserver(mKeyCard, mCards, outbox);
         this.mCards = generateGameBoard();
-        initializeGame();
-    }
-
-    public GameBoard(GameBoard oldBoard) {
-        Card[] oldCards = oldBoard.getBoard();
-        KeyCard oldKeyCard = oldBoard.getKeyCard();
-        this.mCards = new Card[oldCards.length];
-        for(int i = 0; i < oldCards.length; i++) {
-            this.mCards[i] = oldCards[i].clone();
-        }
-        this.mKeyCard = oldKeyCard.clone();
-        this.setBlueScore(oldBoard.getBlueScore());
-        this.setRedScore(oldBoard.getRedScore());
     }
 
     // Getters
     public Card getCard(int n) {
-        return mCards[n];
+        return mCards.get(n);
     }
 
-    public Card[] getBoard() {
+    public ArrayList<Card> getBoard() {
         return this.mCards;
     }
 
@@ -43,66 +37,24 @@ public class GameBoard {
         return this.mKeyCard;
     }
 
-    public int getBlueScore() {
-        return this.mBlueScore;
-    }
-
-    public int getRedScore() {
-        return this.mRedScore;
-    }
-
-    public boolean getCurrentTurn() {
-        return this.mBlueTurn;
-    }
-
-    // Setters
-    public void setBlueScore(int blueScore) {
-        this.mBlueScore = blueScore;
-    }
-
-    public void setRedScore(int redScore) {
-        this.mRedScore = redScore;
-    }
-
-    public void setCurrentTurn(boolean currentTurn) {
-        this.mBlueTurn = currentTurn;
+    public ArrayList<Card> getCards() {
+        return this.mCards;
     }
 
     // Methods
-    public GameBoard clone() {
-        return new GameBoard(this);
-    }
-    
-    public String toString() {
-        return(Arrays.toString(mCards));
-    }
-
-    private Card[] generateGameBoard() {
-        Card[] gameBoard = new Card[25];
-        String codeWord;
+    private ArrayList<Card> generateGameBoard() {
+        DatabaseExtractor database = new DatabaseExtractor();
+        ArrayList<Card> gameBoard = new ArrayList<Card>(25);
+        Card card;
+        String[] codeWords = database.bankOfWords();
         for(int i = 0; i < 25; i++) {
-            codeWord = "PlaceHolder";
-            // TODO: CODE TO GENERATE CODEWORDS (NO DUPLICATES)
-            gameBoard[i] = new Card(i + 1, mKeyCard.getCardType(i), codeWord);
+            // Create Card
+            card = new Card(i, codeWords[i], mKeyCard.getCardType(i));
+            // Attach GameObserver to Card
+            card.addObserver(this.mGameObserver);
+            // Add Card to GameBoard
+            gameBoard.add(card);
         }
         return gameBoard;
     }
-
-    private void initializeGame() {
-        if(mKeyCard.getBlueFirst() == true) {
-            this.mBlueScore = 9;
-            this.mRedScore = 8;
-            this.mBlueTurn = true;
-        }
-        else {
-            this.mBlueScore = 8;
-            this.mRedScore = 9;
-            this.mBlueTurn = false;
-        }
-    }
-
-    public void changeTurn() {
-        this.mBlueTurn = !mBlueTurn;
-    }
-
 }

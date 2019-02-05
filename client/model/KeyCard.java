@@ -1,6 +1,8 @@
+/**
+ * KeyCard object that stores the board layout and the starting team
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package model;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -12,18 +14,12 @@ public class KeyCard {
     private CardType[] mKeyContent;
     private boolean mBlueFirst;
 
-    // Constructor
-    public KeyCard() {
-        this.mKeyCardNumber = 0;
-        this.mKeyContent = null;
-        this.mBlueFirst = false;
-    }
-
+    // Constructors
     public KeyCard(int keyCardNumber) {
         this.mKeyCardNumber = keyCardNumber;
         this.mBlueFirst = pickFirstTeam();
         this.mKeyContent = generateKeyCard();
-        System.out.println(this.toString() + this.mBlueFirst);
+        // System.out.println(this.toString() + this.mBlueFirst);
     }
 
     // Getters
@@ -53,13 +49,6 @@ public class KeyCard {
     }
 
     // Methods
-    public KeyCard clone() {
-        KeyCard newCard = new KeyCard();
-        newCard.setBlueFirst(this.getBlueFirst());
-        newCard.setKeyContent(this.getKeyContent());
-        return newCard;
-    }
-
     public String toString() {
         return Arrays.deepToString(this.mKeyContent);
     }
@@ -105,24 +94,20 @@ public class KeyCard {
                             keyCardContent[n] = temp;
                             assassinLeft--;
                             placed = true;
-                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.BLUE && blueLeft != 0) {
                             keyCardContent[n] = temp;
                             blueLeft--;
                             placed = true;
-                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(temp == CardType.RED && redLeft != 0) {
                             keyCardContent[n] = temp;
                             redLeft--;
                             placed = true;
-                            //System.out.println(temp.toString() + " placed in position: [" + row + "][" + col + "]");
                         }
                         if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
                             keyCardContent[n] = CardType.YELLOW;
                             placed = true;
-                            //System.out.println("Bystander placed in position: [" + row + "][" + col + "]");
                         }
                     }
                 }
@@ -132,7 +117,7 @@ public class KeyCard {
         return keyCardContent;
     }
 
-    private CardType pickCardType(@NotNull Random r) {
+    private CardType pickCardType(Random r) {
         return CardType.values()[r.nextInt(CardType.values().length)];
     }
 }

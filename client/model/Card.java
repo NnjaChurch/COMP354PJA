@@ -1,18 +1,41 @@
+/**
+ * Card object that stores data for each Codename
+ * Notifies GameObserver.java whenever a card is revealed / hidden via observers
+ * Currently only uses the first constructor (second constructor will be for card creation with hints)
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package model;
 
-public class Card {
+import java.util.Observable;
+
+public class Card extends Observable {
 
     // Attributes
     private int mCardNumber;
     private String mCodeWord;
-    private boolean mRevealed;
+    private String[] mHints;
     private CardType mType;
+    private boolean mRevealed;
 
-    // Constructor
-    public Card(int cardNumber, CardType mType, String mCodeWord) {
+
+    // Constructors
+    public Card(int cardNumber, String codeWord, CardType type) {
         this.mCardNumber = cardNumber;
+        this.mCodeWord = codeWord;
+        this.mType = type;
         this.mRevealed = false;
-        this.mType = mType;
+
+    }
+
+    public Card(int cardNumber, String codeWord, CardType type, String[] hints) {
+        this.mCardNumber = cardNumber;
+        this.mCodeWord = codeWord;
+        this.mHints = new String[hints.length];
+        for(int i = 0; i < mHints.length; i++) {
+            mHints[i] = hints[i];
+        }
+        this.mType = type;
+        this.mRevealed = false;
     }
 
     // Getters
@@ -32,35 +55,24 @@ public class Card {
         return this.mType;
     }
 
-    // Setters
-    public void setCardNumber(int cardNumber) {
-        this.mCardNumber = cardNumber;
-    }
-
-    public void setRevealed(boolean revealed) {
-        this.mRevealed = revealed;
-    }
-
     // Methods
-    public Card clone() {
-        Card newCard = new Card(this.mCardNumber, this.mType, this.mCodeWord);
-        newCard.setRevealed(this.mRevealed);
-        return newCard;
-    }
-
-    public String toString() {
-        return(this.getCardNumber() + " | " + this.getType().toString() + " | Revealed: " + this.isRevealed());
-    }
-
     public void revealCard() {
         if(this.mRevealed != true) {
             this.mRevealed = true;
+
+            // Notify Observer
+            setChanged();
+            notifyObservers(this);
         }
     }
 
     public void hideCard() {
         if(this.mRevealed != false) {
             this.mRevealed = false;
+
+            // Notify Observer
+            setChanged();
+            notifyObservers(this);
         }
     }
 }

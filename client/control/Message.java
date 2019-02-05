@@ -1,18 +1,32 @@
+/**
+ * Message object used to send information to the control section from the view section
+ * @author Kevin McAllister (40031326) - Iteration 1
+ */
 package control;
 
 public class Message {
 
     // Attributes
-    String mMessage;
+    private MessageType mType;
     private int mCardAffected;
 
     // Constructor
-    public Message(String message) {
-        this.mMessage = message;
+    public Message() {
+        this.mType = null;
+        this.mCardAffected = -1;
     }
 
-    // Methods
-    public String toString() {
-        return this.mMessage;
+    public Message(MessageType type, int cardAffected) {
+        this.mType = type;
+        this.mCardAffected = cardAffected;
+    }
+
+    // Getters
+    public MessageType getMessageType() {
+        return this.mType;
+    }
+
+    public int getCardAffected() {
+        return this.mCardAffected;
     }
 }

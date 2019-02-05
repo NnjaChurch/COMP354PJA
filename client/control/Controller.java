@@ -29,6 +29,16 @@ public class Controller implements Observer {
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
     }
 
+    // Getters
+    public KeyCard getKeyCard() {
+        return mGameBoard.getKeyCard();
+    }
+
+    public ArrayList<Card> getCardList() {
+        return mGameBoard.getCards();
+    }
+
+    // Methods
     private KeyCard selectKeyCard(KeyCard[] keyCardCollection) {
         Random r = new Random();
         return keyCardCollection[r.nextInt(keyCardCollection.length)];

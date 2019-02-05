@@ -7,11 +7,12 @@ package control;
 
 import model.Card;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Strategy {
 
-    public static int pickRandomCard(Card[] cards) {
+    public static int pickRandomCard(ArrayList<Card> cards) {
         Random r = new Random();
         boolean cardPicked = false;
         int currentCard = -1;
@@ -19,19 +20,19 @@ public class Strategy {
             // Pick random card of 25
             currentCard = r.nextInt(25);
             // Check if card has been picked
-            if(cards[currentCard].isRevealed() == false) {
+            if(cards.get(currentCard).isRevealed() == false) {
                 cardPicked = true;
             }
         }
         return currentCard;
     }
 
-    public static int pickNextCard(Card[] cards) {
+    public static int pickNextCard(ArrayList<Card> cards) {
         boolean cardPicked = false;
         int currentCard = 0;
         while(cardPicked == false) {
             // Check if card has been picked
-            if(cards[currentCard].isRevealed() == false) {
+            if(cards.get(currentCard).isRevealed() == false) {
                 // Flag to exit loop if card has not been picked yet
                 cardPicked = true;
             }

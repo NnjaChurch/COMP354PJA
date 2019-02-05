@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import control.Inbox;
+import control.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.VBox;
@@ -37,7 +37,7 @@ public class BoardPane extends VBox implements Observer{
 	private final KeycardPopup mPopup;
 	
 	/**
-	 * Main Constructor 
+	 * Constructor
 	 * 
 	 * @param cardList the list of Card being used in the model
 	 * @param k keycard
@@ -75,27 +75,32 @@ public class BoardPane extends VBox implements Observer{
 		this.getChildren().addAll(mHQ, mField, mControl);
 	}
 
-
-	/*
-	 * TODO Receives input from outbox and dictate changes to view
-	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		Reply r = ((Outbox) o).getReply();
+		Reply r = ((Reply) arg);
 		
 		// handles each kind of request
 		switch(r.getReplyType()) {
 		case UPDATE:
 			
 			mHQ.setTurn(r.getCurrentTurn());
-			mHQ.setScore(true, r.getBlueScore())
+			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());
 			
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
 			break;
 			
 		case END:
-			//TODO handle this
+			mHQ.setTurn(r.getCurrentTurn());
+			mHQ.setScore(true, r.getBlueScore());
+			mHQ.setScore(false, r.getRedScore());
+
+			mField.changeCardColor(r.getCardAffected(), r.getCardType());
+
+			// TODO: END THE GAME
+			/*
+			Ending the game should reveal all cards, display game over, allow new game or quit
+			 */
 			break;
 		}
 	}
@@ -115,7 +120,7 @@ public class BoardPane extends VBox implements Observer{
 		@Override
 		public void handle(ActionEvent event) {
 			CardView c = (CardView) event.getSource();
-			mInbox.sendMessage(MessageType.SELECT, c.getCardID());
+			mInbox.sendMessage(new Message(MessageType.SELECT, c.getCardID()));
 		}
 		
 	}
@@ -145,7 +150,7 @@ public class BoardPane extends VBox implements Observer{
 
 		@Override
 		public void handle(ActionEvent event) {
-			mInbox.sendMessage(new Message(MessageType.New_GAME, -1));
+			mInbox.sendMessage(new Message(MessageType.NEW_GAME, -1));
 		}
 	}
 	

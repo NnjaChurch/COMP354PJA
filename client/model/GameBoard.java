@@ -8,26 +8,28 @@ package model;
 import control.GameObserver;
 import control.Outbox;
 
+import java.util.ArrayList;
+
 public class GameBoard {
 
     // Attributes
-    private Card[] mCards;
+    private ArrayList<Card> mCards;
     private KeyCard mKeyCard;
     private GameObserver mGameObserver;
 
     // Constructor
     public GameBoard(KeyCard keyCard, Outbox outbox) {
         this.mKeyCard = keyCard;
+        this.mGameObserver = new GameObserver(mKeyCard, mCards, outbox);
         this.mCards = generateGameBoard();
-        this.mGameObserver = new GameObserver(mKeyCard, outbox);
     }
 
     // Getters
     public Card getCard(int n) {
-        return mCards[n];
+        return mCards.get(n);
     }
 
-    public Card[] getBoard() {
+    public ArrayList<Card> getBoard() {
         return this.mCards;
     }
 
@@ -35,16 +37,23 @@ public class GameBoard {
         return this.mKeyCard;
     }
 
+    public ArrayList<Card> getCards() {
+        return this.mCards;
+    }
+
     // Methods
-    private Card[] generateGameBoard() {
+    private ArrayList<Card> generateGameBoard() {
         DatabaseExtractor database = new DatabaseExtractor();
-        Card[] gameBoard = new Card[25];
+        ArrayList<Card> gameBoard = new ArrayList<Card>(25);
+        Card card;
         String[] codeWords = database.bankOfWords();
         for(int i = 0; i < 25; i++) {
-            // Add Card to GameBoard
-            gameBoard[i] = new Card(i + 1, codeWords[i], mKeyCard.getCardType(i));
+            // Create Card
+            card = new Card(i, codeWords[i], mKeyCard.getCardType(i));
             // Attach GameObserver to Card
-            gameBoard[i].addObserver(this.mGameObserver);
+            card.addObserver(this.mGameObserver);
+            // Add Card to GameBoard
+            gameBoard.add(card);
         }
         return gameBoard;
     }

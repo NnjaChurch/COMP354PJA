@@ -11,6 +11,7 @@ import model.Card;
 import model.CardType;
 import model.KeyCard;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Stack;
@@ -25,7 +26,7 @@ public class GameObserver implements Observer {
     private Stack<Boolean> mTurnStack;
 
     // Constructors
-    public GameObserver(KeyCard keyCard, Outbox outbox) {
+    public GameObserver(KeyCard keyCard, ArrayList<Card> cards, Outbox outbox) {
         this.mOutbox = outbox;
         this.mTurnStack = new Stack<>();
         initializeGame(keyCard);
@@ -122,44 +123,52 @@ public class GameObserver implements Observer {
                 if(card.getType() == CardType.BLUE) {
                     // Decrement blueScore
                     decrementBlue();
-
-                    // If currently Blue turn
-                    if(mBlueTurn == true) {
-                        // Log turn state
-                        sameTurn();
-
-                        // Send Reply to update game
-                        replyToOutbox(card);
+                    if(mBlueScore == 0) {
+                        mOutbox.sendReply(new Reply(ReplyType.END, card.getCardNumber(), card.getType(), mBlueScore, mRedScore, true));
                     }
-                    // If currently Red turn
+                    // If currently Blue turn
                     else {
-                        // Swap turn to other team
-                        nextTurn();
+                        if (mBlueTurn == true) {
+                            // Log turn state
+                            sameTurn();
 
-                        // Send Reply to update game
-                        replyToOutbox(card);
+                            // Send Reply to update game
+                            replyToOutbox(card);
+                        }
+                        // If currently Red turn
+                        else {
+                            // Swap turn to other team
+                            nextTurn();
+
+                            // Send Reply to update game
+                            replyToOutbox(card);
+                        }
                     }
                 }
                 // If Card was Red
                 if(card.getType() == CardType.RED) {
                     // Decrement redScore
                     decrementRed();
-
-                    // If currently Blue turn
-                    if(mBlueTurn == true) {
-                        // Swap to other team
-                        nextTurn();
-
-                        // Send Reply to update game
-                        replyToOutbox(card);
+                    if (mRedScore == 0) {
+                        mOutbox.sendReply((new Reply(ReplyType.END, card.getCardNumber(), card.getType(), mBlueScore, mRedScore, false)));
                     }
-                    // If currently Red turn
+                    // If currently Blue turn
                     else {
-                        // Log turn state
-                        sameTurn();
+                        if (mBlueTurn == true) {
+                            // Swap to other team
+                            nextTurn();
 
-                        // Send Reply to update game
-                        replyToOutbox(card);
+                            // Send Reply to update game
+                            replyToOutbox(card);
+                        }
+                        // If currently Red turn
+                        else {
+                            // Log turn state
+                            sameTurn();
+
+                            // Send Reply to update game
+                            replyToOutbox(card);
+                        }
                     }
                 }
             }

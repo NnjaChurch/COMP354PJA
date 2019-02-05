@@ -4,6 +4,7 @@
  */
 package control;
 
+import model.Card;
 import model.CardType;
 
 public class Reply {
@@ -15,7 +16,6 @@ public class Reply {
     private int mBlueScore;
     private int mRedScore;
     private boolean mBlueTurn;
-
 
     // Constructor
     public Reply(ReplyType type, int cardAffected, CardType cardType, int blueScore, int redScore, boolean blueTurn) {

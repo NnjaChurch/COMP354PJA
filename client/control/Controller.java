@@ -19,6 +19,7 @@ public class Controller implements Observer {
     private ArrayList<Message> mMessageLog;
     private KeyCard[] mKeyCardCollection;
     private GameBoard mGameBoard;
+    private boolean mNewGameFlag;
 
     // Constructor
     public Controller(KeyCard[] keyCardCollection, Outbox outbox) {
@@ -27,6 +28,7 @@ public class Controller implements Observer {
         this.mMessageLog = new ArrayList<>();
         this.mKeyCardCollection = keyCardCollection;
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
+        this.mNewGameFlag = false;
     }
 
     // Getters
@@ -57,6 +59,7 @@ public class Controller implements Observer {
             // Handle Message
             if(type == MessageType.NEW_GAME) {
                 // TODO: CALL FUNCTION TO REBUILD GAME
+                this.mNewGameFlag = true;
             }
             if(type == MessageType.SELECT) {
 

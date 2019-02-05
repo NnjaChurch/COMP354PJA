@@ -90,6 +90,10 @@ public class KeyCard {
                     // Loop to try different CardTypes
                     while(!placed) {
                         temp = pickCardType(r);
+                        if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
+                            keyCardContent[n] = CardType.YELLOW;
+                            placed = true;
+                        }
                         if(temp == CardType.BLACK && assassinLeft != 0) {
                             keyCardContent[n] = temp;
                             assassinLeft--;
@@ -103,10 +107,6 @@ public class KeyCard {
                         if(temp == CardType.RED && redLeft != 0) {
                             keyCardContent[n] = temp;
                             redLeft--;
-                            placed = true;
-                        }
-                        if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
-                            keyCardContent[n] = CardType.YELLOW;
                             placed = true;
                         }
                     }

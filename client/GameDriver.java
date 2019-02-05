@@ -13,9 +13,17 @@ import java.util.ArrayList;
 
 public class GameDriver extends Application {
 
-    @Override
-    public void start(Stage mStage) throws Exception {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        startGame(primaryStage);
+    }
+
+    private void startGame(Stage mStage) {
         try {
 
             // Setup Control and Model Environment
@@ -26,10 +34,11 @@ public class GameDriver extends Application {
 
             // Grab KeyCard and CardList from Model
             KeyCard keyCard = controller.getKeyCard();
+            System.out.println(keyCard.toString());
             ArrayList<Card> cards = controller.getCardList();
 
             // Benchmark
-            System.out.println("Control and View OK!");
+            System.out.println("Control and Model OK!");
 
             // Setup View Environment
             BoardPane viewRoot = new BoardPane(cards, keyCard, inbox);
@@ -43,6 +52,9 @@ public class GameDriver extends Application {
             mStage.setTitle("Codenames PJA");
             mStage.show();
 
+            // Benchmark
+            System.out.println("View OK!");
+
             // Link Observers
 
             // Controller to Inbox
@@ -50,16 +62,15 @@ public class GameDriver extends Application {
 
             // BoardPane to Outbox
             outbox.addObserver(viewRoot);
+
+            //Benchmark
+            System.out.println("Observers OK!");
         }
         catch(Exception e) {
             System.out.println("Could not initialize game state.");
             e.printStackTrace();
         }
 
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     private static KeyCard[] generateKeyCards(int keyCardCount) {

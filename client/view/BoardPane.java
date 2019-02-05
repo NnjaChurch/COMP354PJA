@@ -37,53 +37,6 @@ public class BoardPane extends VBox implements Observer{
 	private final KeycardPopup mPopup;
 	
 	/**
-	 * Testing Constructor 
-	 * TODO remove before submission (if i remember)
-	 */
-	public BoardPane() {
-		super();
-		
-		//expected external element standing
-		KeyCard k = new KeyCard(1);
-		String codeword = "";
-		Inbox in = new Inbox();
-		ArrayList<Card> cardList = new ArrayList<Card>();
-		for(int i = 0; i < 25; i++) {
-			cardList.add(new Card(i, codeword, k.getCardType(i)));
-		}
-		
-		//normal operation
-		mInbox = in;
-		
-		//create 1 CardHandler for all Cards (saves memory)
-		CardHandler ch = new CardHandler();
-		
-		//creates CardView List from cards
-		for(Card c : cardList) {
-			CardView cv = new CardView(c.getCardNumber(), c.getCodeWord());
-			cv.setOnAction(ch);
-			mCVList.add(cv);
-		}
-	
-		//Inner container elements
-		mControl = new ControlBar();
-		mHQ = new HQPane(k.getBlueFirst());
-		mField = new FieldPane(mCVList);
-		mPopup = new KeycardPopup(k);
-		
-		//control setup
-		mControl.setNewGameHandler(new NewGameHandler());
-		mControl.setUndoHandler(new UndoHandler());
-		mControl.setRedoHandler(new RedoHandler());
-		mControl.setKeycardHandler(new KeycardHandler());
-		mControl.setNextHandler(new NextHandler());
-		
-		//adds containers to vertical stack
-		getChildren().addAll(mHQ, mField, mControl);
-		
-	}
-	
-	/**
 	 * Main Constructor 
 	 * 
 	 * @param cardList the list of Card being used in the model
@@ -128,8 +81,23 @@ public class BoardPane extends VBox implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// handles each kind of request
+		Reply r = ((Outbox) o).getReply();
 		
+		// handles each kind of request
+		switch(r.getReplyType()) {
+		case UPDATE:
+			
+			mHQ.setTurn(r.getCurrentTurn());
+			mHQ.setScore(true, r.getBlueScore())
+			mHQ.setScore(false, r.getRedScore());
+			
+			mField.changeCardColor(r.getCardAffected(), r.getCardType());
+			break;
+			
+		case END:
+			//TODO handle this
+			break;
+		}
 	}
 	
 	
@@ -147,7 +115,7 @@ public class BoardPane extends VBox implements Observer{
 		@Override
 		public void handle(ActionEvent event) {
 			CardView c = (CardView) event.getSource();
-			// TODO sends proper message to inbox including card number and event (?? reviel or hide??)
+			mInbox.sendMessage(MessageType.SELECT, c.getCardID());
 		}
 		
 	}
@@ -168,7 +136,7 @@ public class BoardPane extends VBox implements Observer{
 	}
 	
 	/**
-	 * TODO sends a new Game message through inbox
+	 * sends a new Game message through inbox
 	 * 
 	 * @author David Boivin (absynth)
 	 *
@@ -177,13 +145,13 @@ public class BoardPane extends VBox implements Observer{
 
 		@Override
 		public void handle(ActionEvent event) {
-			
+			mInbox.sendMessage(new Message(MessageType.New_GAME, -1));
 		}
 	}
 	
 	
 	/**
-	 * TODO sends an Undo message through inbox
+	 * sends an Undo message through inbox
 	 * 
 	 * @author David Boivin (absynth)
 	 */
@@ -191,13 +159,13 @@ public class BoardPane extends VBox implements Observer{
 
 		@Override
 		public void handle(ActionEvent event) {
-			
+			mInbox.sendMessage(new Message(MessageType.UNDO, -1));
 		}
 	}
 	
 	
 	/**
-	 * TODO sends a redo message through inbox
+	 * sends a redo message through inbox
 		
 	 * @author David Boivin (absynth)
 	 */
@@ -205,12 +173,12 @@ public class BoardPane extends VBox implements Observer{
 
 		@Override
 		public void handle(ActionEvent event) {
-		
+			mInbox.sendMessage(new Message(MessageType.REDO, -1));
 		}
 	}
 	
 	/**
-	 * TODO sends a next message through inbox
+	 * sends a next message through inbox
 	 * 
 	 * @author David Boivin (absynth)
 	 */
@@ -218,7 +186,7 @@ public class BoardPane extends VBox implements Observer{
 
 		@Override
 		public void handle(ActionEvent event) {
-			
+			mInbox.sendMessage(new Message(MessageType.NEXT, -1));
 		}
 	}
 	

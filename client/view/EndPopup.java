@@ -9,10 +9,17 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import model.CardType;
 
+/**
+ * A popup which signals the end of the game. This popup should
+ * not be hideable other than quiting or starting a new game.
+ * 
+ * @author David Boivin (absynth) ID = 40004941
+ */
 public class EndPopup extends Popup{
 	
 	Inbox mInbox;
@@ -36,8 +43,12 @@ public class EndPopup extends Popup{
 		WinnerTitle title = new WinnerTitle(reply.getCurrentTurn());
 		MethodDisplay display = new MethodDisplay(reply.getCardType());
 		NewGameButton button = new NewGameButton();
+		QuitButton quit = new QuitButton();
 		
-		root.getChildren().addAll(title, display, button);
+		HBox buttonContainer = new HBox();
+		buttonContainer.getChildren().addAll(button, quit);
+		
+		root.getChildren().addAll(title, display, buttonContainer);
 	}
 	
 	private class WinnerTitle extends Label{

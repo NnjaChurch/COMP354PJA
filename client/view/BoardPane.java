@@ -21,7 +21,7 @@ import model.KeyCard;
  * them to the Controller object to process user action.<br>
  * Receives instruction through the Observer interface and changes the inner elements accordingly.
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public class BoardPane extends VBox implements Observer{
 	

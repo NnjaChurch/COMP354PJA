@@ -13,7 +13,7 @@ import javafx.scene.layout.Priority;
  * Listeners must be added through linking methods, default functionality won't
  * result in any change in the program.
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public class ControlBar extends HBox{
 
@@ -81,7 +81,7 @@ public class ControlBar extends HBox{
 	/**
 	 * Private inner class designed to allow for consistency across all buttons in control bar
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 */
 	private class ControlButton extends Button{
 		
@@ -128,7 +128,7 @@ public class ControlBar extends HBox{
 		/**
 		 * Handles when the mouse enters a buttons region
 		 * 
-		 * @author David Boivin (absynth)
+		 * @author David Boivin (absynth) ID = 40004941
 		 */
 		private class EnterHandler implements EventHandler<MouseEvent>{
 
@@ -143,7 +143,7 @@ public class ControlBar extends HBox{
 		 * Handles when the mouse exits a buttons region
 		 * (brings button back to default)
 		 * 
-		 * @author David Boivin (absynth)
+		 * @author David Boivin (absynth) ID = 40004941
 		 */
 		private class ExitHandler implements EventHandler<MouseEvent> {
 
@@ -157,7 +157,7 @@ public class ControlBar extends HBox{
 		/**
 		 * Handles when the button is pressed.
 		 * 
-		 * @author David Boivin (absynth)
+		 * @author David Boivin (absynth) ID = 40004941
 		 */
 		private class PressedHandler implements EventHandler<MouseEvent>{
 
@@ -172,7 +172,7 @@ public class ControlBar extends HBox{
 		 * Handles when the button is released
 		 * (brings button back to default)
 		 * 
-		 * @author David Boivin (absynth)
+		 * @author David Boivin (absynth) ID = 40004941
 		 */
 		private class ReleasedHandler implements EventHandler<MouseEvent>{
 

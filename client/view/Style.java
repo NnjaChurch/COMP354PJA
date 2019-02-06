@@ -18,7 +18,7 @@ import javafx.scene.text.FontWeight;
  * An interface with all the styling constants for the program.
  * Provides an easy place to look for and modify styling constants.
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public interface Style {
 

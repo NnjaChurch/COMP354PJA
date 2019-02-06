@@ -14,7 +14,7 @@ import model.CardType;
  * Provides method to change the state of individual cards. <br>
  * NOTE: uses BoardPane.COLUMN_NUMBER to gereate the proper grid.
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public class FieldPane extends GridPane {
 	

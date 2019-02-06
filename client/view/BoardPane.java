@@ -96,10 +96,8 @@ public class BoardPane extends VBox implements Observer{
 
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
 
-			// TODO: END THE GAME
-			/*
-			Ending the game should reveal all cards, display game over, allow new game or quit
-			 */
+			EndPopup p = new EndPopup(r, mInbox);
+			
 			break;
 		}
 	}

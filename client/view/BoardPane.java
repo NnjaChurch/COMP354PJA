@@ -82,6 +82,7 @@ public class BoardPane extends VBox implements Observer{
 		// handles each kind of request
 		switch(r.getReplyType()) {
 		case UPDATE:
+			System.out.println("UPDATE TYPE RECEIVED");
 			mHQ.setTurn(r.getCurrentTurn());
 			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());
@@ -90,14 +91,15 @@ public class BoardPane extends VBox implements Observer{
 			break;
 			
 		case END:
+			System.out.println("END TYPE RECEIVED");
 			mHQ.setTurn(r.getCurrentTurn());
 			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());
 
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
 
-			EndPopup p = new EndPopup(r, mInbox);
-			
+			EndPopup endPopup = new EndPopup(r, mInbox);
+			endPopup.show(getScene().getWindow());
 			break;
 		}
 	}
@@ -120,9 +122,6 @@ public class BoardPane extends VBox implements Observer{
 		
 	}
 	
-	
-	
-	
 	// ----------------------- Control Handlers ---------------------
 	
 	
@@ -131,7 +130,6 @@ public class BoardPane extends VBox implements Observer{
 		@Override
 		public void handle(ActionEvent event) {
 			mPopup.show((Stage) getScene().getWindow());
-			
 		}
 	}
 	

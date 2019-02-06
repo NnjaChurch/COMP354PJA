@@ -120,22 +120,27 @@ public class Controller implements Observer {
                 // cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
                 cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
 
-                // Get Card Object
-                Card card = mGameBoard.getCard(cardAffected);
+                // Check if Card was selected (-1 mean no more cards)
 
-                // Card will guarantee be not revealed (due to the way the strategy is coded)
+                if (cardAffected != -1) {
+                    // Get Card Object
+                    Card card = mGameBoard.getCard(cardAffected);
 
-                // Flush Undo Stack
-                mUndoStack.clear();
+                    // Flush Undo Stack
+                    mUndoStack.clear();
 
-                // Push Message onto Message stack
-                mMessageStack.push(new Message(type, cardAffected));
+                    // Push Message onto Message stack
+                    mMessageStack.push(new Message(type, cardAffected));
 
-                // Add Message to Message log
-                mMessageLog.add(new Message(type, cardAffected));
+                    // Add Message to Message log
+                    mMessageLog.add(new Message(type, cardAffected));
 
-                // Reveal Card (will notify Observer)
-                card.revealCard();
+                    // Reveal Card (will notify Observer)
+                    card.revealCard();
+                }
+                else {
+                    // Do nothing
+                }
             }
             if(type == MessageType.UNDO) {
 

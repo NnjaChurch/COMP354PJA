@@ -93,7 +93,7 @@ public class EndPopup extends Popup{
 				break;
 
 			case BLACK:
-				setText("The assasine has found been revieled");
+				setText("The assasin has found been revealed");
 			case YELLOW:
 				//should never happen
 				setText("A bystander has won somehow?");

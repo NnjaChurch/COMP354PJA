@@ -11,7 +11,15 @@ public class DatabaseExtractor {
     ArrayList<SimpleCard> database=new ArrayList<SimpleCard>();
     ArrayList<String> allLine;
 
-    void openDatabase(){ //this method simply import the text file and store every line in the arraylist allLine
+    public ArrayList<String> getAllLine() {
+        return this.allLine;
+    }
+
+    public ArrayList<SimpleCard> getDatabase() {
+        return this.database;
+    }
+
+    public void openDatabase(){ //this method simply import the text file and store every line in the arraylist allLine
 
         Scanner s = null;
         try {
@@ -29,14 +37,14 @@ public class DatabaseExtractor {
 
     }
 
-    void printTheDatabase(){ // print the txt file line by line
+    public void printTheDatabase(){ // print the txt file line by line
 
         for (String temp : this.allLine) {
             System.out.println(temp);
         }
     }
 
-    static String[] getAllTheHints(String line){ //take a line of the database as an argument and give you an array of all
+    public static String[] getAllTheHints(String line){ //take a line of the database as an argument and give you an array of all
                                                     //the possible hints linked with that word
         String allHints;
         String [] arrayOfHints;
@@ -55,7 +63,7 @@ public class DatabaseExtractor {
         return arrayOfHints;
     }
 
-    static String getTheWord(String line){//take a line of the database as an argument and give you an array of all
+    public static String getTheWord(String line){//take a line of the database as an argument and give you an array of all
                                              //the possible hints linked with that word
 
         String word;
@@ -69,7 +77,7 @@ public class DatabaseExtractor {
     }
 
 
-    void importTheDatabase(){//take every line of the text file and transform every line into an object SimpleCard
+    public void importTheDatabase(){//take every line of the text file and transform every line into an object SimpleCard
 
         this.openDatabase(); //write every line in the attribute allLine
         for(String temp: this.allLine){
@@ -79,13 +87,13 @@ public class DatabaseExtractor {
     }
 
 
-    void printDatabase(){ //print every object one by one used for testing purposes
+    public void printDatabase(){ //print every object one by one used for testing purposes
         for(SimpleCard temp: this.database){
             System.out.println(temp.toString());
         }
     }
 
-    String[] bankOfWords(){ //return an array of 25 random word(string)
+    public String[] bankOfWords(){ //return an array of 25 random word(string)
         this.importTheDatabase();
         Random rand = new Random();
         SimpleCard temp;
@@ -106,7 +114,7 @@ public class DatabaseExtractor {
     }
 
 
-    SimpleCard[] bankOfCard(){ //return array of 25 SimpleCard so a word with an array of hints
+    public SimpleCard[] bankOfCard(){ //return array of 25 SimpleCard so a word with an array of hints
         this.importTheDatabase();
         Random rand = new Random();
         int n;

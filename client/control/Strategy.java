@@ -16,12 +16,23 @@ public class Strategy {
         Random r = new Random();
         boolean cardPicked = false;
         int currentCard = -1;
-        while(cardPicked == false) {
-            // Pick random card of 25
-            currentCard = r.nextInt(25);
-            // Check if card has been picked
-            if(cards.get(currentCard).isRevealed() == false) {
-                cardPicked = true;
+        boolean allCardsRevealed = true;
+
+        //Check if all cards have already been revealed
+        for(Card card: cards) {
+            if(!card.isRevealed()) {
+                allCardsRevealed = false;
+            }
+        }
+
+        if (!allCardsRevealed) {
+            while(cardPicked == false) {
+                // Pick random card of 25
+                currentCard = r.nextInt(25);
+                // Check if card has been picked
+                if(cards.get(currentCard).isRevealed() == false) {
+                    cardPicked = true;
+                }
             }
         }
         return currentCard;
@@ -30,16 +41,30 @@ public class Strategy {
     public static int pickNextCard(ArrayList<Card> cards) {
         boolean cardPicked = false;
         int currentCard = 0;
-        while(cardPicked == false) {
-            // Check if card has been picked
-            if(cards.get(currentCard).isRevealed() == false) {
-                // Flag to exit loop if card has not been picked yet
-                cardPicked = true;
+        boolean allCardsRevealed = true;
+
+        //Check if all cards have already been revealed
+        for(Card card: cards) {
+            if(!card.isRevealed()) {
+                allCardsRevealed = false;
             }
-            else {
-                // Increment if card has already been picked
-                currentCard++;
+        }
+
+        if (!allCardsRevealed) {
+            while(cardPicked == false) {
+                // Check if card has been picked
+                if(cards.get(currentCard).isRevealed() == false) {
+                    // Flag to exit loop if card has not been picked yet
+                    cardPicked = true;
+                }
+                else {
+                    // Increment if card has already been picked
+                    currentCard++;
+                }
             }
+        }
+        else {
+            currentCard = -1;
         }
         return currentCard;
     }

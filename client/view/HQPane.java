@@ -1,7 +1,5 @@
 package view;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -186,9 +184,6 @@ public class HQPane extends HBox {
 			setPadding(Style.HQ_CLUE_PADDING);
 			setFont(Style.WINDOW_FONT_DEFAULT);
 			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-			
-			//default text (just for fun (... and testing))
-			setText("Welcome.");
 		}
 	}
 	

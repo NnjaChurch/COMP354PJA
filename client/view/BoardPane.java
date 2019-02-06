@@ -88,13 +88,6 @@ public class BoardPane extends VBox implements Observer{
 			
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
 			break;
-
-        case UNDO:
-            mHQ.setTurn(r.getCurrentTurn());
-            mHQ.setScore(true, r.getBlueScore());
-            mHQ.setScore(false, r.getRedScore());
-
-            mField.changeCardColor(r.getCardAffected(), null);
 			
 		case END:
 			mHQ.setTurn(r.getCurrentTurn());

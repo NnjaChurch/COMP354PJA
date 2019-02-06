@@ -20,7 +20,7 @@ public class GameBoard {
     // Constructor
     public GameBoard(KeyCard keyCard, Outbox outbox) {
         this.mKeyCard = keyCard;
-        this.mGameObserver = new GameObserver(mKeyCard, mCards, outbox);
+        this.mGameObserver = new GameObserver(mKeyCard, outbox);
         this.mCards = generateGameBoard();
     }
 
@@ -44,7 +44,7 @@ public class GameBoard {
     // Methods
     private ArrayList<Card> generateGameBoard() {
         DatabaseExtractor database = new DatabaseExtractor();
-        ArrayList<Card> gameBoard = new ArrayList<Card>(25);
+        ArrayList<Card> gameBoard = new ArrayList<>(25);
         Card card;
         String[] codeWords = database.bankOfWords();
         for(int i = 0; i < 25; i++) {

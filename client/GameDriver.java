@@ -30,30 +30,25 @@ public class GameDriver extends Application {
             KeyCard[] keyCardCollection = generateKeyCards(10);
             Inbox inbox = new Inbox();
             Outbox outbox = new Outbox();
-            Controller controller = new Controller(keyCardCollection, outbox);
+            Controller controller = new Controller(keyCardCollection, inbox, outbox);
 
             // Grab KeyCard and CardList from Model
             KeyCard keyCard = controller.getKeyCard();
-            System.out.println(keyCard.toString());
             ArrayList<Card> cards = controller.getCardList();
-
-            // Benchmark
-            System.out.println("Control and Model OK!");
 
             // Setup View Environment
             BoardPane viewRoot = new BoardPane(cards, keyCard, inbox);
 
             // Link the board to the window
             Scene mScene = new Scene(viewRoot, Style.WINDOW_SIZE_WIDTH, Style.WINDOW_SIZE_HEIGHT);
-            // mScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+            // Send Scene to Controller
+            controller.setGameScene(mScene);
 
             // Set Stage and Show
             mStage.setScene(mScene);
             mStage.setTitle("Codenames PJA");
             mStage.show();
-
-            // Benchmark
-            System.out.println("View OK!");
 
             // Link Observers
 
@@ -62,9 +57,6 @@ public class GameDriver extends Application {
 
             // BoardPane to Outbox
             outbox.addObserver(viewRoot);
-
-            //Benchmark
-            System.out.println("Observers OK!");
         }
         catch(Exception e) {
             System.out.println("Could not initialize game state.");

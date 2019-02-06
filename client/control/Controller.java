@@ -7,7 +7,9 @@
  */
 package control;
 
+import javafx.scene.Scene;
 import model.*;
+import view.BoardPane;
 
 import java.util.*;
 
@@ -19,16 +21,24 @@ public class Controller implements Observer {
     private ArrayList<Message> mMessageLog;
     private KeyCard[] mKeyCardCollection;
     private GameBoard mGameBoard;
-    private boolean mNewGameFlag;
+    private Inbox mInbox;
+    private Outbox mOutbox;
+    private Scene mGameScene;
 
     // Constructor
-    public Controller(KeyCard[] keyCardCollection, Outbox outbox) {
+    public Controller(KeyCard[] keyCardCollection, Inbox inbox, Outbox outbox) {
         this.mMessageStack = new Stack<>();
         this.mUndoStack = new Stack<>();
         this.mMessageLog = new ArrayList<>();
         this.mKeyCardCollection = keyCardCollection;
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
-        this.mNewGameFlag = false;
+        this.mInbox = inbox;
+        this.mOutbox = outbox;
+    }
+
+    // Setter
+    public void setGameScene(Scene gameScene) {
+        this.mGameScene = gameScene;
     }
 
     // Getters
@@ -40,10 +50,31 @@ public class Controller implements Observer {
         return mGameBoard.getCards();
     }
 
+    public ArrayList<Message> getMessageLog() {
+        return this.mMessageLog;
+    }
+
     // Methods
     private KeyCard selectKeyCard(KeyCard[] keyCardCollection) {
         Random r = new Random();
         return keyCardCollection[r.nextInt(keyCardCollection.length)];
+    }
+
+    private void startNewGame() {
+        // Wipe Stacks and Logs
+        this.mMessageStack.clear();
+        this.mUndoStack.clear();
+        this.mMessageLog.clear();
+
+        // Create new Instance of Game
+        this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), mOutbox);
+
+        // Create and update Scene
+        BoardPane newBoardPane = new BoardPane(mGameBoard.getCards(), mGameBoard.getKeyCard(), mInbox);
+        this.mGameScene.setRoot(newBoardPane);
+
+        // Rebind Observer
+        this.mOutbox.addObserver(newBoardPane);
     }
 
     @Override
@@ -58,8 +89,7 @@ public class Controller implements Observer {
 
             // Handle Message
             if(type == MessageType.NEW_GAME) {
-                // TODO: CALL FUNCTION TO REBUILD GAME
-                this.mNewGameFlag = true;
+                startNewGame();
             }
             if(type == MessageType.SELECT) {
 
@@ -67,7 +97,7 @@ public class Controller implements Observer {
                 Card card = mGameBoard.getCard(cardAffected);
 
                 // Check if Card is already revealed
-                if(card.isRevealed() == false) {
+                if(!card.isRevealed()) {
 
                     // Flush Undo stack
                     mUndoStack.clear();
@@ -81,16 +111,13 @@ public class Controller implements Observer {
                     // Reveal Card (will notify Observer)
                     card.revealCard();
                 }
-                else {
-                    // Do Nothing
-                }
+                // Otherwise do nothing
             }
             if(type == MessageType.NEXT) {
 
                 // Flush Undo Stack
                 mUndoStack.clear();
-                // TODO: SELECT EITHER: RANDOM OR NEXT
-                cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                // cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
                 cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
 
                 // Get Card Object
@@ -112,7 +139,7 @@ public class Controller implements Observer {
             }
             if(type == MessageType.UNDO) {
 
-                if (mMessageStack.isEmpty() == false) {
+                if (!mMessageStack.isEmpty()) {
                     // Get last Message off Message stack
                     Message undoMessage = mMessageStack.pop();
 
@@ -135,7 +162,7 @@ public class Controller implements Observer {
             }
             if(type == MessageType.REDO) {
 
-                if (mUndoStack.isEmpty() == false) {
+                if (!mUndoStack.isEmpty()) {
                     // Get last Message off Undo stack
                     Message redoMessage = mUndoStack.pop();
 

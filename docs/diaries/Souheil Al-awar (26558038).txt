@@ -1,0 +1,66 @@
+Professor Gregory Butler
+COMP 354 - Software Engineering			
+Diary #1 - January, Wednesday 16 of 2019
+
+	We introduced ourselves, around 9:40pm we were 9 people setting up our means of
+communication and organization for the duration of the 4 project iterations. We used GitHub
+as our online repository and Slack as our means of communication. We talked about how we
+should divide each other into groups of 3 or 4, and decided that my responsibility for the
+first iteration was going to be a documenter with 2 other team members. Among our 
+conversation in the lab, we discussed things such as the project, the game structure and its
+rules, each other's expertise, how many times a week we should see each other to discuss any
+progress or questions we might have, our tasks for the following meeting, and mostly helping
+each other to be able to work individually and cooperatively when needed.
+
+	An integrant of the team, Kevin McAllister, familiarized us with GitHub's & Slack
+functionalities, from setting up the softwares in our computers, to doing our first pull
+request.
+
+	Overall a great first experience working with a group of 12, I was able to feel the
+positiviness in our group. My hopes for this semester are to get as close as I can to the A+,
+and not wanting to kill anyone in my group by the end of the semester.
+
+My tasks for this week:
+1) Familiarize myself with the game a little more.
+2) Learn Latex.
+Optional) Make a quick tutorial or cheatsheet for the rest of my team-mates.
+
+__
+
+Professor Gregory Butler
+COMP 354 - Software Engineering			
+Diary #2 - Tuesday 22, January of 2019
+We met in the 8th floor of the H building to answer any possible questions from the
+documentation. We also got introduced to 2 new members of the team and helped them to
+get on track so that we had something to work on the following day (Wednesday 23rd).
+We read the outline of the documentation report and told the new team members to get
+familiarized with LaTeX and how Code Names works.
+
+__
+
+Professor Gregory Butler
+COMP 354 - Software Engineering			
+Diary #3 - Wednesday 23, January of 2019
+
+We separated each other into our respective groups, and introduced ourselves to our new last
+member of the team. We made sure we were all familiar with LaTeX & the game. We divided the
+outline of the documentation report in 2 to have a manageable workload for the week, and 
+distributed the bullet points of the outline among the documenters. We didn't know what
+eveything in the outline meant, so we tried to define what each part would be, and formulated
+questions for the next class in case we got anything wrong in our brainstorm session.
+
+__
+
+Professor Gregory Butler
+COMP 354 - Software Engineering			
+Diary #4 - Wednesday 30, January of 2019
+
+I arrived a couple of hours earlier to the lab to get my act together and keep designing the 
+domain model. Lab time started at 8:30pm since the team decided to meet earlier during lab
+hours for the duration of the semester. The TA checked if our team was on track, he said
+everything was fine so far and explained any doubts we had. At the end of the TA's explanation 
+we got to ask questions about the documentations. I figured out how to design the domain 
+model & by the of the meeting we distributed the other half of the documentation outline to
+have it ready by next Tuesday (one day before our Demo). Annes, the organizer, arranged a
+meeting for the documenters so that we could put things together without having to do it during
+Demo time.

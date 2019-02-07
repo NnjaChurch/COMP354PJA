@@ -1,5 +1,6 @@
 David Boivin (40004941) Diary
 
+<<<<<<< Updated upstream
 
 January 16, 2019: 
 	Attended first team meeting at 21:30 in room H-903. My role for Iteration 1 is 
@@ -13,11 +14,24 @@ January 17, 2019:
 	implementation in application using Command Pattern and Observer Pattern. Issues 
 	uploading to Github repository, currently in communication with Kevin to resolve
 	issue. 
+=======
+January 16, 2019:
+	Attended first team meeting at 21:30 in room H-903. My role for Iteration 1 is view coder 
+	and I recommeded that we use the JavaFX API . Additionaly the team and I shared contact 
+	information and as much as possible tried to link ourselves up through our communication plateform, 
+	Slack, and our version control plateform, Github.
+
+January 17, 2019: 
+	Worked on and completed a basic template of how I invision the MVC model implementation in application 
+	using Command Pattern and Observer Pattern. Issues uploading to Github repository, currently in 
+	communication with Kevin to resolve issue.
+>>>>>>> Stashed changes
 
 January 18, 2019: 
 	Drew up basic GUI hierachy.
 
 January 19, 2019: 
+<<<<<<< Updated upstream
 	Started work implementing container classes (aka Panes in JavaFX terms) BoardView,
 	FieldView, HQView and SafeHouseView. Also began work on CardView and it's 
 	Observer implementation. Work has been done locally since the github issue has 
@@ -59,7 +73,6 @@ February 5th, 2019:
 February 6th, 2019: 
 	Created end game screen and helped work out some bugs with the connection 
 	mechanism between view and controller. Also uploaded diary to project repository.
-	
 	
 	
 	

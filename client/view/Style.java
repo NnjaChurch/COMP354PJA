@@ -18,14 +18,14 @@ import javafx.scene.text.FontWeight;
  * An interface with all the styling constants for the program.
  * Provides an easy place to look for and modify styling constants.
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public interface Style {
 
 	//-----------------   Window Styling   -----------------
 	public static final double WINDOW_SIZE_WIDTH = 1000.0;
 	public static final double WINDOW_SIZE_HEIGHT = 800.0;
-	
+
 	public static final Color WINDOW_COLOR_BACKGROUND_DARK = Color.color(0.09804, 0.09804, 0.09804);
 	public static final Color WINDOW_COLOR_BACKGROUND_LIGHT = Color.color(0.9, 0.9, 0.9);
 	public static final Color WINDOW_COLOR_BORDER = Color.color(0.3, 0.3, 0.3);

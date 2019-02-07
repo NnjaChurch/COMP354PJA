@@ -19,7 +19,6 @@ public class KeyCard {
         this.mKeyCardNumber = keyCardNumber;
         this.mBlueFirst = pickFirstTeam();
         this.mKeyContent = generateKeyCard();
-        // System.out.println(this.toString() + this.mBlueFirst);
     }
 
     // Getters
@@ -33,19 +32,6 @@ public class KeyCard {
 
     public CardType[] getKeyContent() {
         return this.mKeyContent.clone();
-    }
-
-    // Setters
-    public void setKeyCardNumber(int keyCardNumber) {
-        this.mKeyCardNumber = keyCardNumber;
-    }
-
-    public void setBlueFirst(boolean blueFirst) {
-        this.mBlueFirst = blueFirst;
-    }
-
-    public void setKeyContent(CardType[] keyContent) {
-        this.mKeyContent = keyContent.clone();
     }
 
     // Methods
@@ -90,6 +76,10 @@ public class KeyCard {
                     // Loop to try different CardTypes
                     while(!placed) {
                         temp = pickCardType(r);
+                        if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
+                            keyCardContent[n] = CardType.YELLOW;
+                            placed = true;
+                        }
                         if(temp == CardType.BLACK && assassinLeft != 0) {
                             keyCardContent[n] = temp;
                             assassinLeft--;
@@ -103,10 +93,6 @@ public class KeyCard {
                         if(temp == CardType.RED && redLeft != 0) {
                             keyCardContent[n] = temp;
                             redLeft--;
-                            placed = true;
-                        }
-                        if(assassinLeft == 0 && blueLeft == 0 && redLeft == 0) {
-                            keyCardContent[n] = CardType.YELLOW;
                             placed = true;
                         }
                     }

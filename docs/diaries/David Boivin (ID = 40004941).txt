@@ -1,0 +1,78 @@
+David Boivin (40004941) Diary
+
+<<<<<<< Updated upstream
+
+January 16, 2019: 
+	Attended first team meeting at 21:30 in room H-903. My role for Iteration 1 is 
+	view coder and I recommeded that we use the JavaFX API . Additionaly the team 
+	and I shared contact information and as much as possible tried to link ourselves
+	up through our communication plateform, Slack, and our version control 
+	plateform, Github.
+
+January 17, 2019: 
+	Worked on and completed a basic template of how I invision the MVC model 
+	implementation in application using Command Pattern and Observer Pattern. Issues 
+	uploading to Github repository, currently in communication with Kevin to resolve
+	issue. 
+=======
+January 16, 2019:
+	Attended first team meeting at 21:30 in room H-903. My role for Iteration 1 is view coder 
+	and I recommeded that we use the JavaFX API . Additionaly the team and I shared contact 
+	information and as much as possible tried to link ourselves up through our communication plateform, 
+	Slack, and our version control plateform, Github.
+
+January 17, 2019: 
+	Worked on and completed a basic template of how I invision the MVC model implementation in application 
+	using Command Pattern and Observer Pattern. Issues uploading to Github repository, currently in 
+	communication with Kevin to resolve issue.
+>>>>>>> Stashed changes
+
+January 18, 2019: 
+	Drew up basic GUI hierachy.
+
+January 19, 2019: 
+<<<<<<< Updated upstream
+	Started work implementing container classes (aka Panes in JavaFX terms) BoardView,
+	FieldView, HQView and SafeHouseView. Also began work on CardView and it's 
+	Observer implementation. Work has been done locally since the github issue has 
+	not been resolved, communication still in process.
+
+January 23, 2019: 
+	Attendend second team meeting in H-903 at 20:30. We finalized specific team
+	member tasks, then split into groups of coders and documenters. The coders 
+	showed the template code each of us have created (for our respective parts), 
+	discussed an overview of the different patterns we are required to use (Observable, 
+	Command, Strategy and MVC), and how to link each part of the MVC pattern. Finally 
+	we came up with a rough draft of the mechanics behind the Messanger solution, 
+	which combines both the observable pattern and command pattern. At the end of the 
+	meeting we made sure to sync up with the documentation team and explain our plans 
+	moving forward. Kevin was kind enough to stay behind with me to work out the github 
+	issues I was having uploading my documents.
+
+January 29th, 2019: 
+	Finished building structure for ui. changed Safe HouseView to a ToolBar names 
+	controlbar. Implemented base styling for hq element, field and controlbar. waiting
+	on final decision on connection points to Controller and Model elements.
+
+January 30th, 2019: 
+	Attended team meeting in H903 at 20:30. Group discussion and finalization of 
+	deadlines for source code, documents and minutes/diaries. Coders discussed 
+	wordbase, linkage of view and control parts through (observable inbox/outbox) 
+	including different message types and the flow of program initialization (
+	constructing and linking different MVC parts). TA said we were on the right track
+	(with the exception of guesses).
+
+January 31st-February 01st, 2019: 
+	Finished up styling of gui. Waiting on finalized Message, Reply, Inbox and 
+	Outbox classes.
+	
+February 5th, 2019: 
+	Implemented linking mechanism through Inbox and Outbox for Controller to receive 
+	inputs from gui and replies with changes for gui to make, respectively.
+	
+February 6th, 2019: 
+	Created end game screen and helped work out some bugs with the connection 
+	mechanism between view and controller. Also uploaded diary to project repository.
+	
+	
+	

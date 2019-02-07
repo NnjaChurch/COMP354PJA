@@ -13,7 +13,7 @@ import model.CardType;
  * Provides method to change it's color.
  * 
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public class CardView extends Button {
 	
@@ -85,7 +85,7 @@ public class CardView extends Button {
 	/**
 	 * Handles when the mouse enters into the card
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 */
 	private class EnterHandler implements EventHandler<MouseEvent>{
 
@@ -100,7 +100,7 @@ public class CardView extends Button {
 	 * Handles when the mouse leaves the card
 	 * (returns to default)
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 */
 	private class ExitHandler implements EventHandler<MouseEvent> {
 

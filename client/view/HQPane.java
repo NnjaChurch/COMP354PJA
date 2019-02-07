@@ -1,7 +1,5 @@
 package view;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -14,7 +12,7 @@ import javafx.scene.layout.VBox;
  * to the score of each team. It also provides an indicator of who's turn it is. <br>
  * This method provides useful methods to update scores, clues and turn.
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public class HQPane extends HBox {
 
@@ -79,7 +77,7 @@ public class HQPane extends HBox {
 	 * Container which represents each team in the game, one by blue (on the left)
 	 * and the other by red (on  the right).
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 */
 	private class TeamPane extends HBox{
 		
@@ -168,7 +166,7 @@ public class HQPane extends HBox {
 	 * The Clue element which displays the "spymaster's" clue (word referencing Card(s) in the Field).
 	 * This class is only used to set the styling based on team.
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 *
 	 */
 	private class Clue extends Label{
@@ -186,9 +184,6 @@ public class HQPane extends HBox {
 			setPadding(Style.HQ_CLUE_PADDING);
 			setFont(Style.WINDOW_FONT_DEFAULT);
 			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-			
-			//default text (just for fun (... and testing))
-			setText("Welcome.");
 		}
 	}
 	
@@ -196,7 +191,7 @@ public class HQPane extends HBox {
 	 * The Score element which displays the team's score countdown to 0
 	 * This class is only used to set the styling based on team.
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 */
 	private class Score extends Label {
 		
@@ -227,7 +222,7 @@ public class HQPane extends HBox {
 	 * The Image element which displays the team's "spymaster" in red or blue.
 	 * This class is only used to set the styling based on team.
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 */
 	private class SpyImage extends ImageView{
 		

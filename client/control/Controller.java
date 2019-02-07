@@ -7,7 +7,9 @@
  */
 package control;
 
+import javafx.scene.Scene;
 import model.*;
+import view.BoardPane;
 
 import java.util.*;
 
@@ -19,14 +21,24 @@ public class Controller implements Observer {
     private ArrayList<Message> mMessageLog;
     private KeyCard[] mKeyCardCollection;
     private GameBoard mGameBoard;
+    private Inbox mInbox;
+    private Outbox mOutbox;
+    private Scene mGameScene;
 
     // Constructor
-    public Controller(KeyCard[] keyCardCollection, Outbox outbox) {
+    public Controller(KeyCard[] keyCardCollection, Inbox inbox, Outbox outbox) {
         this.mMessageStack = new Stack<>();
         this.mUndoStack = new Stack<>();
         this.mMessageLog = new ArrayList<>();
         this.mKeyCardCollection = keyCardCollection;
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
+        this.mInbox = inbox;
+        this.mOutbox = outbox;
+    }
+
+    // Setter
+    public void setGameScene(Scene gameScene) {
+        this.mGameScene = gameScene;
     }
 
     // Getters
@@ -38,10 +50,32 @@ public class Controller implements Observer {
         return mGameBoard.getCards();
     }
 
+    public ArrayList<Message> getMessageLog() {
+        return this.mMessageLog;
+    }
+
     // Methods
     private KeyCard selectKeyCard(KeyCard[] keyCardCollection) {
         Random r = new Random();
         return keyCardCollection[r.nextInt(keyCardCollection.length)];
+    }
+
+    private void startNewGame() {
+        // Wipe Stacks and Logs
+        this.mMessageStack.clear();
+        this.mUndoStack.clear();
+        this.mMessageLog.clear();
+
+        // Create new Instance of Game
+        this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), mOutbox);
+
+        // Create and update Scene
+        BoardPane newBoardPane = new BoardPane(mGameBoard.getCards(), mGameBoard.getKeyCard(), mInbox);
+        this.mGameScene.setRoot(newBoardPane);
+
+        // Rebind Observer
+        this.mOutbox.deleteObservers();
+        this.mOutbox.addObserver(newBoardPane);
     }
 
     @Override
@@ -56,7 +90,7 @@ public class Controller implements Observer {
 
             // Handle Message
             if(type == MessageType.NEW_GAME) {
-                // TODO: CALL FUNCTION TO REBUILD GAME
+                startNewGame();
             }
             if(type == MessageType.SELECT) {
 
@@ -64,7 +98,7 @@ public class Controller implements Observer {
                 Card card = mGameBoard.getCard(cardAffected);
 
                 // Check if Card is already revealed
-                if(card.isRevealed() == false) {
+                if(!card.isRevealed()) {
 
                     // Flush Undo stack
                     mUndoStack.clear();
@@ -78,76 +112,82 @@ public class Controller implements Observer {
                     // Reveal Card (will notify Observer)
                     card.revealCard();
                 }
-                else {
-                    // Do Nothing
-                }
+                // Otherwise do nothing
             }
             if(type == MessageType.NEXT) {
 
                 // Flush Undo Stack
                 mUndoStack.clear();
-                // TODO: SELECT EITHER: RANDOM OR NEXT
-                cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                // cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
                 cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
 
-                // Get Card Object
-                Card card = mGameBoard.getCard(cardAffected);
+                // Check if Card was selected (-1 mean no more cards)
 
-                // Card will guarantee be not revealed (due to the way the strategy is coded)
+                if (cardAffected != -1) {
+                    // Get Card Object
+                    Card card = mGameBoard.getCard(cardAffected);
 
-                // Flush Undo Stack
-                mUndoStack.clear();
+                    // Flush Undo Stack
+                    mUndoStack.clear();
 
-                // Push Message onto Message stack
-                mMessageStack.push(new Message(type, cardAffected));
+                    // Push Message onto Message stack
+                    mMessageStack.push(new Message(type, cardAffected));
 
-                // Add Message to Message log
-                mMessageLog.add(new Message(type, cardAffected));
+                    // Add Message to Message log
+                    mMessageLog.add(new Message(type, cardAffected));
 
-                // Reveal Card (will notify Observer)
-                card.revealCard();
+                    // Reveal Card (will notify Observer)
+                    card.revealCard();
+                }
+                else {
+                    // Do nothing
+                }
             }
             if(type == MessageType.UNDO) {
 
-                // Get last Message off Message stack
-                Message undoMessage = mMessageStack.pop();
+                if (!mMessageStack.isEmpty()) {
+                    // Get last Message off Message stack
+                    Message undoMessage = mMessageStack.pop();
 
-                // Unpack Message
-                MessageType undoType = undoMessage.getMessageType();
-                int undoCardAffected = undoMessage.getCardAffected();
+                    // Unpack Message
+                    MessageType undoType = undoMessage.getMessageType();
+                    int undoCardAffected = undoMessage.getCardAffected();
 
-                // Get Card object
-                Card undoCard = mGameBoard.getCard(undoCardAffected);
+                    // Get Card object
+                    Card undoCard = mGameBoard.getCard(undoCardAffected);
 
-                // Push the Undo onto the Undo stack
-                mUndoStack.push(new Message(undoType, undoCardAffected));
+                    // Push the Undo onto the Undo stack
+                    mUndoStack.push(new Message(undoType, undoCardAffected));
 
-                // Add Message to Message log
-                mMessageLog.add(new Message(undoType, undoCardAffected));
+                    // Add Message to Message log
+                    mMessageLog.add(new Message(undoType, undoCardAffected));
 
-                // Hide Card (will notify Observer)
-                undoCard.hideCard();
+                    // Hide Card (will notify Observer)
+                    undoCard.hideCard();
+                }
             }
             if(type == MessageType.REDO) {
 
-                // Get last Message off Undo stack
-                Message redoMessage = mUndoStack.pop();
+                if (!mUndoStack.isEmpty()) {
+                    // Get last Message off Undo stack
+                    Message redoMessage = mUndoStack.pop();
 
-                // Unpack Message
-                MessageType redoType = redoMessage.getMessageType();
-                int redoCardAffected = redoMessage.getCardAffected();
+                    // Unpack Message
+                    MessageType redoType = redoMessage.getMessageType();
+                    int redoCardAffected = redoMessage.getCardAffected();
 
-                // Get Card object
-                Card redoCard = mGameBoard.getCard(redoCardAffected);
+                    // Get Card object
+                    Card redoCard = mGameBoard.getCard(redoCardAffected);
 
-                // Push the Redo onto the Message stack
-                mMessageStack.push(new Message(redoType, redoCardAffected));
+                    // Push the Redo onto the Message stack
+                    mMessageStack.push(new Message(redoType, redoCardAffected));
 
-                // Add Message to Message log
-                mMessageLog.add(new Message(redoType, redoCardAffected));
+                    // Add Message to Message log
+                    mMessageLog.add(new Message(redoType, redoCardAffected));
 
-                // Reveal Card (will notify Observer)
-                redoCard.revealCard();
+                    // Reveal Card (will notify Observer)
+                    redoCard.revealCard();
+                }
             }
         }
     }

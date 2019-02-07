@@ -20,7 +20,7 @@ import model.KeyCard;
  * NOTE: Uses the same colors as the cards (for consistency)<br>
  * NOTE: uses BoardPane.COLUMN_NUMBER to gereate the proper grid.
  *  
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public class KeycardPopup extends Popup{
 	
@@ -81,7 +81,7 @@ public class KeycardPopup extends Popup{
 	/**
 	 * Grid which displays the keycard cardtypes.
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 */
 	public class KeycardPane extends GridPane {
 		
@@ -151,7 +151,7 @@ public class KeycardPopup extends Popup{
 	/**
 	 * Label to show the score
 	 * 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 *
 	 */
 	private class StartLabel extends Label {
@@ -177,7 +177,7 @@ public class KeycardPopup extends Popup{
 	
 	/**
 	 * Button with closing the keycard window as its only function 
-	 * @author David Boivin (absynth)
+	 * @author David Boivin (absynth) ID = 40004941
 	 *
 	 */
 	private class CloseButton extends Button {

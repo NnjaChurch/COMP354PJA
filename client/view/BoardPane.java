@@ -21,7 +21,7 @@ import model.KeyCard;
  * them to the Controller object to process user action.<br>
  * Receives instruction through the Observer interface and changes the inner elements accordingly.
  * 
- * @author David Boivin (absynth)
+ * @author David Boivin (absynth) ID = 40004941
  */
 public class BoardPane extends VBox implements Observer{
 	
@@ -82,7 +82,6 @@ public class BoardPane extends VBox implements Observer{
 		// handles each kind of request
 		switch(r.getReplyType()) {
 		case UPDATE:
-			
 			mHQ.setTurn(r.getCurrentTurn());
 			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());
@@ -97,16 +96,12 @@ public class BoardPane extends VBox implements Observer{
 
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
 
-			// TODO: END THE GAME
-			/*
-			Ending the game should reveal all cards, display game over, allow new game or quit
-			 */
+			EndPopup endPopup = new EndPopup(r, mInbox);
+			endPopup.show(getScene().getWindow());
 			break;
 		}
 	}
-	
-	
-	
+
 	// ----------------------- Card Handler -------------------------
 	
 	/**
@@ -125,9 +120,6 @@ public class BoardPane extends VBox implements Observer{
 		
 	}
 	
-	
-	
-	
 	// ----------------------- Control Handlers ---------------------
 	
 	
@@ -136,7 +128,6 @@ public class BoardPane extends VBox implements Observer{
 		@Override
 		public void handle(ActionEvent event) {
 			mPopup.show((Stage) getScene().getWindow());
-			
 		}
 	}
 	

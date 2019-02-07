@@ -82,7 +82,6 @@ public class BoardPane extends VBox implements Observer{
 		// handles each kind of request
 		switch(r.getReplyType()) {
 		case UPDATE:
-			System.out.println("UPDATE TYPE RECEIVED");
 			mHQ.setTurn(r.getCurrentTurn());
 			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());
@@ -91,7 +90,6 @@ public class BoardPane extends VBox implements Observer{
 			break;
 			
 		case END:
-			System.out.println("END TYPE RECEIVED");
 			mHQ.setTurn(r.getCurrentTurn());
 			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());

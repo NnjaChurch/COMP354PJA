@@ -49,6 +49,8 @@ public class EndPopup extends Popup{
 		buttonContainer.getChildren().addAll(button, quit);
 		
 		root.getChildren().addAll(title, display, buttonContainer);
+
+		getContent().add(root);
 	}
 	
 	private class WinnerTitle extends Label{
@@ -93,7 +95,8 @@ public class EndPopup extends Popup{
 				break;
 
 			case BLACK:
-				setText("The assasin has found been revealed");
+				setText("The assassin has been revealed");
+				break;
 			case YELLOW:
 				//should never happen
 				setText("A bystander has won somehow?");

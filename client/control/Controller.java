@@ -74,6 +74,7 @@ public class Controller implements Observer {
         this.mGameScene.setRoot(newBoardPane);
 
         // Rebind Observer
+        this.mOutbox.deleteObservers();
         this.mOutbox.addObserver(newBoardPane);
     }
 

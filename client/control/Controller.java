@@ -36,9 +36,11 @@ public class Controller implements Observer {
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
         this.mInbox = inbox;
         this.mOutbox = outbox;
+        this.mBlueRandom = true;
+        this.mRedRandom = true;
     }
 
-    // Setter
+    // Setters
     public void setGameScene(Scene gameScene) {
         this.mGameScene = gameScene;
     }

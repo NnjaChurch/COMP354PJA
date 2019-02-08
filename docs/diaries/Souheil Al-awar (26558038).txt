@@ -64,3 +64,16 @@ model & by the of the meeting we distributed the other half of the documentation
 have it ready by next Tuesday (one day before our Demo). Annes, the organizer, arranged a
 meeting for the documenters so that we could put things together without having to do it during
 Demo time.
+
+__
+
+Professor Gregory Butler
+COMP 354 - Software Engineering			
+Diary #5 - Wednesday 6, February of 2019
+
+I arrived prepared to the lab at 8:45pm, my team was already sitting down doing work. We were
+supposed to demo to the TA today, but apparently he's not supposed to grade our demo, so we just 
+continued doing work. I started my second Domain Model today and finished the first one over the 
+last weekend in a coffee shop with a cute girl I have a crush on. This second domain model is
+essentially the same as the other one, but with attributes. I can definately tell anyone now how
+the game works now.

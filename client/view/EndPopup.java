@@ -42,11 +42,16 @@ public class EndPopup extends Popup{
 		//create internal element
 		WinnerTitle title = new WinnerTitle(reply.getCurrentTurn());
 		MethodDisplay display = new MethodDisplay(reply.getCardType());
-		NewGameButton button = new NewGameButton();
-		QuitButton quit = new QuitButton();
+		ControlButton newGame = new ControlButton("New Game");
+		ControlButton quit = new ControlButton("Quit");
+		
+		//sets button actions
+		newGame.setOnAction(new NewHandler());	//TODO update 
+		quit.setOnAction(new QuitHandler());
+		
 		
 		HBox buttonContainer = new HBox();
-		buttonContainer.getChildren().addAll(button, quit);
+		buttonContainer.getChildren().addAll(newGame, quit);
 		
 		root.getChildren().addAll(title, display, buttonContainer);
 
@@ -104,195 +109,34 @@ public class EndPopup extends Popup{
 		}
 	}
 	
-	private class NewGameButton extends Button{
-		
-		public NewGameButton() {
-			super("New Game");
-			
-			//button styling
-			setPrefHeight(Style.POPUP_CLOSE_HEIGHT);
-			setMinWidth(Style.POPUP_CLOSE_WIDTH);
-			setBorder(Style.POPUP_CLOSE_BORDER_DEFAULT);
-			setFont(Style.WINDOW_FONT_DEFAULT);
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-			
-			VBox.setMargin(this, Style.POPUP_CLOSE_MARGIN);
-			
-			//setting event handlers
-			setOnAction(new CloseHandler());
-			setOnMouseEntered(new EnterHandler());
-			setOnMouseExited(new ExitHandler());
-			setOnMousePressed(new PressHandler());
-			setOnMouseReleased(new ReleaseHandler());
-		}
-		
-		// ---- style helper methods (for handlers)
-		
-		private void defaultStyle() {
-			setBorder(Style.POPUP_CLOSE_BORDER_DEFAULT);
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		private void pressedStyle() {
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_PRESSED);
-			setBorder(Style.POPUP_CLOSE_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_DARK);
-		}
-		
-		private void enteredStyle() {
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setBorder(Style.POPUP_CLOSE_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		
-		//closes the popup and sends a New_GAME type Message
-		private class CloseHandler implements EventHandler<ActionEvent>{
+	/**
+	 * Handler which sends a initiates a New Game popup for a user to
+	 * choose AI protocol
+	 * 
+	 * @author David Boivin (absynth) ID = 40004941
+	 */
+	private class NewHandler implements EventHandler<ActionEvent>{
 
-			@Override
-			public void handle(ActionEvent event) {
-				mInbox.sendMessage(new Message(MessageType.NEW_GAME, -1));
-				hide();
-			}
-			
+		@Override
+		public void handle(ActionEvent event) {
+			mInbox.sendMessage(new Message(MessageType.NEW_GAME, -1));
+			hide();
 		}
-		
-		//handles mouse entered event
-		private class EnterHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				enteredStyle();
-			}
-			
-		}
-		
-		//handles mouse exit event (back to default)
-		private class ExitHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}
-			
-		}
-		
-		//handles mouse press event
-		private class PressHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				pressedStyle();
 				
-			}
-			
-		}
-		
-		//handles mouse release event (back to default)
-		private class ReleaseHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}	
-		}
 	}
 	
-	private class QuitButton extends Button{
-		
-		public QuitButton() {
-			super("Quit");
-			
-			//button styling
-			setPrefHeight(Style.POPUP_CLOSE_HEIGHT);
-			setMinWidth(Style.POPUP_CLOSE_WIDTH);
-			setBorder(Style.POPUP_CLOSE_BORDER_DEFAULT);
-			setFont(Style.WINDOW_FONT_DEFAULT);
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-			
-			VBox.setMargin(this, Style.POPUP_CLOSE_MARGIN);
-			
-			//setting event handlers
-			setOnAction(new CloseHandler());
-			setOnMouseEntered(new EnterHandler());
-			setOnMouseExited(new ExitHandler());
-			setOnMousePressed(new PressHandler());
-			setOnMouseReleased(new ReleaseHandler());
-		}
-		
-		// ---- style helper methods (for handlers)
-		
-		private void defaultStyle() {
-			setBorder(Style.POPUP_CLOSE_BORDER_DEFAULT);
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		private void pressedStyle() {
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_PRESSED);
-			setBorder(Style.POPUP_CLOSE_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_DARK);
-		}
-		
-		private void enteredStyle() {
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setBorder(Style.POPUP_CLOSE_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		
-		//closes the popup and shuts the program down
-		private class CloseHandler implements EventHandler<ActionEvent>{
+	/**
+	 * Handler which will shut the application down.
+	 * 
+	 * @author David Boivin (absynth) ID = 40004941
+	 */
+	private class QuitHandler implements EventHandler<ActionEvent> {
 
-			@Override
-			public void handle(ActionEvent event) {
-				hide();
-				System.exit(0);
-			}
-			
-		}
-		
-		//handles mouse entered event
-		private class EnterHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				enteredStyle();
-			}
-			
-		}
-		
-		//handles mouse exit event (back to default)
-		private class ExitHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}
-			
-		}
-		
-		//handles mouse press event
-		private class PressHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				pressedStyle();
-				
-			}
-			
-		}
-		
-		//handles mouse release event (back to default)
-		private class ReleaseHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}	
+		@Override
+		public void handle(ActionEvent event) {
+			hide();
+			System.exit(0);
 		}
 	}
 }
+

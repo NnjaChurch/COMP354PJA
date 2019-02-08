@@ -1,12 +1,15 @@
 package view;
 
+import control.Inbox;
+import control.Message;
+import control.MessageType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
+import model.KeyCard;
 
 /**
  * A container which has all the user control buttons for the program.
@@ -16,171 +19,140 @@ import javafx.scene.layout.Priority;
  * @author David Boivin (absynth) ID = 40004941
  */
 public class ControlBar extends HBox{
-
-	private final ControlButton mNew;
-	private final ControlButton mNext;
-	private final ControlButton mUndo;
-	private final ControlButton mRedo;
-	private final ControlButton mKeycard;
+	
+	private Inbox mInbox;
+	private KeycardPopup mPopup;
 	
 	/**
 	 * Constructor which creates inner elements and set the styling for
 	 * the control bar.
 	 */
-	public ControlBar() {
+	public ControlBar(Inbox inbox, KeyCard k) {
 		super();
 		
+		mInbox = inbox;
+		mPopup = new KeycardPopup(k);
+		
 		//control bar styling
-		setPrefHeight(Style.CONTROL_HEIGHT);
-		setBackground(Style.CONTROL_BACKGROUND);
-		setBorder(Style.CONTROL_BORDER);
+		setPadding(Style.CONTROL_PADDING);
 		
 		
 		//creates inner elements (control buttons)
-		mNew = new ControlButton("New Game");
-		mNext = new ControlButton("Next Move");
-		mUndo = new ControlButton ("Undo");
-		mRedo = new ControlButton("Redo");
-		mKeycard = new ControlButton("View Keycard");
+		ControlButton newButton = new ControlButton("New Game");
+		ControlButton nextButton = new ControlButton("Next Move");
+		ControlButton undoButton = new ControlButton ("Undo");
+		ControlButton redoButton = new ControlButton("Redo");
+		ControlButton keycardButton = new ControlButton("Keycard");
+		ControlButton quitButton = new ControlButton("Quit");
+		
+		//set button actions
+		newButton.setOnAction(new NewGameHandler());
+		nextButton.setOnAction(new NextHandler());
+		undoButton.setOnAction(new UndoHandler());
+		redoButton.setOnAction(new RedoHandler());
+		keycardButton.setOnAction(new KeycardHandler());
+		quitButton.setOnAction(new QuitHandler());
 		
 		//buffer setup
 		Pane buff1 = new Pane();
 		Pane buff2 = new Pane();
+		Pane buff3 = new Pane();
+		Pane buff4 = new Pane();
+		Pane buff5 = new Pane();
+		
+		buff3.setPrefWidth(Style.CONTROL_SPACING);
+		buff4.setPrefWidth(Style.CONTROL_SPACING);
+		buff5.setPrefWidth(Style.CONTROL_SPACING);
+		
 		HBox.setHgrow(buff1, Priority.ALWAYS);
 		HBox.setHgrow(buff2, Priority.ALWAYS);
 		
-		this.getChildren().addAll(mNext, buff1, mUndo, mRedo, buff2, mKeycard, mNew);
+		this.getChildren().addAll(nextButton, buff3, keycardButton, buff1, undoButton, buff4,
+				redoButton, buff2, newButton, buff5, quitButton);
 		
 	}
 	
 	
 	// ------------------- Handler Linking methods -----------------
 	
-	public void setNewGameHandler(EventHandler<ActionEvent> h) {
-		mNew.setOnAction(h);
+	/**
+	 * sends a new Game message through inbox
+	 * 
+	 * @author David Boivin (absynth) ID = 40004941
+	 *
+	 */
+	private class NewGameHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			mInbox.sendMessage(new Message(MessageType.NEW_GAME, -1));
+		}
 	}
 	
-	public void setNextHandler(EventHandler<ActionEvent> h) {
-		mNext.setOnAction(h);
-	}
-	
-	public void setUndoHandler(EventHandler<ActionEvent> h) {
-		mUndo.setOnAction(h);
-	}
-	
-	public void setRedoHandler(EventHandler<ActionEvent> h ) {
-		mRedo.setOnAction(h);
-	}	
-	
-	public void setKeycardHandler(EventHandler<ActionEvent> h) {
-		mKeycard.setOnAction(h);
-	}
-	
-	// ------------------ Private Inner Elements ---------------------
 	
 	/**
-	 * Private inner class designed to allow for consistency across all buttons in control bar
+	 * sends an Undo message through inbox
 	 * 
 	 * @author David Boivin (absynth) ID = 40004941
 	 */
-	private class ControlButton extends Button{
-		
-		public ControlButton(String text) {
-			super(text);
-			
-			//control button styling
-			setPrefHeight(Style.CONTROL_ELEMENT_HEIGHT);
-			setPrefWidth(Style.CONTROL_ELEMENT_WIDTH);
-			setMargin(this, Style.CONTROL_ELEMENT_MARGIN);
-			setFont(Style.WINDOW_FONT_DEFAULT);
-			defaultStyle();
-			
-			//default mouse event handler
-			setOnMousePressed(new PressedHandler());
-			setOnMouseReleased(new ReleasedHandler());
-			setOnMouseEntered(new EnterHandler());
-			setOnMouseExited(new ExitHandler());
-			
-		}
-		
-		// ---- style helper methods (for handlers)
-		
-		private void defaultStyle() {
-			setBackground(Style.CONTROL_ELEMENT_BACKGROUND_DEFAULT);
-			setBorder(Style.CONTROL_ELEMENT_BORDER_DEFAULT);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		private void pressedStyle() {
-			setBackground(Style.CONTROL_ELEMENT_BACKGROUND_PRESSED);
-			setBorder(Style.CONTROL_ELEMENT_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_DARK);
-		}
-		
-		private void enteredStyle() {
-			setBackground(Style.CONTROL_ELEMENT_BACKGROUND_DEFAULT);
-			setBorder(Style.CONTROL_ELEMENT_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		// ---- Button Handlers ----
-		
-		/**
-		 * Handles when the mouse enters a buttons region
-		 * 
-		 * @author David Boivin (absynth) ID = 40004941
-		 */
-		private class EnterHandler implements EventHandler<MouseEvent>{
+	private class UndoHandler implements EventHandler<ActionEvent> {
 
-			@Override
-			public void handle(MouseEvent event) {
-				enteredStyle();
-			}
-			
+		@Override
+		public void handle(ActionEvent event) {
+			mInbox.sendMessage(new Message(MessageType.UNDO, -1));
 		}
-		
-		/**
-		 * Handles when the mouse exits a buttons region
-		 * (brings button back to default)
-		 * 
-		 * @author David Boivin (absynth) ID = 40004941
-		 */
-		private class ExitHandler implements EventHandler<MouseEvent> {
+	}
+	
+	
+	/**
+	 * sends a redo message through inbox
+	 *
+	 * @author David Boivin (absynth) ID = 40004941
+	 */
+	private class RedoHandler implements EventHandler<ActionEvent> {
 
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}
-			
+		@Override
+		public void handle(ActionEvent event) {
+			mInbox.sendMessage(new Message(MessageType.REDO, -1));
 		}
-		
-		/**
-		 * Handles when the button is pressed.
-		 * 
-		 * @author David Boivin (absynth) ID = 40004941
-		 */
-		private class PressedHandler implements EventHandler<MouseEvent>{
+	}
+	
+	/**
+	 * sends a next message through inbox
+	 * 
+	 * @author David Boivin (absynth) ID = 40004941
+	 */
+	private class NextHandler implements EventHandler<ActionEvent> {
 
-			@Override
-			public void handle(MouseEvent event) {
-				pressedStyle();
-			}
-			
+		@Override
+		public void handle(ActionEvent event) {
+			mInbox.sendMessage(new Message(MessageType.NEXT, -1));
 		}
-		
-		/**
-		 * Handles when the button is released
-		 * (brings button back to default)
-		 * 
-		 * @author David Boivin (absynth) ID = 40004941
-		 */
-		private class ReleasedHandler implements EventHandler<MouseEvent>{
+	}
+	
+	/**
+	 * Handler which displays the keycard popup.
+	 * 
+	 * @author David Boivin (absynth) ID = 40004941
+	 */
+	private class KeycardHandler implements EventHandler<ActionEvent> {
 
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}
-			
+		@Override
+		public void handle(ActionEvent event) {
+			mPopup.show((Stage) getScene().getWindow());
+		}
+	}
+	
+	/**
+	 * Handler which exits the game.
+	 * 
+	 * @author David Boivin (absynth) ID = 40004941
+	 */
+	private class QuitHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.exit(0);
 		}
 	}
 }

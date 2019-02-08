@@ -23,8 +23,8 @@ import javafx.scene.text.FontWeight;
 public interface Style {
 
 	//-----------------   Window Styling   -----------------
-	public static final double WINDOW_SIZE_WIDTH = 1000.0;
-	public static final double WINDOW_SIZE_HEIGHT = 800.0;
+	public static final double WINDOW_SIZE_WIDTH = 900.0;
+	public static final double WINDOW_SIZE_HEIGHT = 700.0;
 
 	public static final Color WINDOW_COLOR_BACKGROUND_DARK = Color.color(0.09804, 0.09804, 0.09804);
 	public static final Color WINDOW_COLOR_BACKGROUND_LIGHT = Color.color(0.9, 0.9, 0.9);
@@ -44,12 +44,22 @@ public interface Style {
 	public static final FontWeight WINDOW_FONT_WEIGHT = FontWeight.BOLD;
 	public static final Font WINDOW_FONT_DEFAULT = Font.font(WINDOW_FONT_FAMILY, WINDOW_FONT_WEIGHT, WINDOW_FONT_SIZE_DEFAULT);
 	public static final Font WINDOW_FONT_HEADER = Font.font(WINDOW_FONT_FAMILY, WINDOW_FONT_WEIGHT, WINDOW_FONT_SIZE_HEADER);
+	public static final Background WINDOW_BACKGROUND = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, null, null));
 	
-
+	//----------------   Control Button Styling --------------
+	public static final CornerRadii CONTROL_ELEMENT_CORNER = new CornerRadii(10);
+	public static final int CONTROL_ELEMNENT_HEIGHT = 75;
+	public static final int CONTROL_ELEMENT_WIDTH = 125;
+	public static final Border CONTROL_ELEMENT_BORDER_DEFAULT = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, CONTROL_ELEMENT_CORNER, new BorderWidths(3)));
+	public static final Border CONTROL_ELEMENT_BORDER_ENTERED = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, CONTROL_ELEMENT_CORNER, new BorderWidths(5)));
+	public static final Background CONTROL_ELEMENT_BACKGROUND_DEFAULT = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, CONTROL_ELEMENT_CORNER, null));
+	public static final Background CONTROL_ELEMENT_BACKGROUND_PRESSED = new Background(new BackgroundFill(WINDOW_COLOR_BORDER, CONTROL_ELEMENT_CORNER, null));
+	
+	
 	
 	//-----------------   Card Styling   ---------------------
-	public static final double CARD_WIDTH = 150.0;
-	public static final double CARD_HEIGHT = 100.0;
+	public static final double CARD_WIDTH = 160.0;
+	public static final double CARD_HEIGHT = 80.0;
 	
 	public static final CornerRadii CARD_CORNER = new CornerRadii(5);
 	
@@ -93,7 +103,6 @@ public interface Style {
 	
 	public static final int HQ_IMAGE_WIDTH = 150;
 	public static final int HQ_IMAGE_HEIGHT = 150;
-	//TODO need to change HQ_IMAGE to better looking ones (not pressing at all though)
 	public static final Image HQ_IMAGE_LEFT = new Image("view/incognito-black.png", HQ_IMAGE_WIDTH, HQ_IMAGE_HEIGHT, true, true);
 	public static final Image HQ_IMAGE_RIGHT = new Image("view/incognito-black.png", HQ_IMAGE_WIDTH, HQ_IMAGE_HEIGHT, true, true);
 	
@@ -101,28 +110,14 @@ public interface Style {
 	//-----------------   Field Styling   --------------------
 	public static final double FIELD_GAP_H = 5.0;
 	public static final double FIELD_GAP_V = 5.0;
-	
 	public static final Pos FIELD_ALIGNMENT = Pos.CENTER;
-
 	public static final Insets FIELD_PADDING = new Insets(10.0);
-	
-	public static final Background FIELD_BACKGROUND = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, null, null));
 
 	
 	
 	//-----------------   Controlbar Styling   ------------------
-	public static final int CONTROL_HEIGHT = 75;
-	public static final Background CONTROL_BACKGROUND = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, null, null));
-	public static final Border CONTROL_BORDER = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, null, new BorderWidths(5, 0, 0, 0)));
-
-	public static final int CONTROL_ELEMENT_HEIGHT = CONTROL_HEIGHT;
-	public static final int CONTROL_ELEMENT_WIDTH = 150;
-	public static final Insets CONTROL_ELEMENT_MARGIN = new Insets(0, 0, 0, 0);
-	public static final Border CONTROL_ELEMENT_BORDER_DEFAULT = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, null, new BorderWidths(0, 2, 2, 2)));
-	public static final Border CONTROL_ELEMENT_BORDER_ENTERED = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, null, new BorderWidths(0, 5, 5, 5)));
-	public static final Background CONTROL_ELEMENT_BACKGROUND_DEFAULT = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, null, null));;
-	public static final Background CONTROL_ELEMENT_BACKGROUND_PRESSED = new Background(new BackgroundFill(WINDOW_COLOR_BORDER, null, null));
-	
+	public static final int CONTROL_SPACING = 10;
+	public static final Insets CONTROL_PADDING = new Insets(10);
 	
 	//-----------------   Popup Styling -------------------------
 	public static final Insets POPUP_PADDING = new Insets(30, 75, 30, 75);
@@ -148,13 +143,7 @@ public interface Style {
 	public static final Background POPUP_START_BACKGROUND_BLUE = new Background(new BackgroundFill(WINDOW_COLOR_CARD_BLUE, POPUP_CORNER, null));
 	public static final Background POPUP_START_BACKGROUND_RED = new Background(new BackgroundFill(WINDOW_COLOR_CARD_RED, POPUP_CORNER, null));
 
-	public static final Insets POPUP_CLOSE_MARGIN = new Insets(5, 0, 5, 20);
-	public static final int POPUP_CLOSE_HEIGHT = 75;
-	public static final int POPUP_CLOSE_WIDTH = 125;
-	public static final Border POPUP_CLOSE_BORDER_DEFAULT = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, POPUP_CORNER, new BorderWidths(3)));
-	public static final Border POPUP_CLOSE_BORDER_ENTERED = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, POPUP_CORNER, new BorderWidths(5)));
-	public static final Background POPUP_CLOSE_BACKGROUND_DEFAULT = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, POPUP_CORNER, null));
-	public static final Background POPUP_CLOSE_BACKGROUND_PRESSED = new Background(new BackgroundFill(WINDOW_COLOR_BORDER, POPUP_CORNER, null));
+	
 	
 }
 

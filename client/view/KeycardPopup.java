@@ -42,8 +42,10 @@ public class KeycardPopup extends Popup{
 		PopupTitle title = new PopupTitle();
 		KeycardPane grid = new KeycardPane(k.getKeyContent());
 		StartLabel start = new StartLabel(k.getBlueFirst());
-		CloseButton close = new CloseButton();
+		ControlButton close = new ControlButton("Close");
 		
+		//sets button action
+		close.setOnAction(new CloseHandler());
 		
 		
 		//sets all the components of the root 
@@ -175,106 +177,20 @@ public class KeycardPopup extends Popup{
 		}
 	}
 	
+	
 	/**
-	 * Button with closing the keycard window as its only function 
+	 * Handler which hides the keycard popup, but does not destroy it
+	 * (for further use).
+	 * 
 	 * @author David Boivin (absynth) ID = 40004941
 	 *
 	 */
-	private class CloseButton extends Button {
-		
-		public CloseButton() {
-			super("Close");
-			
-			//button styling
-			setPrefHeight(Style.POPUP_CLOSE_HEIGHT);
-			setMinWidth(Style.POPUP_CLOSE_WIDTH);
-			setBorder(Style.POPUP_CLOSE_BORDER_DEFAULT);
-			setFont(Style.WINDOW_FONT_DEFAULT);
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-			
-			VBox.setMargin(this, Style.POPUP_CLOSE_MARGIN);
-			
-			//setting event handlers
-			setOnAction(new CloseHandler());
-			setOnMouseEntered(new EnterHandler());
-			setOnMouseExited(new ExitHandler());
-			setOnMousePressed(new PressHandler());
-			setOnMouseReleased(new ReleaseHandler());
-		}
-		
-		// ---- style helper methods (for handlers)
-		
-		private void defaultStyle() {
-			setBorder(Style.POPUP_CLOSE_BORDER_DEFAULT);
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		private void pressedStyle() {
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_PRESSED);
-			setBorder(Style.POPUP_CLOSE_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_DARK);
-		}
-		
-		private void enteredStyle() {
-			setBackground(Style.POPUP_CLOSE_BACKGROUND_DEFAULT);
-			setBorder(Style.POPUP_CLOSE_BORDER_ENTERED);
-			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
-		}
-		
-		
-		//closes the popup window
-		private class CloseHandler implements EventHandler<ActionEvent>{
+	private class CloseHandler implements EventHandler<ActionEvent>{
 
-			@Override
-			public void handle(ActionEvent event) {
-				hide();
-			}
-			
+		@Override
+		public void handle(ActionEvent event) {
+			hide();
 		}
 		
-		//handles mouse entered event
-		private class EnterHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				enteredStyle();
-			}
-			
-		}
-		
-		//handles mouse exit event (back to default)
-		private class ExitHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}
-			
-		}
-		
-		//handles mouse press event
-		private class PressHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				pressedStyle();
-				
-			}
-			
-		}
-		
-		//handles mouse release event (back to default)
-		private class ReleaseHandler implements EventHandler<MouseEvent>{
-
-			@Override
-			public void handle(MouseEvent event) {
-				defaultStyle();
-			}
-			
-			
-		}
 	}
-
 }

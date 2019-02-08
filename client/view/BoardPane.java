@@ -34,7 +34,6 @@ public class BoardPane extends VBox implements Observer{
 	private final ControlBar mControl;
 	private final HQPane mHQ;
 	private final FieldPane mField;
-	private final KeycardPopup mPopup;
 	
 	/**
 	 * Constructor
@@ -59,17 +58,12 @@ public class BoardPane extends VBox implements Observer{
 		}
 		
 		//Inner container elements
-		mControl = new ControlBar();
+		mControl = new ControlBar(mInbox, k);
 		mHQ = new HQPane(k.getBlueFirst());
 		mField = new FieldPane(mCVList);
-		mPopup = new KeycardPopup(k);
 		
-		//control setup
-		mControl.setNewGameHandler(new NewGameHandler());
-		mControl.setUndoHandler(new UndoHandler());
-		mControl.setRedoHandler(new RedoHandler());
-		mControl.setKeycardHandler(new KeycardHandler());
-		mControl.setNextHandler(new NextHandler());
+		//does some basic window styling
+		setBackground(Style.WINDOW_BACKGROUND);
 		
 		//adds containers to vertical stack
 		this.getChildren().addAll(mHQ, mField, mControl);
@@ -119,72 +113,4 @@ public class BoardPane extends VBox implements Observer{
 		}
 		
 	}
-	
-	// ----------------------- Control Handlers ---------------------
-	
-	
-	private class KeycardHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			mPopup.show((Stage) getScene().getWindow());
-		}
-	}
-	
-	/**
-	 * sends a new Game message through inbox
-	 * 
-	 * @author David Boivin (absynth)
-	 *
-	 */
-	private class NewGameHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			mInbox.sendMessage(new Message(MessageType.NEW_GAME, -1));
-		}
-	}
-	
-	
-	/**
-	 * sends an Undo message through inbox
-	 * 
-	 * @author David Boivin (absynth)
-	 */
-	private class UndoHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			mInbox.sendMessage(new Message(MessageType.UNDO, -1));
-		}
-	}
-	
-	
-	/**
-	 * sends a redo message through inbox
-		
-	 * @author David Boivin (absynth)
-	 */
-	private class RedoHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			mInbox.sendMessage(new Message(MessageType.REDO, -1));
-		}
-	}
-	
-	/**
-	 * sends a next message through inbox
-	 * 
-	 * @author David Boivin (absynth)
-	 */
-	private class NextHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			mInbox.sendMessage(new Message(MessageType.NEXT, -1));
-		}
-	}
-	
-	
 }

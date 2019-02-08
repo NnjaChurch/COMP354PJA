@@ -39,7 +39,6 @@ public class FieldPane extends GridPane {
 		setVgap(Style.FIELD_GAP_V);
 		setAlignment(Style.FIELD_ALIGNMENT);
 		setPadding(Style.FIELD_PADDING);
-		setBackground(Style.FIELD_BACKGROUND);
 		
 		
 		//Stores CardViews into appropriate data structures

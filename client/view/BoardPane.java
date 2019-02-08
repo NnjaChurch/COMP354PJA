@@ -23,7 +23,7 @@ import model.KeyCard;
  * 
  * @author David Boivin (absynth) ID = 40004941
  */
-public class BoardPane extends VBox implements Observer{
+public class BoardPane extends RootPane implements Observer{
 	
 	public static final int COLUMN_NUMBER = 5;
 	
@@ -61,9 +61,6 @@ public class BoardPane extends VBox implements Observer{
 		mControl = new ControlBar(mInbox, k);
 		mHQ = new HQPane(k.getBlueFirst());
 		mField = new FieldPane(mCVList);
-		
-		//does some basic window styling
-		setBackground(Style.WINDOW_BACKGROUND);
 		
 		//adds containers to vertical stack
 		this.getChildren().addAll(mHQ, mField, mControl);

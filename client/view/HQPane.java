@@ -25,15 +25,16 @@ public class HQPane extends HBox {
 	public HQPane(boolean isStartBlue) {
 		super();
 		
-		//hq styling
-		VBox.setVgrow(this, Priority.ALWAYS);
-		
 		//creates teams
 		mBlueTeam = new TeamPane(true, isStartBlue);
 		mRedTeam = new TeamPane(false, !isStartBlue);
 		
+		//buffer setup
+		Pane buff  = new Pane();
+		buff.setPrefWidth(Style.HQ_SPACING);
+		
 		//adds teams to the hq
-		getChildren().addAll(mBlueTeam, mRedTeam);
+		getChildren().addAll(mBlueTeam, buff, mRedTeam);
 		
 	}
 	
@@ -102,7 +103,7 @@ public class HQPane extends HBox {
 			//inner components
 			SpyImage imgView = new SpyImage(mIsBlue);
 			mClue = new Clue(mIsBlue);
-			mScore = new Score(mIsBlue);
+			mScore = new Score(mIsBlue, isStart);
 			
 			//buffer setup
 			Pane buff = new Pane();
@@ -195,7 +196,7 @@ public class HQPane extends HBox {
 	 */
 	private class Score extends Label {
 		
-		private Score(boolean isBlue) {
+		private Score(boolean isBlue, boolean isStart) {
 			super();
 			
 			// score styling
@@ -214,7 +215,8 @@ public class HQPane extends HBox {
 			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
 			
 			//Default text for testing
-			setText("0");
+			setText((isStart) ? 
+					"9" : "8");
 		}
 	}
 	

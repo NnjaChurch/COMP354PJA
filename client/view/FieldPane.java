@@ -34,7 +34,6 @@ public class FieldPane extends GridPane {
 		super();
 		
 		//field styling
-		VBox.setVgrow(this, Priority.ALWAYS);
 		setHgap(Style.FIELD_GAP_H);
 		setVgap(Style.FIELD_GAP_V);
 		setAlignment(Style.FIELD_ALIGNMENT);

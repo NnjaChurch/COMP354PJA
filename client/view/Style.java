@@ -24,7 +24,7 @@ public interface Style {
 
 	//-----------------   Window Styling   -----------------
 	public static final double WINDOW_SIZE_WIDTH = 900.0;
-	public static final double WINDOW_SIZE_HEIGHT = 700.0;
+	public static final double WINDOW_SIZE_HEIGHT = 620.0;
 
 	public static final Color WINDOW_COLOR_BACKGROUND_DARK = Color.color(0.09804, 0.09804, 0.09804);
 	public static final Color WINDOW_COLOR_BACKGROUND_LIGHT = Color.color(0.9, 0.9, 0.9);
@@ -45,10 +45,12 @@ public interface Style {
 	public static final Font WINDOW_FONT_DEFAULT = Font.font(WINDOW_FONT_FAMILY, WINDOW_FONT_WEIGHT, WINDOW_FONT_SIZE_DEFAULT);
 	public static final Font WINDOW_FONT_HEADER = Font.font(WINDOW_FONT_FAMILY, WINDOW_FONT_WEIGHT, WINDOW_FONT_SIZE_HEADER);
 	public static final Background WINDOW_BACKGROUND = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, null, null));
+	public static final Border WINDOW_BORDER = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+	public static final Insets WINDOW_PADDING = new Insets(20);
 	
 	//----------------   Control Button Styling --------------
 	public static final CornerRadii CONTROL_ELEMENT_CORNER = new CornerRadii(10);
-	public static final int CONTROL_ELEMNENT_HEIGHT = 75;
+	public static final int CONTROL_ELEMENT_HEIGHT = 50;
 	public static final int CONTROL_ELEMENT_WIDTH = 125;
 	public static final Border CONTROL_ELEMENT_BORDER_DEFAULT = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, CONTROL_ELEMENT_CORNER, new BorderWidths(3)));
 	public static final Border CONTROL_ELEMENT_BORDER_ENTERED = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, CONTROL_ELEMENT_CORNER, new BorderWidths(5)));
@@ -59,7 +61,7 @@ public interface Style {
 	
 	//-----------------   Card Styling   ---------------------
 	public static final double CARD_WIDTH = 160.0;
-	public static final double CARD_HEIGHT = 80.0;
+	public static final double CARD_HEIGHT = 70.0;
 	
 	public static final CornerRadii CARD_CORNER = new CornerRadii(5);
 	
@@ -75,14 +77,16 @@ public interface Style {
 	
 	
 	//-----------------   HQ Styling   --------------------
-	public static final Border HQ_BORDER = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, null, new BorderWidths(0, 0, 5, 0)));
-	public static final Background HQ_BACKGROUND_RED_DEFAULT = new Background(new BackgroundFill(Color.color(1.0, 0.5, 0.5), null, null));
-	public static final Background HQ_BACKGROUND_RED_ON = new Background(new BackgroundFill(WINDOW_COLOR_CARD_RED, null, null));
-	public static final Background HQ_BACKGROUND_BLUE_DEFAULT = new Background(new BackgroundFill(Color.color(0.3098, 0.3098, 0.85098), null, null));
-	public static final Background HQ_BACKGROUND_BLUE_ON = new Background(new BackgroundFill(WINDOW_COLOR_CARD_BLUE, null, null));
+	public static final int HQ_SPACING = 10;
+	public static final CornerRadii HQ_CORNER = new CornerRadii(5);
+	public static final Background HQ_BACKGROUND_RED_DEFAULT = new Background(new BackgroundFill(Color.color(1.0, 0.5, 0.5), HQ_CORNER, null));
+	public static final Background HQ_BACKGROUND_RED_ON = new Background(new BackgroundFill(WINDOW_COLOR_CARD_RED, HQ_CORNER, null));
+	public static final Background HQ_BACKGROUND_BLUE_DEFAULT = new Background(new BackgroundFill(Color.color(0.3098, 0.3098, 0.85098), HQ_CORNER, null));
+	public static final Background HQ_BACKGROUND_BLUE_ON = new Background(new BackgroundFill(WINDOW_COLOR_CARD_BLUE, HQ_CORNER, null));
 	
 	public static final Insets HQ_TEAM_PADDING = new Insets(10, 10, 10, 10);
 	public static final Pos HQ_TEAM_ALIGNMENT = Pos.CENTER;
+	
 	
 //	public static final int HQ_CLUE_WIDTH = 200;
 	public static final int HQ_CLUE_HEIGHT = 50;
@@ -101,8 +105,8 @@ public interface Style {
 	public static final Background HQ_SCORE_BACKGROUND_LEFT = CARD_BACKGROUND_BLUE;
 	public static final Background HQ_SCORE_BACKGROUND_RIGHT = CARD_BACKGROUND_RED;
 	
-	public static final int HQ_IMAGE_WIDTH = 150;
-	public static final int HQ_IMAGE_HEIGHT = 150;
+	public static final int HQ_IMAGE_WIDTH = 100;
+	public static final int HQ_IMAGE_HEIGHT = 100;
 	public static final Image HQ_IMAGE_LEFT = new Image("view/incognito-black.png", HQ_IMAGE_WIDTH, HQ_IMAGE_HEIGHT, true, true);
 	public static final Image HQ_IMAGE_RIGHT = new Image("view/incognito-black.png", HQ_IMAGE_WIDTH, HQ_IMAGE_HEIGHT, true, true);
 	
@@ -120,23 +124,19 @@ public interface Style {
 	public static final Insets CONTROL_PADDING = new Insets(10);
 	
 	//-----------------   Popup Styling -------------------------
-	public static final Insets POPUP_PADDING = new Insets(30, 75, 30, 75);
-	public static final CornerRadii POPUP_CORNER = new CornerRadii(10);
-	public static final Background POPUP_BACKGROUND = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, null, null));
-	public static final Border POPUP_BORDER = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
-	
+	public static final CornerRadii POPUP_CORNER = new CornerRadii(10);	
 	public static final Insets POPUP_TITLE_PADDING = new Insets(10, 50, 10, 20);
 	public static final Insets POPUP_TITLE_MARGIN = new Insets(5, 0, 5, 20);
 	public static final Background POPUP_TITLE_BACKGROUND = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_LIGHT, POPUP_CORNER, null));
 	
-	public static final double POPUP_GRID_GAP_H = 7.0;
-	public static final double POPUP_GRID_GAP_V = 7.0;
+	public static final double POPUP_GRID_GAP_H = 5.0;
+	public static final double POPUP_GRID_GAP_V = 5.0;
 	public static final Insets POPUP_GRID_PADDING = new Insets(10);
 	public static final Insets POPUP_GRID_MARGIN = new Insets(10, 0, 10, 0);
 	public static final Border POPUP_GRID_BORDER = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
 	public static final int POPUP_GRID_ELEMENT_CORNER = 10;
-	public static final int POPUP_GRID_ELEMENT_HEIGHT = 100;
-	public static final int POPUP_GRID_ELEMENT_WIDTH = 100;
+	public static final int POPUP_GRID_ELEMENT_HEIGHT = 60;
+	public static final int POPUP_GRID_ELEMENT_WIDTH = 60;
 	
 	public static final Insets POPUP_START_PADDING = new Insets(10, 20, 10, 50); 
 	public static final Insets POPUP_START_MARGIN = new Insets(5, 0, 5, 150);

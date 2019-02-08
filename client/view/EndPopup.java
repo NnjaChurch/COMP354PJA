@@ -6,10 +6,10 @@ import control.MessageType;
 import control.Reply;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import model.CardType;
@@ -32,12 +32,7 @@ public class EndPopup extends Popup{
 		setAutoHide(false);
 		
 		//create root element
-		VBox root = new VBox();
-		
-		//root styling
-		root.setBackground(Style.POPUP_BACKGROUND);
-		root.setPadding(Style.POPUP_PADDING);
-		root.setBorder(Style.POPUP_BORDER);
+		RootPane root = new RootPane();
 		
 		//create internal element
 		WinnerTitle title = new WinnerTitle(reply.getCurrentTurn());
@@ -48,10 +43,13 @@ public class EndPopup extends Popup{
 		//sets button actions
 		newGame.setOnAction(new NewHandler());	//TODO update 
 		quit.setOnAction(new QuitHandler());
-		
+
+		//buffer setup
+		Pane buff = new Pane();
+		HBox.setHgrow(buff, Priority.ALWAYS);
 		
 		HBox buttonContainer = new HBox();
-		buttonContainer.getChildren().addAll(newGame, quit);
+		buttonContainer.getChildren().addAll(newGame,buff, quit);
 		
 		root.getChildren().addAll(title, display, buttonContainer);
 

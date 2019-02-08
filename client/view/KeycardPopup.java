@@ -31,12 +31,7 @@ public class KeycardPopup extends Popup{
 		setAutoHide(true);
 		
 		//create root element
-		VBox root = new VBox();
-		
-		//root styling
-		root.setBackground(Style.POPUP_BACKGROUND);
-		root.setPadding(Style.POPUP_PADDING);
-		root.setBorder(Style.POPUP_BORDER);
+		RootPane root = new RootPane();
 		
 		//create internal elements
 		PopupTitle title = new PopupTitle();

@@ -10,7 +10,8 @@ public class ControlButton extends Button {
 		super(text);
 		
 		//button styling
-		setPrefHeight(Style.CONTROL_ELEMNENT_HEIGHT);
+		setPrefHeight(Style.CONTROL_ELEMENT_HEIGHT);
+		setMinHeight(Style.CONTROL_ELEMENT_HEIGHT);
 		setPrefWidth(Style.CONTROL_ELEMENT_WIDTH);
 		setMaxWidth(Style.CONTROL_ELEMENT_WIDTH);
 		setBorder(Style.CONTROL_ELEMENT_BORDER_DEFAULT);

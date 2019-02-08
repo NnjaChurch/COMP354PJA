@@ -32,6 +32,11 @@ public class GameObserver implements Observer {
         initializeGame(keyCard);
     }
 
+    // Getters
+    public boolean getCurrentTurn() {
+        return this.mBlueTurn;
+    }
+
     //Methods
     private void initializeGame(KeyCard keyCard) {
         if(keyCard.getBlueFirst()) {

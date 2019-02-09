@@ -117,8 +117,10 @@ public class EndPopup extends Popup{
 
 		@Override
 		public void handle(ActionEvent event) {
-			mInbox.sendMessage(new Message(MessageType.NEW_GAME, -1));
+			//creates new game
+			NewGamePopup ngPopup = new NewGamePopup(mInbox);
 			hide();
+			ngPopup.show(getScene().getWindow());
 		}
 				
 	}

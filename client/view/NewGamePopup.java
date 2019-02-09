@@ -255,9 +255,20 @@ public class NewGamePopup extends Popup {
 
 		@Override
 		public void handle(ActionEvent arg0) {
-			System.out.println(mBlueSelect.getSelectedStratagy());
-			System.out.println(mRedSelect.getSelectedStratagy());
-			//mInbox.sendMessage(new Message(MessageType.NEW_GAME, 0));
+			String bStrat = mBlueSelect.getSelectedStratagy();
+			String rStrat = mRedSelect.getSelectedStratagy();
+			
+			if(bStrat.equals(STRAT_RANDOM) && rStrat.equals(STRAT_RANDOM)) {
+				mInbox.sendMessage(new Message(MessageType.NEW_GAME_B_RANDOM_R_RANDOM, -1));
+			}else if(bStrat.equals(STRAT_RANDOM) && rStrat.equals(STRAT_SEQUENTIAL)) {
+				mInbox.sendMessage(new Message(MessageType.NEW_GAME_B_RANDOM_R_NEXT, -1));
+			}else if(bStrat.equals(STRAT_SEQUENTIAL) && rStrat.equals(STRAT_RANDOM)) {
+				mInbox.sendMessage(new Message(MessageType.NEW_GAME_B_NEXT_R_RANDOM, -1));
+			}else if(bStrat.equals(STRAT_SEQUENTIAL) && rStrat.equals(STRAT_SEQUENTIAL)) {
+				mInbox.sendMessage(new Message(MessageType.NEW_GAME_B_NEXT_R_NEXT, -1));
+			}else {
+				System.out.println("Unhandled Stratagy, errors probably incomming");
+			}
 			hide();
 		}
 

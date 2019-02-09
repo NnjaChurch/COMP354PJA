@@ -38,7 +38,7 @@ public class FieldPane extends GridPane {
 		setVgap(Style.FIELD_GAP_V);
 		setAlignment(Style.FIELD_ALIGNMENT);
 		setPadding(Style.FIELD_PADDING);
-		
+		VBox.setVgrow(this, Priority.ALWAYS);
 		
 		//Stores CardViews into appropriate data structures
 		for(int i = 0; i < cardList.size(); i++) {

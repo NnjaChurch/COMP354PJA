@@ -85,7 +85,8 @@ public class ControlBar extends HBox{
 
 		@Override
 		public void handle(ActionEvent event) {
-			mInbox.sendMessage(new Message(MessageType.NEW_GAME, -1));
+			NewGamePopup ngp = new NewGamePopup(mInbox);
+			ngp.show((Stage) getScene().getWindow());
 		}
 	}
 	

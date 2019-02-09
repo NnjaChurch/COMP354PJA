@@ -50,12 +50,13 @@ public interface Style {
 	
 	//----------------   Control Button Styling --------------
 	public static final CornerRadii CONTROL_ELEMENT_CORNER = new CornerRadii(10);
+	public static final CornerRadii CONTROL_ELEMENT_CORNER_BACKGROUND = new CornerRadii(14);	//fixing weird bug where Border and Background corners werent matching up
 	public static final int CONTROL_ELEMENT_HEIGHT = 50;
 	public static final int CONTROL_ELEMENT_WIDTH = 125;
 	public static final Border CONTROL_ELEMENT_BORDER_DEFAULT = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, CONTROL_ELEMENT_CORNER, new BorderWidths(3)));
 	public static final Border CONTROL_ELEMENT_BORDER_ENTERED = new Border(new BorderStroke(WINDOW_COLOR_BORDER, BorderStrokeStyle.SOLID, CONTROL_ELEMENT_CORNER, new BorderWidths(5)));
-	public static final Background CONTROL_ELEMENT_BACKGROUND_DEFAULT = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, CONTROL_ELEMENT_CORNER, null));
-	public static final Background CONTROL_ELEMENT_BACKGROUND_PRESSED = new Background(new BackgroundFill(WINDOW_COLOR_BORDER, CONTROL_ELEMENT_CORNER, null));
+	public static final Background CONTROL_ELEMENT_BACKGROUND_DEFAULT = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_DARK, CONTROL_ELEMENT_CORNER_BACKGROUND, null));
+	public static final Background CONTROL_ELEMENT_BACKGROUND_PRESSED = new Background(new BackgroundFill(WINDOW_COLOR_BORDER, CONTROL_ELEMENT_CORNER_BACKGROUND, null));
 	
 	
 	
@@ -125,6 +126,7 @@ public interface Style {
 	
 	//-----------------   Popup Styling -------------------------
 	public static final CornerRadii POPUP_CORNER = new CornerRadii(10);	
+	public static final int POPUP_SPACING = 10;
 	public static final Insets POPUP_TITLE_PADDING = new Insets(10, 50, 10, 20);
 	public static final Insets POPUP_TITLE_MARGIN = new Insets(5, 0, 5, 20);
 	public static final Background POPUP_TITLE_BACKGROUND = new Background(new BackgroundFill(WINDOW_COLOR_BACKGROUND_LIGHT, POPUP_CORNER, null));
@@ -143,7 +145,9 @@ public interface Style {
 	public static final Background POPUP_START_BACKGROUND_BLUE = new Background(new BackgroundFill(WINDOW_COLOR_CARD_BLUE, POPUP_CORNER, null));
 	public static final Background POPUP_START_BACKGROUND_RED = new Background(new BackgroundFill(WINDOW_COLOR_CARD_RED, POPUP_CORNER, null));
 
-	
+	public static final Insets POPUP_SELECTION_PADDING = new Insets(10);
+	public static final Insets POPUP_SELECTION_MARGIN = new Insets(20);
+	public static final int POPUP_SELECTION_SPACING = 50;
 	
 }
 

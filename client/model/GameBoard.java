@@ -41,6 +41,10 @@ public class GameBoard {
         return this.mCards;
     }
 
+    public boolean getCurrentTurn() {
+        return this.mGameObserver.getCurrentTurn();
+    }
+
     // Methods
     private ArrayList<Card> generateGameBoard() {
         DatabaseExtractor database = new DatabaseExtractor();

@@ -24,6 +24,8 @@ public class Controller implements Observer {
     private Inbox mInbox;
     private Outbox mOutbox;
     private Scene mGameScene;
+    private boolean mBlueRandom;
+    private boolean mRedRandom;
 
     // Constructor
     public Controller(KeyCard[] keyCardCollection, Inbox inbox, Outbox outbox) {
@@ -34,9 +36,11 @@ public class Controller implements Observer {
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), outbox);
         this.mInbox = inbox;
         this.mOutbox = outbox;
+        this.mBlueRandom = true;
+        this.mRedRandom = true;
     }
 
-    // Setter
+    // Setters
     public void setGameScene(Scene gameScene) {
         this.mGameScene = gameScene;
     }
@@ -60,11 +64,15 @@ public class Controller implements Observer {
         return keyCardCollection[r.nextInt(keyCardCollection.length)];
     }
 
-    private void startNewGame() {
+    private void startNewGame(boolean blueRandom, boolean redRandom) {
         // Wipe Stacks and Logs
         this.mMessageStack.clear();
         this.mUndoStack.clear();
         this.mMessageLog.clear();
+
+        // Update the Strategy Flags
+        this.mBlueRandom = blueRandom;
+        this.mRedRandom = redRandom;
 
         // Create new Instance of Game
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), mOutbox);
@@ -89,8 +97,20 @@ public class Controller implements Observer {
             int cardAffected = ((Message) arg).getCardAffected();
 
             // Handle Message
-            if(type == MessageType.NEW_GAME) {
-                startNewGame();
+            if(type == MessageType.NEW_GAME_B_RANDOM_R_RANDOM) {
+                startNewGame(true, true);
+            }
+            if(type == MessageType.NEW_GAME_B_NEXT_R_NEXT) {
+                startNewGame(false, false);
+
+            }
+            if(type == MessageType.NEW_GAME_B_NEXT_R_RANDOM) {
+                startNewGame(false, true);
+
+            }
+            if(type == MessageType.NEW_GAME_B_RANDOM_R_NEXT) {
+                startNewGame(true, false);
+
             }
             if(type == MessageType.SELECT) {
 
@@ -118,8 +138,24 @@ public class Controller implements Observer {
 
                 // Flush Undo Stack
                 mUndoStack.clear();
-                // cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
-                cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
+
+                // Check which strategy to use
+                if(mGameBoard.getCurrentTurn()) {
+                    if(mBlueRandom) {
+                        cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
+                    }
+                    else {
+                        cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                    }
+                }
+                else {
+                    if(mRedRandom) {
+                        cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
+                    }
+                    else {
+                        cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                    }
+                }
 
                 // Check if Card was selected (-1 mean no more cards)
 

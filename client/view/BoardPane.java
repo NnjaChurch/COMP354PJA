@@ -35,6 +35,8 @@ public class BoardPane extends RootPane implements Observer{
 	private final HQPane mHQ;
 	private final FieldPane mField;
 	
+	private boolean mIsDisabled;
+	
 	/**
 	 * Constructor
 	 * 
@@ -46,6 +48,7 @@ public class BoardPane extends RootPane implements Observer{
 		super();
 		
 		mInbox = in;
+		mIsDisabled = false;
 		
 		//create 1 CardHandler for all Cards (saves memory)
 		CardHandler ch = new CardHandler();
@@ -64,6 +67,15 @@ public class BoardPane extends RootPane implements Observer{
 		
 		//adds containers to vertical stack
 		this.getChildren().addAll(mHQ, mField, mControl);
+	}
+	
+	public void setIsDisabled(boolean disabled) {
+		mIsDisabled = disabled;
+		if(mIsDisabled) {
+			mControl.disableControl();
+		}else {
+			mControl.enableControl();
+		}
 	}
 
 	@Override
@@ -86,7 +98,9 @@ public class BoardPane extends RootPane implements Observer{
 			mHQ.setScore(false, r.getRedScore());
 
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
-
+			
+			setIsDisabled(true);
+			
 			EndPopup endPopup = new EndPopup(r, mInbox);
 			endPopup.show(getScene().getWindow());
 			break;
@@ -105,9 +119,10 @@ public class BoardPane extends RootPane implements Observer{
 
 		@Override
 		public void handle(ActionEvent event) {
-			CardView c = (CardView) event.getSource();
-			mInbox.sendMessage(new Message(MessageType.SELECT, c.getCardID()));
+			if(!mIsDisabled) {
+				CardView c = (CardView) event.getSource();
+				mInbox.sendMessage(new Message(MessageType.SELECT, c.getCardID()));
+			}
 		}
-		
 	}
 }

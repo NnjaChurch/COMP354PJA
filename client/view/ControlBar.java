@@ -23,6 +23,13 @@ public class ControlBar extends HBox{
 	private Inbox mInbox;
 	private KeycardPopup mPopup;
 	
+	private ControlButton mNew;
+	private ControlButton mNext;
+	private ControlButton mUndo;
+	private ControlButton mRedo;
+	private ControlButton mKeycard;
+	private ControlButton mQuit;
+	
 	/**
 	 * Constructor which creates inner elements and set the styling for
 	 * the control bar.
@@ -38,20 +45,15 @@ public class ControlBar extends HBox{
 		
 		
 		//creates inner elements (control buttons)
-		ControlButton newButton = new ControlButton("New Game");
-		ControlButton nextButton = new ControlButton("Next Move");
-		ControlButton undoButton = new ControlButton ("Undo");
-		ControlButton redoButton = new ControlButton("Redo");
-		ControlButton keycardButton = new ControlButton("Keycard");
-		ControlButton quitButton = new ControlButton("Quit");
+		mNew = new ControlButton("New Game");
+		mNext = new ControlButton("Next Move");
+		mUndo = new ControlButton ("Undo");
+		mRedo = new ControlButton("Redo");
+		mKeycard = new ControlButton("Keycard");
+		mQuit = new ControlButton("Quit");
 		
 		//set button actions
-		newButton.setOnAction(new NewGameHandler());
-		nextButton.setOnAction(new NextHandler());
-		undoButton.setOnAction(new UndoHandler());
-		redoButton.setOnAction(new RedoHandler());
-		keycardButton.setOnAction(new KeycardHandler());
-		quitButton.setOnAction(new QuitHandler());
+		enableControl();
 		
 		//buffer setup
 		Pane buff1 = new Pane();
@@ -67,9 +69,27 @@ public class ControlBar extends HBox{
 		HBox.setHgrow(buff1, Priority.ALWAYS);
 		HBox.setHgrow(buff2, Priority.ALWAYS);
 		
-		this.getChildren().addAll(nextButton, buff3, keycardButton, buff1, undoButton, buff4,
-				redoButton, buff2, newButton, buff5, quitButton);
+		this.getChildren().addAll(mNext, buff3, mKeycard, buff1, mUndo, buff4,
+				mRedo, buff2, mNew, buff5, mQuit);
 		
+	}
+	
+	public void enableControl() {
+		mNew.setOnAction(new NewGameHandler());
+		mNext.setOnAction(new NextHandler());
+		mUndo.setOnAction(new UndoHandler());
+		mRedo.setOnAction(new RedoHandler());
+		mKeycard.setOnAction(new KeycardHandler());
+		mQuit.setOnAction(new QuitHandler());
+	}
+	
+	public void disableControl() {
+		mNew.setOnAction(null);
+		mNext.setOnAction(null);
+		mUndo.setOnAction(null);
+		mRedo.setOnAction(null);
+		mKeycard.setOnAction(null);
+		mQuit.setOnAction(null);
 	}
 	
 	
@@ -85,6 +105,7 @@ public class ControlBar extends HBox{
 
 		@Override
 		public void handle(ActionEvent event) {
+			((BoardPane) getScene().getRoot()).setIsDisabled(true);
 			NewGamePopup ngp = new NewGamePopup(mInbox);
 			ngp.show((Stage) getScene().getWindow());
 		}

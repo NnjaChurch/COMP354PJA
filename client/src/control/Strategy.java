@@ -6,10 +6,13 @@
 package control;
 
 import model.Card;
+import model.CardType;
 import model.DatabaseExtractor;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Random;
+
 
 public class Strategy {
 	
@@ -110,8 +113,59 @@ public class Strategy {
     }
     
     //ROB CODE (FIXIT) - Ke will give this function meat
-    public static void generateHint()
+    
+    //KE CODE
+    public static void generateHint(ArrayList<Card> mGameBoard,CardType type)
     {
-    	storedHint = "hint";
+    	Hashtable<String,Integer> table =new Hashtable<String,Integer>();
+
+    	ArrayList<Card> blueCards = new ArrayList<Card>();
+    	ArrayList<Card> redCards = new ArrayList<Card>();    	
+    	
+    	
+    	for (int i=0; i<mGameBoard.size();i++) {
+    		if ((mGameBoard.get(i).getType() == CardType.BLUE) && (!mGameBoard.get(i).isRevealed())) blueCards.add(mGameBoard.get(i));
+    		if ((mGameBoard.get(i).getType() == CardType.RED) && (!mGameBoard.get(i).isRevealed())) redCards.add(mGameBoard.get(i));   		
+    	}
+    	
+    	
+    	if (type == CardType.BLUE) {
+    		
+    		for (int i=0;i<blueCards.size();i++) {
+        		for (int j =0; j< blueCards.get(i).getHints().length;j++) {
+        			if (table.get(blueCards.get(i).getHints()[j]) == null) table.put(blueCards.get(i).getHints()[j], 1);
+        			else {
+        				int temp=table.get(blueCards.get(i).getHints()[j]);
+        				temp++;
+        				table.put(blueCards.get(i).getHints()[j],temp);
+        			}
+        		}
+        	}
+    		
+    	}else {
+    		
+        	for (int i=0;i<redCards.size();i++) {
+        		for (int j =0; j< redCards.get(i).getHints().length;j++) {
+        			if (table.get(redCards.get(i).getHints()[j]) == null) table.put(redCards.get(i).getHints()[j], 1);
+        			else {
+        				int temp=table.get(redCards.get(i).getHints()[j]);
+        				temp++;
+        				table.put(redCards.get(i).getHints()[j],temp);
+        			}
+        		}
+        	}	
+    		
+    	}
+    	
+    	int c=0;
+    	for (String key : table.keySet()) {
+    	    if (table.get(key)>c) {
+    	    	c=table.get(key);
+    	    	storedHint = key; 	    	
+    	    }
+    	}
+    	   	
     }
+    
+    //KE CODE END
 }

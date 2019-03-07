@@ -140,7 +140,14 @@ public class Controller implements Observer {
                 mUndoStack.clear();
                 
                 // Tell Strategy to generate a hint
-                Strategy.generateHint(); //ROB CODE (FIXIT) - this function at the moment just sets the variable to "hint" - Ke will add to it
+                if (mGameBoard.getCurrentTurn())
+                {
+                    Strategy.generateHint(mGameBoard.getBoard(), CardType.BLUE);
+                }
+                else
+                {
+                    Strategy.generateHint(mGameBoard.getBoard(), CardType.RED);
+                }
                 
                 // Generate an ArrayList of Cards based on the hint
                 Strategy.getHintedCards(mGameBoard.getBoard()); //ROB CODE

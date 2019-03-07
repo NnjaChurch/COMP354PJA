@@ -61,4 +61,19 @@ public class GameBoard {
         }
         return gameBoard;
     }
+    
+    //ROB CODE
+    public int getCardIndexOfCodeword(String codeword)
+    {    	
+    	for (int i = 0; i < mCards.size(); i++)
+    	{
+    		if (mCards.get(i).getCodeWord() == codeword)
+    		{
+    			return i;
+    		}
+    	}
+    	
+    	return -1;
+    }
+    //END ROB CODE
 }

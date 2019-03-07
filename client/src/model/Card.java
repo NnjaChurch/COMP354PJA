@@ -75,4 +75,19 @@ public class Card extends Observable {
             notifyObservers(this);
         }
     }
+    
+    //ROB CODE
+    public boolean containtsHint(String checkHint)
+    {
+    	for (int i = 0; i < mHints.length; i++)
+    	{
+    		if (mHints[i] == checkHint)
+    		{
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+    //END ROB CODE
 }

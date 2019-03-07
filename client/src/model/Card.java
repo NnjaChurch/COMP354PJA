@@ -24,7 +24,13 @@ public class Card extends Observable {
         this.mCodeWord = codeWord;
         this.mType = type;
         this.mRevealed = false;
-
+        
+        //ROB CODE - this has to be initialized or things break!
+        this.mHints = new String[1];
+        for(int i = 0; i < mHints.length; i++) {
+            mHints[i] = "hint";
+        }
+        //END ROB CODE
     }
 
     public Card(int cardNumber, String codeWord, CardType type, String[] hints) {
@@ -78,7 +84,12 @@ public class Card extends Observable {
     
     //ROB CODE
     public boolean containtsHint(String checkHint)
-    {
+    {    	
+    	if (mHints.length == 0)
+    	{
+    		return false;
+    	}
+    	
     	for (int i = 0; i < mHints.length; i++)
     	{
     		if (mHints[i] == checkHint)

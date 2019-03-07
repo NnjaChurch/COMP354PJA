@@ -138,27 +138,45 @@ public class Controller implements Observer {
 
                 // Flush Undo Stack
                 mUndoStack.clear();
+                
+                // Tell Strategy to generate a hint
+                Strategy.generateHint(); //ROB CODE (FIXIT) - this function at the moment just sets the variable to "hint" - Ke will add to it
+                
+                // Generate an ArrayList of Cards based on the hint
+                Strategy.getHintedCards(mGameBoard.getBoard()); //ROB CODE
 
-                // Check which strategy to use
+                // Check which strategy to use for the list of applicable cards
+                String wordOfCardAffected;
                 if(mGameBoard.getCurrentTurn()) {
                     if(mBlueRandom) {
-                        cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
+                    	wordOfCardAffected = Strategy.pickRandomCard(Strategy.storedHintedCards); //ROB CODE - changed mGameBoard.getBoard() to Strategy.storedHintedCards
                     }
                     else {
-                        cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                    	wordOfCardAffected = Strategy.pickNextCard(Strategy.storedHintedCards); //ROB CODE - changed mGameBoard.getBoard() to Strategy.storedHintedCards
                     }
                 }
                 else {
                     if(mRedRandom) {
-                        cardAffected = Strategy.pickRandomCard(mGameBoard.getBoard());
+                    	wordOfCardAffected = Strategy.pickRandomCard(Strategy.storedHintedCards); //ROB CODE - changed mGameBoard.getBoard() to Strategy.storedHintedCards
                     }
                     else {
-                        cardAffected = Strategy.pickNextCard(mGameBoard.getBoard());
+                    	wordOfCardAffected = Strategy.pickNextCard(Strategy.storedHintedCards); //ROB CODE - changed mGameBoard.getBoard() to Strategy.storedHintedCards
                     }
                 }
+                
+                //ROB CODE
+                //Convert wordOfCardAffected to cardAffected for below
+                if (wordOfCardAffected != Strategy.NULL_CARD_ERROR)
+                {
+                	cardAffected = mGameBoard.getCardIndexOfCodeword(wordOfCardAffected);
+                }
+                else
+                {
+                	cardAffected = -1;
+                }
+                //END ROB CODE
 
                 // Check if Card was selected (-1 mean no more cards)
-
                 if (cardAffected != -1) {
                     // Get Card Object
                     Card card = mGameBoard.getCard(cardAffected);

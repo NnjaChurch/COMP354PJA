@@ -6,13 +6,23 @@
 package control;
 
 import model.Card;
+import model.DatabaseExtractor;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Strategy {
+	
+	public static ArrayList<Card> storedHintedCards;
+	public static String storedHint;
+	public static final String NULL_CARD_ERROR = "NULL CARD ERROR";
 
-    public static int pickRandomCard(ArrayList<Card> cards) {
+    public static String pickRandomCard(ArrayList<Card> cards) { //ROB CODE - Had to change the return type to String for modularity's sake
+    	if (cards.size() == 0) //ROB CODE - Error checking
+    	{
+        	return NULL_CARD_ERROR;
+    	}
+    	
         Random r = new Random();
         boolean cardPicked = false;
         int currentCard = -1;
@@ -27,18 +37,28 @@ public class Strategy {
 
         if (!allCardsRevealed) {
             while(cardPicked == false) {
-                // Pick random card of 25
-                currentCard = r.nextInt(25);
+                // Pick random card of the list
+                currentCard = r.nextInt(cards.size()); //ROB - changed this from 25 to cards.size() so we can use the function to select a random card from those given by the hint as well
                 // Check if card has been picked
                 if(cards.get(currentCard).isRevealed() == false) {
                     cardPicked = true;
                 }
             }
         }
-        return currentCard;
+        
+        if (currentCard == -1) //ROB CODE - Error checking
+        {
+        	return NULL_CARD_ERROR;
+        }
+        return cards.get(currentCard).getCodeWord(); //ROB CODE - Had to change the return type to String for modularity's sake
     }
 
-    public static int pickNextCard(ArrayList<Card> cards) {
+    public static String pickNextCard(ArrayList<Card> cards) { //ROB CODE - Had to change the return type to String for modularity's sake
+    	if (cards.size() == 0) //ROB CODE - Error checking
+    	{
+        	return NULL_CARD_ERROR;
+    	}
+    	
         boolean cardPicked = false;
         int currentCard = 0;
         boolean allCardsRevealed = true;
@@ -66,6 +86,32 @@ public class Strategy {
         else {
             currentCard = -1;
         }
-        return currentCard;
+
+        if (currentCard == -1) //ROB CODE - Error checking
+        {
+        	return NULL_CARD_ERROR;
+        }
+        return cards.get(currentCard).getCodeWord(); //ROB CODE - Had to change the return type to String for modularity's sake
+    }
+
+    //ROB CODE
+    public static void getHintedCards(ArrayList<Card> mGameBoard) {
+    	storedHintedCards.clear();
+    	
+    	Card currentCard;
+    	for (int i = 0; i < mGameBoard.size(); i++)
+    	{
+    		currentCard = mGameBoard.get(i);
+    		if (!currentCard.isRevealed() && currentCard.containtsHint(storedHint))
+    		{
+    			storedHintedCards.add(currentCard);
+    		}
+    	}
+    }
+    
+    //ROB CODE (FIXIT) - Ke will give this function meat
+    public static void generateHint()
+    {
+    	storedHint = "hint";
     }
 }

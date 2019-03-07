@@ -22,6 +22,7 @@ public class GameBoard {
         this.mKeyCard = keyCard;
         this.mGameObserver = new GameObserver(mKeyCard, outbox);
         this.mCards = generateGameBoard();
+        
     }
 
     // Getters
@@ -50,10 +51,11 @@ public class GameBoard {
         DatabaseExtractor database = new DatabaseExtractor();
         ArrayList<Card> gameBoard = new ArrayList<>(25);
         Card card;
-        String[] codeWords = database.bankOfWords();
+        //String[] codeWords = database.bankOfWords();
+        SimpleCard[] simpleCard = database.bankOfCard(); 
         for(int i = 0; i < 25; i++) {
             // Create Card
-            card = new Card(i, codeWords[i], mKeyCard.getCardType(i));
+            card = new Card(i, simpleCard[i].word,mKeyCard.getCardType(i),simpleCard[i].hints ); //Ke:use the simpleCard to get the hint from database but still pass it as a Card.
             // Attach GameObserver to Card
             card.addObserver(this.mGameObserver);
             // Add Card to GameBoard

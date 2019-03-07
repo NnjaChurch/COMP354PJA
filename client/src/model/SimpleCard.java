@@ -23,7 +23,7 @@ public class SimpleCard {
     }
 
     public void setWord(String word) {
-        word = word;
+        this.word = word;
     }
 
     public String[] getHints() {

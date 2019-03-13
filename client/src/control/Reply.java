@@ -16,6 +16,9 @@ public class Reply {
     private int mBlueScore;
     private int mRedScore;
     private boolean mBlueTurn;
+    //Gaoshuo
+    //add another variable to Reply
+    private String mHint;
 
     // Constructor
     public Reply(ReplyType type, int cardAffected, CardType cardType, int blueScore, int redScore, boolean blueTurn) {
@@ -25,8 +28,15 @@ public class Reply {
         this.mBlueScore = blueScore;
         this.mRedScore = redScore;
         this.mBlueTurn = blueTurn;
+        //Gaoshuo
+       //initialize mHint as an empty string
+        this.mHint = "";
     }
-
+    //Gaoshuo
+    //Setter; add a function to Reply that allows us to change the value of mHint in Reply
+    public void setHint(String setHint) {
+		this.mHint = setHint; 
+    }
     // Getters
     public ReplyType getReplyType() {
         return this.mType;
@@ -51,4 +61,6 @@ public class Reply {
     public boolean getCurrentTurn() {
         return this.mBlueTurn;
     }
+  
+
 }

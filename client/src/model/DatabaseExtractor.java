@@ -23,7 +23,7 @@ public class DatabaseExtractor {
 
         Scanner s = null;
         try {
-            s = new Scanner(new File("./src/CodenameDatabase.txt"));
+            s = new Scanner(new File("./src/final_file.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

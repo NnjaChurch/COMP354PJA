@@ -81,7 +81,7 @@ public class Card extends Observable {
     {
     	for (int i = 0; i < mHints.length; i++)
     	{
-    		if (mHints[i] == checkHint)
+    		if (mHints[i].equals(checkHint))
     		{
     			return true;
     		}

@@ -61,6 +61,9 @@ public class Reply {
     public boolean getCurrentTurn() {
         return this.mBlueTurn;
     }
+    public String getHint() {
+    	return this.mHint;
+    }
   
 
 }

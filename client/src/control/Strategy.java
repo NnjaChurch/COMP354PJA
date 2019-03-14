@@ -99,15 +99,23 @@ public class Strategy {
 
     //ROB CODE
     public static void getHintedCards(ArrayList<Card> mGameBoard) {
-    	storedHintedCards.clear();
+    	storedHintedCards = new ArrayList<Card>();
     	
     	Card currentCard;
-    	for (int i = 0; i < mGameBoard.size(); i++)
+    	/*for (int i = 0; i < mGameBoard.size(); i++)
     	{
     		currentCard = mGameBoard.get(i);
     		if (!currentCard.isRevealed() && currentCard.containtsHint(storedHint))
     		{
     			storedHintedCards.add(currentCard);
+    			System.out.println(currentCard.getCodeWord());
+    		}
+    	}*/
+    	
+    	for(Card card : mGameBoard) {
+    		if(!card.isRevealed() && card.containtsHint(storedHint)) {
+    			storedHintedCards.add(card);
+    			System.out.println(card.getCodeWord());
     		}
     	}
     }
@@ -115,21 +123,32 @@ public class Strategy {
     //ROB CODE (FIXIT) - Ke will give this function meat
     
     //KE CODE
-    public static void generateHint(ArrayList<Card> mGameBoard,CardType type)
+    public static String generateHint(ArrayList<Card> cardList, CardType type)
     {
     	Hashtable<String,Integer> table =new Hashtable<String,Integer>();
 
-    	ArrayList<Card> blueCards = new ArrayList<Card>();
-    	ArrayList<Card> redCards = new ArrayList<Card>();    	
+    	ArrayList<Card> cards = new ArrayList<Card>(); 	
     	
-    	
-    	for (int i=0; i<mGameBoard.size();i++) {
-    		if ((mGameBoard.get(i).getType() == CardType.BLUE) && (!mGameBoard.get(i).isRevealed())) blueCards.add(mGameBoard.get(i));
-    		if ((mGameBoard.get(i).getType() == CardType.RED) && (!mGameBoard.get(i).isRevealed())) redCards.add(mGameBoard.get(i));   		
+    	for(Card card : cardList) {
+    		if ((card.getType() == type) && !card.isRevealed()) {
+    			cards.add(card);
+    		}
     	}
     	
-    	
-    	if (type == CardType.BLUE) {
+    	for(Card card : cards) {
+    		String[] hints = card.getHints();
+    		for(String hint : hints) {
+    			if(table.get(hint) == null) {
+    				table.put(hint, 1);
+    			}
+    			else {
+    				int temp = table.get(hint);
+    				temp++;
+    				table.put(hint, temp);
+    			}
+    		}
+    	}
+    	/*if (type == CardType.BLUE) {
     		
     		for (int i=0;i<blueCards.size();i++) {
         		for (int j =0; j< blueCards.get(i).getHints().length;j++) {
@@ -155,15 +174,16 @@ public class Strategy {
         		}
         	}	
     		
-    	}
+    	}*/
     	
-    	int c=0;
+    	int c = 0;
     	for (String key : table.keySet()) {
-    	    if (table.get(key)>c) {
-    	    	c=table.get(key);
+    	    if (table.get(key) > c) {
+    	    	c = table.get(key);
     	    	storedHint = key; 	    	
     	    }
     	}
+    	return storedHint;
     	   	
     }
     

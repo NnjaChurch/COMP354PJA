@@ -13,10 +13,11 @@ public class Outbox extends Observable {
 
     // Attributes
     private Reply mReply;
-
+    private String mHint;
     // Constructors
     public Outbox() {
         this.mReply = null;
+        mHint = "";
     }
 
     // Getters
@@ -29,10 +30,15 @@ public class Outbox extends Observable {
 
         // Update the Reply
         this.mReply = r;
+        r.setHint(mHint);
 
         // Notify Observer
         setChanged();
         notifyObservers(this.mReply);
+    }
+    
+    public void updateHint(String hint) {
+    	this.mHint = hint;
     }
 
 

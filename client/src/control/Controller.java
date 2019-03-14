@@ -135,6 +135,8 @@ public class Controller implements Observer {
                 // Otherwise do nothing
             }
             if(type == MessageType.NEXT) {
+            	
+            	String hint;
 
                 // Flush Undo Stack
                 mUndoStack.clear();
@@ -142,12 +144,14 @@ public class Controller implements Observer {
                 // Tell Strategy to generate a hint
                 if (mGameBoard.getCurrentTurn())
                 {
-                    Strategy.generateHint(mGameBoard.getBoard(), CardType.BLUE);
+                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.BLUE);
                 }
                 else
                 {
-                    Strategy.generateHint(mGameBoard.getBoard(), CardType.RED);
+                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.RED);
                 }
+                
+                mOutbox.updateHint(hint);
                 
                 // Generate an ArrayList of Cards based on the hint
                 Strategy.getHintedCards(mGameBoard.getBoard()); //ROB CODE

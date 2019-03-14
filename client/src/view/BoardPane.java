@@ -88,6 +88,7 @@ public class BoardPane extends RootPane implements Observer{
 			mHQ.setTurn(r.getCurrentTurn());
 			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());
+			mHQ.setClue(r.getCurrentTurn(), r.getHint());
 			
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
 			break;

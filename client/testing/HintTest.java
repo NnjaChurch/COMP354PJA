@@ -30,20 +30,21 @@ public class HintTest {
 
 	@Test
 	/**
-	 * makes sure that hints can be accesses from card.
+	 * makes sure that hints can be accesses from card and 
+	 * that each word has at least 3 hints, which ensures variability
 	 */
 	public void hintRetrievalTest() {
 		ArrayList<Card> cards = getCards();
-		boolean hasHints = true;
+		boolean hasSufficientHints = true;
 		
-		for(Card c :cards) {
-			if(c.getHints() == null || c.getHints().length == 0) {
-				hasHints = false;
+		for(Card c : cards) {
+			if(c.getHints().length < 3) {
+				hasSufficientHints = false;
 				break;
 			}
 		}
 		
-		assertEquals(true, hasHints);
+		assertEquals(true, hasSufficientHints);
 	}
 	
 	@Test
@@ -70,8 +71,8 @@ public class HintTest {
 		}
 		
 		//checks if all hints are related to 2 or more words
-		for(ArrayList<String> words : hints.values()) {
-			if(words.size() < 2) {
+		for(String hint : hints.keySet()) {
+			if(hints.get(hint).size() < 2) {
 				related = false;
 				break;
 			}
@@ -83,20 +84,29 @@ public class HintTest {
 	
 	@Test
 	/**
-	 * Makes sure that each word has at least 3 hints, which ensures variability
+	 * Makes sure that there are over 400 hints in the database
 	 */
 	public void hintPopulationTest() {
-		ArrayList<Card> cards = new ArrayList<Card>();
-		boolean hasSufficientHints = true;
+		ArrayList<Card> cardList = getCards();
+		int count = 0;
 		
-		for(Card c : cards) {
-			if(c.getHints().length < 3) {
-				hasSufficientHints = false;
-				break;
+		for(Card c: cardList) {
+			for(String s : c.getHints()) {
+				count++;
 			}
 		}
 		
-		assertEquals(true, hasSufficientHints);
+		assertEquals(true, count >= 400);
+	}
+	
+	@Test
+	/**
+	 * Makes sure that there are over 100 words in the database
+	 */
+	public void wordPopulationTest() {
+		ArrayList<Card> cardList = getCards();
+		
+		assertEquals(true, cardList.size() >= 100);
 	}
 	
 	
@@ -125,7 +135,8 @@ public class HintTest {
 		ArrayList<Card> cardList = new ArrayList<Card>();
 		DatabaseExtractor extractor = new DatabaseExtractor();
 		extractor.openDatabase();
-		ArrayList<SimpleCard> db = extractor.getDatabase();
+		extractor.importTheDatabase();
+		ArrayList<SimpleCard> db = extractor.getDatabase(); 
 		int i = 0;
 		while(i < db.size()) {
 			cardList.add(new Card(i, db.get(i).getWord(), CardType.YELLOW, db.get(i).getHints()));

@@ -18,20 +18,20 @@
 {word: Lobster hints: Barbecue, Sea, Seafood, Animal}
 {word: Crab hints: Barbecue, Sea, Sushi, Seafood, Animal}
 {word: Bird hints: Domestic, Wings, Safari, Amazon, Forest, Animal}
-{word: Hamster hints: Domestic, Animal}
+{word: Hamster hints: Domestic, Animal, Herbivore}
 {word: Mouse hints: White, Disney, Domestic, Herbivore, Animal}
 {word: Duck hints: Disney, Wings, Animal}
 {word: Dragon hints: Disney, Asia, Wings, Fantasy}
 {word: Elephant hints: Africa, Asia, Herbivore, Safari, Animal}
 {word: India hints:Asia, Hindouism, Orange, Place}
-{word: USA hints: Wall, America, Earthquake, Petrol, Burger, Snow, Blue, War, Place}
-{word: Canada hints: America, Petrol, Snow, Maple, Drug, Place}
+{word: USA hints: Wall, America, Earthquake, Petrol, Burger, Snow, Blue, War, Place, Red}
+{word: Canada hints: America, Petrol, Snow, Maple, Drug, Place, Red}
 {word: Colombia hints: Drug, Amazon, Sea, Yellow, Blue, Place}
 {word: Brazil hints: America, Amazon, Sea, Yellow, Green, Place}
 {word: Peru hints: Drug, America, Amazon, Sea, Place}
 {word: Ethopia hints: Africa, Islam, Sea, Yellow, Safari, Place}
 {word: Venuzuela hints: America, Petrol, Sea, Yellow, Blue, Place}
-{word: China hints: Wall, Asia, Yellow, Place}
+{word: China hints: Wall, Asia, Yellow, Place, Red}
 {word: Moroco hints: Desert, Arab, Africa, Islam, Sea, Place}
 {word: Tunisia hints: Desert, Arab, Africa, Islam, Sea, Place}
 {word: Qatar hints: Desert, Arab, Asia, Islam, Petrol, Place}
@@ -84,11 +84,11 @@
 {word: Syria hints: Desert, War, Arab, Islam, Place}
 {word: Irak hints: Desert, War, Arab, Islam, Place}
 {word: Afghanistan hints: Desert, War, Arab, Islam, Place}
-{word: Coral hints: Sea, Oceania}
+{word: Coral hints: Sea, Oceania, Plant}
 {word: New-Zealand hints: Oceania, Sea, Place}
 {word: Trudeau hints: Politics, Airport, Man}
 {word: Avocado hints: Taco, Green, Vegetable, Sushi, Food}
-{word: Wolf hints: Snow Carnivore, Forest, Animal}
+{word: Wolf hints: Snow, Carnivore, Forest, Animal}
 {word: Rice hints: Sushi, Asia, Food}
 {word: Tree hints: Maple, Forest, Amazon, Safari, Plant}
 {word: Alligator hints: Green, Sea, Amazon, Safari, Animal}

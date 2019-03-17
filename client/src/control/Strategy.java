@@ -2,6 +2,7 @@
  * Strategy class (static) with methods to process a Computer turn
  * Implements a random selection strategy and a next available strategy
  * @author Kevin McAllister (40031326) - Iteration 1
+ * @author Ke Ma , Robert Laviolette - Iteration 2
  */
 package control;
 
@@ -100,22 +101,10 @@ public class Strategy {
     //ROB CODE
     public static void getHintedCards(ArrayList<Card> mGameBoard) {
     	storedHintedCards = new ArrayList<Card>();
-    	
-    	Card currentCard;
-    	/*for (int i = 0; i < mGameBoard.size(); i++)
-    	{
-    		currentCard = mGameBoard.get(i);
-    		if (!currentCard.isRevealed() && currentCard.containtsHint(storedHint))
-    		{
-    			storedHintedCards.add(currentCard);
-    			System.out.println(currentCard.getCodeWord());
-    		}
-    	}*/
-    	
+
     	for(Card card : mGameBoard) {
     		if(!card.isRevealed() && card.containtsHint(storedHint)) {
     			storedHintedCards.add(card);
-    			System.out.println(card.getCodeWord());
     		}
     	}
     }
@@ -148,34 +137,6 @@ public class Strategy {
     			}
     		}
     	}
-    	/*if (type == CardType.BLUE) {
-    		
-    		for (int i=0;i<blueCards.size();i++) {
-        		for (int j =0; j< blueCards.get(i).getHints().length;j++) {
-        			if (table.get(blueCards.get(i).getHints()[j]) == null) table.put(blueCards.get(i).getHints()[j], 1);
-        			else {
-        				int temp=table.get(blueCards.get(i).getHints()[j]);
-        				temp++;
-        				table.put(blueCards.get(i).getHints()[j],temp);
-        			}
-        		}
-        	}
-    		
-    	}else {
-    		
-        	for (int i=0;i<redCards.size();i++) {
-        		for (int j =0; j< redCards.get(i).getHints().length;j++) {
-        			if (table.get(redCards.get(i).getHints()[j]) == null) table.put(redCards.get(i).getHints()[j], 1);
-        			else {
-        				int temp=table.get(redCards.get(i).getHints()[j]);
-        				temp++;
-        				table.put(redCards.get(i).getHints()[j],temp);
-        			}
-        		}
-        	}	
-    		
-    	}*/
-    	
     	int c = 0;
     	for (String key : table.keySet()) {
     	    if (table.get(key) > c) {

@@ -1,6 +1,7 @@
 /**
  * Reply object used to send information from the control section to the view section
  * @author Kevin McAllister (40031326) - Iteration 1
+ * @author Gaoshuo Cui - Iteration 2
  */
 package control;
 

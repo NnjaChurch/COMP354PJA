@@ -1,6 +1,6 @@
 {word: Chicken hints: Paella, Barbecue, Taco, Wings, Farm}
 {word: Dog hints: Domestic, Carnivore, Farm}
-{word: Beef hints: Barbecue, Burger, Farm, }
+{word: Beef hints: Barbecue, Burger, Farm}
 {word: Cow hints: Barbecue, Herbivore, Taco, Farm, Hindouism}
 {word: Lamb hints: Barbecue, Farm}
 {word: Lizard hints: Africa, Desert, Safari}

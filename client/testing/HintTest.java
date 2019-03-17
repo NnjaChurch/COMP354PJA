@@ -114,7 +114,9 @@ public class HintTest {
 	 * Makes sure Smart Strategy uses hint to guess the correct word
 	 */
 	public void AIHintTest() {
-		boolean test = "1".equals(Strategy.smartPick("2", getTestBoard(), false));
+		Strategy.generateHint(getTestBoard(), CardType.BLUE);
+		Strategy.getHintedCards(getTestBoard());
+		boolean test = "1".equals(Strategy.pickNextCard(Strategy.storedHintedCards));
 		assertEquals(true, test);
 	}
 	

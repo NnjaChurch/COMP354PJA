@@ -4,7 +4,7 @@
  * ENTRY POINT: Detects update in the Inbox.java observable
  * EXIT POINT: Updates a Card object or creates a New Game
  * @author Kevin McAllister (40031326) - Iteration 1
- * @author Robert Laviolette, Benson Chen - Iteration 2
+ * @author Robert Laviolette, Benson Chan - Iteration 2
  */
 package control;
 

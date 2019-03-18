@@ -4,6 +4,7 @@
  * ENTRY POINT: Receives a Reply from the GameObserver by sendReply()
  * EXIT POINT: Notifies the View of a new Reply
  * @author Kevin McAllister (40031326) - Iteration 1
+ * @author Gaoshuo Cui - Iteration 2
  */
 package control;
 

@@ -17,9 +17,9 @@ import java.util.*;
 public class Controller implements Observer {
 
     // Attributes
-    private Stack<Message> mMessageStack;
-    private Stack<Message> mUndoStack;
-    private ArrayList<Message> mMessageLog;
+    private Stack<LogMessage> mMessageStack;
+    private Stack<LogMessage> mUndoStack;
+    private ArrayList<LogMessage> mMessageLog;
     private KeyCard[] mKeyCardCollection;
     private GameBoard mGameBoard;
     private Inbox mInbox;
@@ -55,7 +55,7 @@ public class Controller implements Observer {
         return mGameBoard.getCards();
     }
 
-    public ArrayList<Message> getMessageLog() {
+    public ArrayList<LogMessage> getMessageLog() {
         return this.mMessageLog;
     }
 
@@ -117,7 +117,7 @@ public class Controller implements Observer {
 
                 // Get Card object
                 Card card = mGameBoard.getCard(cardAffected);
-
+                
                 // Check if Card is already revealed
                 if(!card.isRevealed()) {
 
@@ -125,10 +125,10 @@ public class Controller implements Observer {
                     mUndoStack.clear();
 
                     // Push Message onto Message stack
-                    mMessageStack.push(new Message(type, cardAffected));
+                    mMessageStack.push(new LogMessage(type, cardAffected, "MISSING HINT"));
 
                     // Add Message to Message log
-                    mMessageLog.add(new Message(type, cardAffected));
+                    mMessageLog.add(new LogMessage(type, cardAffected, "MISSING HINT"));
 
                     // Reveal Card (will notify Observer)
                     card.revealCard();
@@ -197,10 +197,10 @@ public class Controller implements Observer {
                     mUndoStack.clear();
 
                     // Push Message onto Message stack
-                    mMessageStack.push(new Message(type, cardAffected));
+                    mMessageStack.push(new LogMessage(type, cardAffected, hint));
 
                     // Add Message to Message log
-                    mMessageLog.add(new Message(type, cardAffected));
+                    mMessageLog.add(new LogMessage(type, cardAffected, hint));
 
                     // Reveal Card (will notify Observer)
                     card.revealCard();
@@ -213,20 +213,24 @@ public class Controller implements Observer {
 
                 if (!mMessageStack.isEmpty()) {
                     // Get last Message off Message stack
-                    Message undoMessage = mMessageStack.pop();
+                    LogMessage undoMessage = mMessageStack.pop();
 
                     // Unpack Message
-                    MessageType undoType = undoMessage.getMessageType();
+                    MessageType undoType = undoMessage.getType();
                     int undoCardAffected = undoMessage.getCardAffected();
+                    String undoHint = undoMessage.getHint();
+                    
+                    // Clear Hint in Outbox
+                    mOutbox.updateHint("");
 
                     // Get Card object
                     Card undoCard = mGameBoard.getCard(undoCardAffected);
 
                     // Push the Undo onto the Undo stack
-                    mUndoStack.push(new Message(undoType, undoCardAffected));
+                    mUndoStack.push(new LogMessage(undoType, undoCardAffected, undoHint));
 
                     // Add Message to Message log
-                    mMessageLog.add(new Message(undoType, undoCardAffected));
+                    mMessageLog.add(new LogMessage(undoType, undoCardAffected, undoHint));
 
                     // Hide Card (will notify Observer)
                     undoCard.hideCard();
@@ -236,20 +240,24 @@ public class Controller implements Observer {
 
                 if (!mUndoStack.isEmpty()) {
                     // Get last Message off Undo stack
-                    Message redoMessage = mUndoStack.pop();
+                    LogMessage redoMessage = mUndoStack.pop();
 
                     // Unpack Message
-                    MessageType redoType = redoMessage.getMessageType();
+                    MessageType redoType = redoMessage.getType();
                     int redoCardAffected = redoMessage.getCardAffected();
+                    String redoHint = redoMessage.getHint();
+                    
+                    // Update Hint in Outbox
+                    mOutbox.updateHint(redoHint);
 
                     // Get Card object
                     Card redoCard = mGameBoard.getCard(redoCardAffected);
 
                     // Push the Redo onto the Message stack
-                    mMessageStack.push(new Message(redoType, redoCardAffected));
+                    mMessageStack.push(new LogMessage(redoType, redoCardAffected, redoHint));
 
                     // Add Message to Message log
-                    mMessageLog.add(new Message(redoType, redoCardAffected));
+                    mMessageLog.add(new LogMessage(redoType, redoCardAffected, redoHint));
 
                     // Reveal Card (will notify Observer)
                     redoCard.revealCard();

@@ -42,5 +42,9 @@ public class Outbox extends Observable {
     	this.mHint = hint;
     }
 
+	public String getHint() {
+		return this.mHint;
+	}
+
 
 }

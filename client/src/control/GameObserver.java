@@ -24,11 +24,14 @@ public class GameObserver implements Observer {
     private int mRedScore;
     private boolean mBlueTurn;
     private Stack<Boolean> mTurnStack;
+    private Stack<String> mHintStack;
 
     // Constructors
     public GameObserver(KeyCard keyCard, Outbox outbox) {
         this.mOutbox = outbox;
         this.mTurnStack = new Stack<>();
+        this.mHintStack = new Stack<>();
+        this.mHintStack.push("");
         initializeGame(keyCard);
     }
 
@@ -69,16 +72,20 @@ public class GameObserver implements Observer {
 
     private void sameTurn() {
         this.mTurnStack.push(mBlueTurn);
+        this.mHintStack.push(mOutbox.getHint());
     }
 
     private void nextTurn() {
         this.mTurnStack.push(mBlueTurn);
+        this.mHintStack.push(mOutbox.getHint());
         this.mBlueTurn = !mBlueTurn;
     }
 
     private void previousTurn() {
         if (!this.mTurnStack.isEmpty()) {
             boolean previousTurn = this.mTurnStack.pop();
+            this.mHintStack.pop();
+            mOutbox.updateHint(this.mHintStack.peek());
             this.mBlueTurn = previousTurn;
         }
     }

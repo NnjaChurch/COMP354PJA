@@ -77,6 +77,8 @@ public class CardView extends Button {
 			setBackground(Style.CARD_BACKGROUND_RED);
 			setTextFill(Style.WINDOW_COLOR_TEXT_LIGHT);
 			break;
+		default:
+			break;
 		}
 	}	
 	

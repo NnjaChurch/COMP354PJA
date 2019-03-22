@@ -103,6 +103,8 @@ public class EndPopup extends Popup{
 			case YELLOW:
 				//should never happen
 				setText("A bystander has won somehow?");
+			default:
+				break;
 			}
 		}
 	}

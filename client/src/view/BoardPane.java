@@ -89,6 +89,7 @@ public class BoardPane extends RootPane implements Observer{
 			mHQ.setScore(true, r.getBlueScore());
 			mHQ.setScore(false, r.getRedScore());
 			mHQ.setClue(r.getCurrentTurn(), r.getHint());
+			mHQ.setClue(!r.getCurrentTurn(), "");
 			
 			mField.changeCardColor(r.getCardAffected(), r.getCardType());
 			break;
@@ -104,6 +105,8 @@ public class BoardPane extends RootPane implements Observer{
 			
 			EndPopup endPopup = new EndPopup(r, mInbox);
 			endPopup.show(getScene().getWindow());
+			break;
+		default:
 			break;
 		}
 	}

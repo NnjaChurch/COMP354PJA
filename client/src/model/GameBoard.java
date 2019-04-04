@@ -20,8 +20,8 @@ public class GameBoard {
     // Constructor
     public GameBoard(KeyCard keyCard, Outbox outbox) {
         this.mKeyCard = keyCard;
-        this.mGameObserver = new GameObserver(mKeyCard, outbox);
         this.mCards = generateGameBoard();
+        this.mGameObserver = new GameObserver(mKeyCard, outbox, mCards);
         
     }
 

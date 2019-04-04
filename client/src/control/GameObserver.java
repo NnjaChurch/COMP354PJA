@@ -25,13 +25,15 @@ public class GameObserver implements Observer {
     private boolean mBlueTurn;
     private Stack<Boolean> mTurnStack;
     private Stack<String> mHintStack;
+    private ArrayList<Card> mCards;
 
     // Constructors
-    public GameObserver(KeyCard keyCard, Outbox outbox) {
+    public GameObserver(KeyCard keyCard, Outbox outbox, ArrayList<Card> cards) {
         this.mOutbox = outbox;
         this.mTurnStack = new Stack<>();
         this.mHintStack = new Stack<>();
         this.mHintStack.push("");
+        this.mCards = cards;
         initializeGame(keyCard);
     }
 
@@ -73,12 +75,14 @@ public class GameObserver implements Observer {
     private void sameTurn() {
         this.mTurnStack.push(mBlueTurn);
         this.mHintStack.push(mOutbox.getHint());
+        // TODO: Add Hint Generation on updates (instead of after user makes move)
     }
 
     private void nextTurn() {
         this.mTurnStack.push(mBlueTurn);
         this.mHintStack.push(mOutbox.getHint());
         this.mBlueTurn = !mBlueTurn;
+        // TODO: Add Hint Generation on updates (instead of after user makes move)
     }
 
     private void previousTurn() {

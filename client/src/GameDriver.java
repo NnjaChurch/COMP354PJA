@@ -57,6 +57,8 @@ public class GameDriver extends Application {
 
             // BoardPane to Outbox
             outbox.addObserver(viewRoot);
+
+            // TODO: Generate first Hint of the game for the team going first
         }
         catch(Exception e) {
             System.out.println("Could not initialize game state.");

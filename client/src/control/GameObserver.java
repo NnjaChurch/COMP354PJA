@@ -28,13 +28,17 @@ public class GameObserver implements Observer {
     private ArrayList<Card> mCards;
 
     // Constructors
-    public GameObserver(KeyCard keyCard, Outbox outbox, ArrayList<Card> cards) {
+    public GameObserver(KeyCard keyCard, Outbox outbox) {
         this.mOutbox = outbox;
         this.mTurnStack = new Stack<>();
         this.mHintStack = new Stack<>();
         this.mHintStack.push("");
-        this.mCards = cards;
         initializeGame(keyCard);
+    }
+
+    // Setters
+    public void setCards(ArrayList<Card> cards) {
+        this.mCards = cards;
     }
 
     // Getters

@@ -84,31 +84,34 @@ public class BoardPane extends RootPane implements Observer{
 		
 		// handles each kind of request
 		switch(r.getReplyType()) {
-		case UPDATE:
-			mHQ.setTurn(r.getCurrentTurn());
-			mHQ.setScore(true, r.getBlueScore());
-			mHQ.setScore(false, r.getRedScore());
-			mHQ.setClue(r.getCurrentTurn(), r.getHint());
-			mHQ.setClue(!r.getCurrentTurn(), "");
-			
-			mField.changeCardColor(r.getCardAffected(), r.getCardType());
-			break;
-			
-		case END:
-			mHQ.setTurn(r.getCurrentTurn());
-			mHQ.setScore(true, r.getBlueScore());
-			mHQ.setScore(false, r.getRedScore());
+			case HINT:
+				mHQ.setClue(r.getCurrentTurn(), r.getHint());
+				break;
+			case UPDATE:
+				mHQ.setTurn(r.getCurrentTurn());
+				mHQ.setScore(true, r.getBlueScore());
+				mHQ.setScore(false, r.getRedScore());
+				mHQ.setClue(r.getCurrentTurn(), r.getHint());
+				mHQ.setClue(!r.getCurrentTurn(), "");
 
-			mField.changeCardColor(r.getCardAffected(), r.getCardType());
-			
-			setIsDisabled(true);
-			
-			EndPopup endPopup = new EndPopup(r, mInbox);
-			endPopup.show(getScene().getWindow());
-			break;
-		default:
-			break;
-		}
+				mField.changeCardColor(r.getCardAffected(), r.getCardType());
+				break;
+
+			case END:
+				mHQ.setTurn(r.getCurrentTurn());
+				mHQ.setScore(true, r.getBlueScore());
+				mHQ.setScore(false, r.getRedScore());
+
+				mField.changeCardColor(r.getCardAffected(), r.getCardType());
+
+				setIsDisabled(true);
+
+				EndPopup endPopup = new EndPopup(r, mInbox);
+				endPopup.show(getScene().getWindow());
+				break;
+			default:
+				break;
+			}
 	}
 
 	// ----------------------- Card Handler -------------------------

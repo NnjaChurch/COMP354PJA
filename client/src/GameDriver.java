@@ -32,33 +32,16 @@ public class GameDriver extends Application {
             Outbox outbox = new Outbox();
             Controller controller = new Controller(keyCardCollection, inbox, outbox);
 
-            // Grab KeyCard and CardList from Model
-            KeyCard keyCard = controller.getKeyCard();
-            ArrayList<Card> cards = controller.getCardList();
-
-            // Setup View Environment
-            BoardPane viewRoot = new BoardPane(cards, keyCard, inbox);
-
-            // Link the board to the window
-            Scene mScene = new Scene(viewRoot, Style.WINDOW_SIZE_WIDTH, Style.WINDOW_SIZE_HEIGHT);
-
-            // Send Scene to Controller
-            controller.setGameScene(mScene);
-
-            // Set Stage and Show
-            mStage.setScene(mScene);
-            mStage.setTitle("Codenames PJA");
-            mStage.show();
-
-            // Link Observers
-
-            // Controller to Inbox
+            // Bind Controller to Inbox
             inbox.addObserver(controller);
 
-            // BoardPane to Outbox
-            outbox.addObserver(viewRoot);
+            // Start New Game
+            controller.startNewGame(true, true);
 
-            // TODO: Generate first Hint of the game for the team going first
+            // Set Stage and Show
+            mStage.setScene(controller.getScene());
+            mStage.setTitle("Codenames PJA");
+            mStage.show();
         }
         catch(Exception e) {
             System.out.println("Could not initialize game state.");

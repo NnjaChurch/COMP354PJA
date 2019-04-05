@@ -32,7 +32,6 @@ public class GameObserver implements Observer {
         this.mOutbox = outbox;
         this.mTurnStack = new Stack<>();
         this.mHintStack = new Stack<>();
-        this.mHintStack.push("");
         initializeGame(keyCard);
     }
 
@@ -47,6 +46,9 @@ public class GameObserver implements Observer {
     }
 
     //Methods
+    public void pushFirstHint(String hint) {
+        mHintStack.push(hint);
+    }
     private void initializeGame(KeyCard keyCard) {
         if(keyCard.getBlueFirst()) {
             this.mBlueScore = 9;
@@ -79,18 +81,34 @@ public class GameObserver implements Observer {
     private void sameTurn() {
         this.mTurnStack.push(mBlueTurn);
         this.mHintStack.push(mOutbox.getHint());
-        // TODO: Add Hint Generation on updates (instead of after user makes move)
+        //Generate the new hint for the next turn
+        String hint;
+        if(mBlueTurn) {
+            hint = Strategy.generateHint(this.mCards, CardType.BLUE);
+        }
+        else {
+            hint = Strategy.generateHint(this.mCards, CardType.RED);
+        }
+        mOutbox.updateHint(hint);
     }
 
     private void nextTurn() {
         this.mTurnStack.push(mBlueTurn);
         this.mHintStack.push(mOutbox.getHint());
         this.mBlueTurn = !mBlueTurn;
-        // TODO: Add Hint Generation on updates (instead of after user makes move)
+        //Generate the new hint for the next turn
+        String hint;
+        if(mBlueTurn) {
+            hint = Strategy.generateHint(this.mCards, CardType.BLUE);
+        }
+        else {
+            hint = Strategy.generateHint(this.mCards, CardType.RED);
+        }
+        mOutbox.updateHint(hint);
     }
 
     private void previousTurn() {
-        if (!this.mTurnStack.isEmpty()) {
+        if(!this.mTurnStack.isEmpty()) {
             boolean previousTurn = this.mTurnStack.pop();
             this.mHintStack.pop();
             mOutbox.updateHint(this.mHintStack.peek());

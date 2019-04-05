@@ -46,6 +46,10 @@ public class GameBoard {
         return this.mGameObserver.getCurrentTurn();
     }
 
+    public GameObserver getGameObserver() {
+        return this.mGameObserver;
+    }
+
     // Methods
     private ArrayList<Card> generateGameBoard() {
         DatabaseExtractor database = new DatabaseExtractor();

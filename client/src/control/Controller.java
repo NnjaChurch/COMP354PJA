@@ -11,6 +11,7 @@ package control;
 import javafx.scene.Scene;
 import model.*;
 import view.BoardPane;
+import view.Style;
 
 import java.util.*;
 
@@ -25,6 +26,7 @@ public class Controller implements Observer {
     private Inbox mInbox;
     private Outbox mOutbox;
     private Scene mGameScene;
+    private BoardPane mBoardPane;
     private boolean mBlueRandom;
     private boolean mRedRandom;
 
@@ -39,6 +41,10 @@ public class Controller implements Observer {
         this.mOutbox = outbox;
         this.mBlueRandom = true;
         this.mRedRandom = true;
+
+        // Initialize Scene
+        this.mBoardPane = new BoardPane(getCardList(), getKeyCard(), mInbox);
+        this.mGameScene = new Scene(mBoardPane, Style.WINDOW_SIZE_WIDTH, Style.WINDOW_SIZE_HEIGHT);
     }
 
     // Setters
@@ -59,13 +65,17 @@ public class Controller implements Observer {
         return this.mMessageLog;
     }
 
+    public Scene getScene() {
+        return this.mGameScene;
+    }
+
     // Methods
     private KeyCard selectKeyCard(KeyCard[] keyCardCollection) {
         Random r = new Random();
         return keyCardCollection[r.nextInt(keyCardCollection.length)];
     }
 
-    private void startNewGame(boolean blueRandom, boolean redRandom) {
+    public void startNewGame(boolean blueRandom, boolean redRandom) {
         // Wipe Stacks and Logs
         this.mMessageStack.clear();
         this.mUndoStack.clear();
@@ -79,12 +89,25 @@ public class Controller implements Observer {
         this.mGameBoard = new GameBoard(selectKeyCard(this.mKeyCardCollection), mOutbox);
 
         // Create and update Scene
-        BoardPane newBoardPane = new BoardPane(mGameBoard.getCards(), mGameBoard.getKeyCard(), mInbox);
-        this.mGameScene.setRoot(newBoardPane);
+        this.mBoardPane = new BoardPane(mGameBoard.getCards(), mGameBoard.getKeyCard(), mInbox);
+        this.mGameScene.setRoot(mBoardPane);
 
         // Rebind Observer
         this.mOutbox.deleteObservers();
-        this.mOutbox.addObserver(newBoardPane);
+        this.mOutbox.addObserver(mBoardPane);
+
+        // Generate Initial Hint
+        String hint;
+        if(mGameBoard.getCurrentTurn()) {
+            hint = Strategy.generateHint(mGameBoard.getCards(), CardType.BLUE);
+        }
+        else {
+            hint = Strategy.generateHint(mGameBoard.getCards(), CardType.RED);
+        }
+        this.mGameBoard.getGameObserver().pushFirstHint(hint);
+        this.mOutbox.updateHint(hint);
+        this.mOutbox.sendReply(new Reply(ReplyType.HINT, mGameBoard.getCurrentTurn()));
+
     }
 
     @Override
@@ -119,62 +142,27 @@ public class Controller implements Observer {
                 Card card = mGameBoard.getCard(cardAffected);
 
                 // Check if Card is already revealed
-                if(!card.isRevealed()) {
+                if (!card.isRevealed()) {
 
                     // Flush Undo stack
                     mUndoStack.clear();
 
                     // Push Message onto Message stack
-                    mMessageStack.push(new LogMessage(type, cardAffected, "MISSING HINT"));
+                    mMessageStack.push(new LogMessage(type, cardAffected, Strategy.getStoredHint()));
 
                     // Add Message to Message log
-                    mMessageLog.add(new LogMessage(type, cardAffected, "MISSING HINT"));
+                    mMessageLog.add(new LogMessage(type, cardAffected, Strategy.getStoredHint()));
 
                     // Reveal Card (will notify Observer)
                     card.revealCard();
                 }
                 // Otherwise do nothing
-
-                String hint;
-
-                // Flush Undo Stack
-                mUndoStack.clear();
-
-                // Tell Strategy to generate a hint
-                if (mGameBoard.getCurrentTurn())
-                {
-                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.BLUE);
-                }
-                else
-                {
-                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.RED);
-                }
-
-                mOutbox.updateHint(hint);
-
-
-
             }
-            //Annes Code
             if(type == MessageType.NEXT) {
-            	
-            	String hint;
 
                 // Flush Undo Stack
                 mUndoStack.clear();
-                
-                // Tell Strategy to generate a hint
-                if (mGameBoard.getCurrentTurn())
-                {
-                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.BLUE);
-                }
-                else
-                {
-                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.RED);
-                }
-                
-                mOutbox.updateHint(hint);
-                
+
                 // Generate an ArrayList of Cards based on the hint
                 Strategy.getHintedCards(mGameBoard.getBoard()); //ROB CODE
 
@@ -218,10 +206,10 @@ public class Controller implements Observer {
                     mUndoStack.clear();
 
                     // Push Message onto Message stack
-                    mMessageStack.push(new LogMessage(type, cardAffected, hint));
+                    mMessageStack.push(new LogMessage(type, cardAffected, Strategy.getStoredHint()));
 
                     // Add Message to Message log
-                    mMessageLog.add(new LogMessage(type, cardAffected, hint));
+                    mMessageLog.add(new LogMessage(type, cardAffected, Strategy.getStoredHint()));
 
                     // Reveal Card (will notify Observer)
                     card.revealCard();

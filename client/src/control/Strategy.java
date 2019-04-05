@@ -149,4 +149,7 @@ public class Strategy {
     }
     
     //KE CODE END
+    public static String getStoredHint() {
+        return storedHint;
+    }
 }

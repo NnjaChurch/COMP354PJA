@@ -33,6 +33,16 @@ public class Reply {
        //initialize mHint as an empty string
         this.mHint = "";
     }
+
+    public Reply(ReplyType type, boolean blueTurn) {
+        this.mType = type;
+        this.mCardAffected = -1;
+        this.mCardType = null;
+        this.mBlueScore = -1;
+        this.mRedScore = -1;
+        this.mBlueTurn = blueTurn;
+        this.mHint = "";
+    }
     //Gaoshuo
     //Setter; add a function to Reply that allows us to change the value of mHint in Reply
     public void setHint(String setHint) {

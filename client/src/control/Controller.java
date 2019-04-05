@@ -113,11 +113,11 @@ public class Controller implements Observer {
                 startNewGame(true, false);
 
             }
-            if(type == MessageType.SELECT) {
+            if(type == MessageType.SELECT) {//Annes modified this function
 
                 // Get Card object
                 Card card = mGameBoard.getCard(cardAffected);
-                
+
                 // Check if Card is already revealed
                 if(!card.isRevealed()) {
 
@@ -134,7 +134,28 @@ public class Controller implements Observer {
                     card.revealCard();
                 }
                 // Otherwise do nothing
+
+                String hint;
+
+                // Flush Undo Stack
+                mUndoStack.clear();
+
+                // Tell Strategy to generate a hint
+                if (mGameBoard.getCurrentTurn())
+                {
+                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.BLUE);
+                }
+                else
+                {
+                    hint = Strategy.generateHint(mGameBoard.getBoard(), CardType.RED);
+                }
+
+                mOutbox.updateHint(hint);
+
+
+
             }
+            //Annes Code
             if(type == MessageType.NEXT) {
             	
             	String hint;

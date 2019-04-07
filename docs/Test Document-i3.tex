@@ -65,15 +65,7 @@ The Test Plan is split into 3 sections, System Level tests, Subsystem Level test
 
 {\bf Unit Test: } Tests the lowest level functions of each Unit of code, or class within the code, which make up the components of a subsystem. This level of testing is necessarily designed and executed very early in developement (iteration 1) to alleviate concerns of flaws and/or bugs prior to subsystem testing and full blown system testing. It is important to note that not all classes have been thoroughly tested, only important data classes and linking classes within the model and control portions of the program.
 \\
-{\it
 
-Describe what forms of testing you plan to do (unit, subsystem, integration),
-describe briefly the schedule and resources for testing,
-and
-how you designed your test cases.
-
-Indicate which qualities (from requirements) were tested and which qualities were not tested.
-}
 
 \subsection{System Level Test Cases}
 
@@ -81,178 +73,141 @@ Indicate which qualities (from requirements) were tested and which qualities wer
 
 \noindent
 {\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
+Tests the ability for a user to select a card on their turn
 
 \noindent
 {\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
+Create a new game with a User and an AI (Random or Sequential). If it is an AI start, then press Next Move Control Button until it is User's turn. Click on a card.
 
 \noindent
 {\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
+\emph{Case 1:} User Team Card\\
+It is the User Team's turn to play again.\\
+\emph{Case 2:} AI Team Card or Bystander\\
+It is the AI's turn to play.\\
+\emph{Case 3:} Assassine Card\\
+The game ends.\\
+\emph{Case 4:} Selected Card \\
+Nothing happens.
 
 \noindent
 {\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
+The User must be able to play the game as an Operative.
 
 
-\subsubsection{Test Case 2: Next Move Using Iterative Strategy} \label{tc:1}
+\subsubsection{Test Case 2: Next Move Control Button} \label{tc:2}
 
 \noindent
 {\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
+Tests the ability of the AI to make a move.
 
 \noindent
 {\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
+Create a AI vs. AI new game (Random/Sequential). If Red start, press Next Move until Blue team turn. Press Next Move control button.
 
 \noindent
 {\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
+\emph{Case 1:} Blue AI 1 Team Card\\
+It is the AI 1's turn to play again.\\
+\emph{Case 2:} AI Team Card or Bystander\\
+It is the AI 2's turn to play.\\
+\emph{Case 3:} Assassine Card\\
+The game ends.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
+The User can play against AI with intellegent Random or Iterative strategies. 
 
-\subsubsection{Test Case 3: Next Move Using Random Strategy} \label{tc:1}
+
+\subsubsection{Test Case 3: Undo Control Button} \label{tc:3}
 
 \noindent
 {\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
+Tests the ability of the user to undo any number of moves.
 
 \noindent
 {\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
+Create a new game. In any order, press Next Move control button twice and select 2 cards. Press Undo control button.
 
 \noindent
 {\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
+The game state is exactly what it was before playing the 4th move.
 
 \noindent
 {\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
+Part of the Undo/Redo system
 
-\subsubsection{Test Case 4: Undo Control Button} \label{tc:1}
+\subsubsection{Test Case 4: Redo Control Button } \label{tc:4}
 
 \noindent
 {\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
+Tests the ability of the user to redo moves, if there are any.
 
 \noindent
 {\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
+Create a new game. In any order, press Next Move control button twice and select 2 cards. Press Undo control button twice. Press Redo control button.
 
 \noindent
 {\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
+The game state is exactly what it was before playing the 4th move.
 
 \noindent
 {\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
+Part of the Undo/Redo system.
 
-\subsubsection{Test Case 5: Redo Control Button } \label{tc:1}
+\subsubsection{Test Case 5: Keycard Control Button} \label{tc:5}
 
 \noindent
 {\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
+Tests the ability of the user to see the keycard.
 
 \noindent
 {\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
+Start a new game. Press the Keycard control button. Find the Black assassin card on Keycard screen. Close Keycard screen. Press the card where the assassin should be according to the keycard.
 
 \noindent
 {\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
+Assasin card should be flipped and game should end.
 
 \noindent
 {\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
+User should be able to see the Keycard.
 
-\subsubsection{Test Case 6: Keycard Control Button} \label{tc:1}
+\subsubsection{Test Case 6: Quit Control Button} \label{tc:6}
 
 \noindent
 {\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
+Tests whether the game can be closed.
 
 \noindent
 {\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
+Start a new game. Press Close control button.
 
 \noindent
 {\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
+Program should end.
 
 \noindent
 {\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
+Easily close the program.
 
-\subsubsection{Test Case 7: Quit Control Button} \label{tc:1}
+\subsubsection{Test Case 7: New Game Control Button} \label{tc:7}
 
 \noindent
 {\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
+Tests the ability of the user to start a new game.
 
 \noindent
 {\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
+Start application, press New Game control button. Select AI types (Sequential/Random).Press Continue button.
 
 \noindent
 {\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
+Game should be different.
 
 \noindent
 {\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
-
-\subsubsection{Test Case 8: New Game Control Button} \label{tc:1}
-
-\noindent
-{\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
-
-\noindent
-{\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
-
-\noindent
-{\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
-
-\noindent
-{\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
+Create a new game.
 
 \subsection{Subsystem Level Test Cases}
 
@@ -269,6 +224,8 @@ One subsection per subsystem
 \subsubsection{Subsystem 2: Model Creation Subsystem}
 
 \subsubsection{Subsystem 3: Strategy Subsystem}
+
+\subsubsection{Subsystem 4: Point Subsystem}
 
 \subsection{Unit Test cases}
 
@@ -295,16 +252,17 @@ List requirements indicating the percentage of tests that passed for that requir
 
 \subsubsection{Appendix 1: CodenamesDatabase.txt}
 
-This input file is filled with the words used inside the program and has a format:\\
-\\
+This input file is filled with the words used inside the program and has a format:
+\begin{center}
 \{word: {\it word1} hints: {\it hint11, hint12, hint13, ...} \}\\
-\{word: {\it word2} hints: {\it hint21, hint22, hint23, ...} \}\\...\\
-\\
-The file contains 100+ words where each word has at least 3 hints and each hint relates to a minimum of 2 words. Hints are not considered words, though a word can be used as a hint.
+\{word: {\it word2} hints: {\it hint21, hint22, hint23, ...} \}\\...
+\end{center}
+The file contains 100 words where each word has at least 3 hints and each hint relates to a minimum of 2 words. Hints are not considered words, though a word can be used as a hint.
 
 The CodenamesDatabase.txt can be found at: \\
+\begin{center}
 COMP354PJA/client/src/CodenameDatabase.txt
-
+\end{center}
 
 \section{Description of Output Files}
 

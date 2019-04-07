@@ -11,7 +11,9 @@ public class HintTestFacade {
 	public void AIHintTest() {
 		Strategy.generateHint(getTestBoard(), CardType.BLUE);
 		Strategy.getHintedCards(getTestBoard());		
+		System.out.print("Picking hint...	");
 		System.out.println("AI picks hint: "+Strategy.generateHint(getTestBoard(), CardType.BLUE));
+		System.out.print("Picking word...	");
 		System.out.println("AI picks word: "+Strategy.pickNextCard(Strategy.storedHintedCards));
 	}
 
@@ -37,6 +39,8 @@ public class HintTestFacade {
 	
 	public static class HintFacadeDriver{
 		public static void main(String[] args) {
+			System.out.println("AI hint testing...");
+			System.out.println("Expected hint:2, expected word:1\n");
 			HintTestFacade facade = new HintTestFacade();
 			facade.AIHintTest();
 		}

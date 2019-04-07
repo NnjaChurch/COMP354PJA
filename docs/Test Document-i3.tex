@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+
+\pagestyle{empty}
+\setcounter{secnumdepth}{2}
+
+\topmargin=0cm
+\oddsidemargin=0cm
+\textheight=22.0cm
+\textwidth=16cm
+\parindent=0cm
+\parskip=0.15cm
+\topskip=0truecm
+\raggedbottom
+\abovedisplayskip=3mm
+\belowdisplayskip=3mm
+\abovedisplayshortskip=0mm
+\belowdisplayshortskip=2mm
+\normalbaselineskip=12pt
+\normalbaselines
+
+\begin{document}
+
+\vspace*{0.5in}
+\centerline{\bf\Large Test Document}
+
+\vspace*{0.5in}
+\centerline{\bf\Large Team PJA}
+
+\vspace*{0.5in}
+\centerline{\bf\Large April 7, 2019}
+
+\vspace*{1.5in}
+\begin{table}[htbp]
+\caption{Team}
+\begin{center}
+\begin{tabular}{|r | c|}
+\hline
+Name & ID Number \\
+\hline\hline
+David Boivin & 40004941\\
+\hline
+X & Y\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\clearpage
+
+\section{Introduction}
+
+This document describes the testing procedures planned and executed on the Codenames project by team {\it PJA} and their results. The tests described have been carefully planned in the early phases of developement (iteration 1) and have been gradually written and executed as the project neare completion and the necessary portions of code were written.
+\\
+
+\section{Test Plan}
+
+The Test Plan is split into 3 sections, System Level tests, Subsystem Level tests, and Unit Tests. Each of these sections represent a level of integration of the program and have been scheduled in order of integration level, namely Unit tests, Subsystem tests and finally System tests.
+\\
+
+{\bf System Level: } Tests the integration and cohesion of all subsystems to form the finished project. This section also includes usability tests which tests if our program can be interacted with as the requirements specify and make sure said interactions produce the correct output efficiently. These tests are of utmost importance as they regulate whether the program functions according to specification and as such were the first to be conceived yet the last to be executed since all subsystems had to be complete and operational prior. Test execution took place in iteration 3 of development and consist of running the program and testing different situations and user interactions, such as card selection and appropriate reactions based on strategy, control button reactions.
+\\
+
+{\bf Subsystem Level: } Tests the cooperation between low level units to form a subsystem, which in turn performs a major and complex operation for the system as a whole. Such operation inlcude use of different strategies, creation of the program's internal model and controller interaction with model. These tests are designed to ensure that subsystems perform their designated task correctly in preperation for system wide testing. This level of testing was done by using the Facade testing pattern providing a sandbox to test components together. Such tests were planned after the system tests as per the white to black box testing scheme and executed in iteration 2 of developement due to the requirement of functioning units.
+\\
+
+{\bf Unit Test: } Tests the lowest level functions of each Unit of code, or class within the code, which make up the components of a subsystem. This level of testing is necessarily designed and executed very early in developement (iteration 1) to alleviate concerns of flaws and/or bugs prior to subsystem testing and full blown system testing. It is important to note that not all classes have been thoroughly tested, only important data classes and linking classes within the model and control portions of the program.
+\\
+{\it
+
+Describe what forms of testing you plan to do (unit, subsystem, integration),
+describe briefly the schedule and resources for testing,
+and
+how you designed your test cases.
+
+Indicate which qualities (from requirements) were tested and which qualities were not tested.
+}
+
+\subsection{System Level Test Cases}
+
+{\it
+All test cases for testing at the system level.
+}
+
+\subsubsection{Test Case 1} \label{tc:1}
+
+\noindent
+{\bf Purpose}\\
+State the purpose of the test.
+Indicate which requirement and which aspect of that requirement is being tested.
+
+\noindent
+{\bf Input Specification}\\
+State the context for the test in terms of system state.
+State the input test data. You may need to mention operations invoked as well as data for the operation.
+You can cross-reference to actual file data specified in an appendix.
+
+\noindent
+{\bf Expected Output}\\
+State the expected system response and output.
+You can cross-reference to actual file data specified in an appendix.
+
+\noindent
+{\bf Traces to Use Cases}\\
+State which requirements (at the level of use case and scenario) are tested by this test case.
+
+\subsection{Subsystem Level Test Cases}
+
+{\it
+All test cases for testing at the subsystem level.
+}
+
+{\it
+One subsection per subsystem
+}
+
+\subsubsection{Subsystem X}
+
+\subsection{Unit Test cases}
+
+{\it
+All test cases for testing at the unit level.
+}
+
+{\it
+One subsection per unit
+}
+
+\subsubsection{Unit X}
+
+\section{Test Results}
+
+{\it
+List the tests, indicating which passed and which did not pass.
+List requirements indicating the percentage of tests that passed for that requirement.
+}
+
+\section{References}
+
+\appendix
+
+\section{Description of Input Files}
+
+Describe/include test data from input files.
+
+\section{Description of Output Files}
+
+Describe/include test expected output that are output files.
+
+\end{document}

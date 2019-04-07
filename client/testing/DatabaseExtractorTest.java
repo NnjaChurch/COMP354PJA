@@ -37,7 +37,7 @@ class DatabaseExtractorTest {
         DatabaseExtractor test = new DatabaseExtractor();
         test.importTheDatabase();
         ArrayList<String> arrL = test.getAllLine();
-        boolean goodLength = arrL.size() == 673;
+        boolean goodLength = arrL.size() == 100;
 
         assertEquals(true,goodLength);
     }

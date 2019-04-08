@@ -91,6 +91,10 @@ public class ControlBar extends HBox{
 		mKeycard.setOnAction(null);
 		mQuit.setOnAction(null);
 	}
+
+	public ControlButton getNextButton() {
+		return this.mNext;
+	}
 	
 	
 	// ------------------- Handler Linking methods -----------------

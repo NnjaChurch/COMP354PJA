@@ -95,6 +95,9 @@ public class BoardPane extends RootPane implements Observer{
 				mHQ.setClue(!r.getCurrentTurn(), "");
 
 				mField.changeCardColor(r.getCardAffected(), r.getCardType());
+
+				// Disable 'NextMove' button if current turn is blue
+				mControl.getNextButton().setDisable(r.getCurrentTurn());
 				break;
 
 			case END:

@@ -1,0 +1,100 @@
+{word: Chicken hints: Paella, Barbecue, Taco, Wings, Farm, Animal}
+{word: Dog hints: Domestic, Carnivore, Farm, Animal}
+{word: Beef hints: Barbecue, Burger, Farm}
+{word: Cow hints: Barbecue, Herbivore, Taco, Farm, Hindouism, Animal}
+{word: Lamb hints: Barbecue, Farm, Animal}
+{word: Lizard hints: Africa, Desert, Safari, Animal}
+{word: Giraffe hints: Africa, Herbivore, Yellow, Safari, Animal}
+{word: Snake hints: Africa, Desert, Safari, Forest, Amazon, Animal}
+{word: Scorpion hints: Africa, Desert, Animal}
+{word: Camel hints: Africa, Desert, Herbivore, Animal}
+{word: Lion hints: Disney, Carnivore, Yellow, Safari, Animal}
+{word: Salmon hints: Barbecue, Sea, Sushi, Seafood, Animal}
+{word: Shrimp hints: Orange, Paella, Barbecue, Sushi, Sea, Taco, Seafood, Animal}
+{word: Cat hints: Domestic, Carnivore, Animal}
+{word: Octopus hints: Barbecue, Sea, Animal}
+{word: Pig hints: Barbecue, Taco, Farm, Animal}
+{word: Calamari hints: Paella, Barbecue, Sea, Seafood, Animal}
+{word: Lobster hints: Barbecue, Sea, Seafood, Animal}
+{word: Crab hints: Barbecue, Sea, Sushi, Seafood, Animal}
+{word: Bird hints: Domestic, Wings, Safari, Amazon, Forest, Animal}
+{word: Hamster hints: Domestic, Animal, Herbivore}
+{word: Mouse hints: White, Disney, Domestic, Herbivore, Animal}
+{word: Duck hints: Disney, Wings, Animal}
+{word: Dragon hints: Disney, Asia, Wings, Fantasy}
+{word: Elephant hints: Africa, Asia, Herbivore, Safari, Animal}
+{word: India hints:Asia, Hindouism, Orange, Place}
+{word: USA hints: Wall, America, Earthquake, Petrol, Burger, Snow, Blue, War, Place, Red}
+{word: Canada hints: America, Petrol, Snow, Maple, Drug, Place, Red}
+{word: Colombia hints: Drug, Amazon, Sea, Yellow, Blue, Place}
+{word: Brazil hints: America, Amazon, Sea, Yellow, Green, Place}
+{word: Peru hints: Drug, America, Amazon, Sea, Place}
+{word: Ethopia hints: Africa, Islam, Sea, Yellow, Safari, Place}
+{word: Venuzuela hints: America, Petrol, Sea, Yellow, Blue, Place}
+{word: China hints: Wall, Asia, Yellow, Place, Red}
+{word: Moroco hints: Desert, Arab, Africa, Islam, Sea, Place}
+{word: Tunisia hints: Desert, Arab, Africa, Islam, Sea, Place}
+{word: Qatar hints: Desert, Arab, Asia, Islam, Petrol, Place}
+{word: Italy hints: Europe, Earthquake, Sea, Green, Place}
+{word: France hints: Europe, Sea, Blue, Place}
+{word: Germany hints: Europe, Yellow, Place}
+{word: Spain hints: Europe, Paella, Sea, Yellow, Seafood, Place}
+{word: Portugal hints: Europe, Sea, Seafood, Green, Place}
+{word: Russia hints: Asia, Snow, Blue, Petrol, War, Place}
+{word: Nepal hints: Asia, Earthquake, Snow, Blue, Place}
+{word: Haiti hints: America, Earthquake, Sea, Blue, Place}
+{word: Japan hints: Asia, Earthquake, Sea, Sushi, Place}
+{word: Australia hints: Oceania, Sea, Blue, Place}
+{word: Israel hints: Asia, Blue, War, Place}
+{word: Mexico hints: Wall, Drug, America, Sea, Taco, Green, Place}
+{word: Kenya hints: Africa, Safari, Green, Place}
+{word: Clementine hints: Orange, Fruit, Food}
+{word: Onion hints: Vegetable, Root, Barbecue, Taco, Burger, Farm, Food}
+{word: Garlic hints: Vegetable, Root, Barbecue, Farm, Food}
+{word: Strawberry hints: Fruit, Farm, Food}
+{word: Blueberry hints: Fruit, Blue, Farm, Food}
+{word: Apple hints: Green, Fruit, Yellow, Food}
+{word: Banana hints: Africa, Fruit, Yellow, Food}
+{word: Ginger hints: Vegetable, Asia, Root, Yellow, Food}
+{word: Potato hints: Vegetable, Root, Barbecue, Farm, Food}
+{word: Tomato hints: Fruit, Barbecue, Taco, Burger, Farm, Food}
+{word: Spinach hints: Green, Vegetable, Leaf, Farm, Food}
+{word: Eggplant hints: Vegetable, Barbecue, Farm, Food}
+{word: Cucumber hints: Green, Vegetable, Sushi, Food}
+{word: Lettuce hints: Green, Vegetable, Leaf, Burger, Farm, Food}
+{word: Mushroom hints: Drug, Vegetable, Barbecue, Food}
+{word: Radish hints: Vegetable, Root, Farm, Food}
+{word: Corn hints: Vegetable, Yellow, Farm, Food}
+{word: Carrot hints: Orange, Vegetable, Root, Farm, Food}
+{word: Celery hints: Green, Vegetable, Leaf, Farm, Food}
+{word: Beet hints: Vegetable, Root, Farm, Food}
+{word: Kiwi hints: Green, Oceania, Fruit, Food}
+{word: Pineapple hints: Fruit, Taco, Yellow, Food}
+{word: Pear hints: Fruit, Yellow, Green, Food}
+{word: Fig hints: Africa, Fruit, Food}
+{word: Dates hints: Africa, Fruit, Desert, Food}
+{word: Trump hints: Wall, Orange, Impeachment, Politics, Man, America}
+{word: Clinton hints: Politics, America, Man, Blue, Impeachment}
+{word: Nixon hints: Politics, America, Man, Impeachment}
+{word: Mulan hints: Disney, Asia, Fantasy}
+{word: Aladdin hints: Disney, Arab, Man}
+{word: JFK hints: Politics, Airport, America, Man, Blue}
+{word: Bear hints: Snow, Carnivore, Forest, Animal}
+{word: Cactus hints: Desert, Green, Vegetable, Food}
+{word: Syria hints: Desert, War, Arab, Islam, Place}
+{word: Irak hints: Desert, War, Arab, Islam, Place}
+{word: Afghanistan hints: Desert, War, Arab, Islam, Place}
+{word: Coral hints: Sea, Oceania, Plant}
+{word: New-Zealand hints: Oceania, Sea, Place}
+{word: Trudeau hints: Politics, Airport, Man}
+{word: Avocado hints: Taco, Green, Vegetable, Sushi, Food}
+{word: Wolf hints: Snow, Carnivore, Forest, Animal}
+{word: Rice hints: Sushi, Asia, Food}
+{word: Tree hints: Maple, Forest, Amazon, Safari, Plant}
+{word: Alligator hints: Green, Sea, Amazon, Safari, Animal}
+{word: Poppy hints: Red, War, Plant, Flower}
+{word: Daisy hints: White, Plant, Flower}
+{word: Lily hints: Blue, Plant, Flower}
+{word: Kiwi hints: Green, Fruit, Food}
+{word: Orange hints: Orange, Food, Fruit}
+{word: Putin hints: Asia, Politics, Man}
